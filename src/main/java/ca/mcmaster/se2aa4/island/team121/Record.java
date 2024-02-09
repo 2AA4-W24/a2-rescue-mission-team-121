@@ -7,14 +7,16 @@ import java.util.List;
 
 public class Record {
     private List<Decision> prevMoves = new ArrayList<Decision>();
+
+    private List<Tile> tilesVisited = new ArrayList<Tile>();
     private int[] pos = new int[2]; //currX, currY
     private int[] attributes = new int[3]; //battery level, dist to ground, dist to base
-    private List<TileType> tilesVisited = new ArrayList<TileType>();
 
     public void addPrevMoves()
     {
         prevMoves.add(Decision.Stop);
     }
+
 
     public void updateAttributes(int battery, int distG, int distB)
     {
@@ -43,4 +45,8 @@ public class Record {
         return prevMoves.getLast();
     }
 
+    public void prevTiles()
+    {
+        tilesVisited.add(new Tile(pos[0], pos[1], null)); //Update tiletype using scanner
+    }
 }
