@@ -9,6 +9,7 @@ public class Record {
     private List<Decision> prevMoves = new ArrayList<Decision>();
     private int[] pos = new int[2]; //currX, currY
     private int[] attributes = new int[3]; //battery level, dist to ground, dist to base
+    private List<TileType> tilesVisited = new ArrayList<TileType>();
 
     public void addPrevMoves()
     {
@@ -36,4 +37,10 @@ public class Record {
     {
         return attributes;
     }
+
+    public Decision getLastMove()
+    {
+        return prevMoves.getLast();
+    }
+
 }
