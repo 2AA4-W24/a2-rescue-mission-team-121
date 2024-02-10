@@ -14,7 +14,7 @@ public class Record {
 
     public void addPrevMoves()
     {
-        prevMoves.add(Decision.Stop);
+        prevMoves.add(Decision.STOP);
     }
 
 
