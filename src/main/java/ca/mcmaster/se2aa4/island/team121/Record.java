@@ -47,10 +47,9 @@ public class Record {
         return attributes;
     }
 
-
     public Decision getLastMove()
     {
-        return prevMoves.getLast();
+        return prevMoves.get(prevMoves.size()-1);
     }
 
     public void prevTiles()

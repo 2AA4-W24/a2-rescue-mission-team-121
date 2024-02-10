@@ -16,6 +16,7 @@ public class Explorer implements IExplorerRaid {
     private final Logger logger = LogManager.getLogger();
     private Decision last_action = Decision.SCAN;
 
+
     @Override
     public void initialize(String s) {
         logger.info("** Initializing the Exploration Command Center");
