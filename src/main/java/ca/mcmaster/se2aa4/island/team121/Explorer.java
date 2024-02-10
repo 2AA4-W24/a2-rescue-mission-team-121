@@ -14,7 +14,7 @@ import org.json.JSONTokener;
 public class Explorer implements IExplorerRaid {
 
     private final Logger logger = LogManager.getLogger();
-    private String last_action = "scan";
+    private Decision last_action = Decision.SCAN;
 
     @Override
     public void initialize(String s) {
@@ -30,19 +30,18 @@ public class Explorer implements IExplorerRaid {
     @Override
     public String takeDecision() {
         JSONObject decision = new JSONObject();
-        String curr_action = "";
-        if (last_action.equals("fly")) {
-            last_action = "stop";
+        Decision curr_action = Decision.FLY;
+        if (last_action.equals(Decision.FLY)) {
+            last_action = Decision.STOP;
 
         } else {
-            last_action = "fly";
-
+            last_action = Decision.FLY;
         }
 
-        decision.put("action",last_action);
+        decision.put("action",last_action.name());
 
         logger.info("** Decision: {}", decision.toString());
-        return decision.toString();
+        return last_action.name();
     }
 
     @Override
@@ -59,6 +58,8 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public String deliverFinalReport() {
+
+
         return "no creek found";
     }
 
