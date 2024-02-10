@@ -3,15 +3,16 @@ package ca.mcmaster.se2aa4.island.team121;
 import eu.ace_design.island.game.actions.Scan;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Record {
     private List<Decision> prevMoves = new ArrayList<Decision>();
 
     private List<Tile> tilesVisited = new ArrayList<Tile>();
     private int[] pos = new int[2]; //currX, currY
-    private int[] attributes = new int[3]; //battery level, dist to ground, dist to base
-
+    private Map<String, Integer> attributes = new HashMap<>(); //battery level, dist to ground, dist to base
     public void addPrevMoves()
     {
         prevMoves.add(Decision.STOP);
@@ -20,10 +21,11 @@ public class Record {
 
     public void updateAttributes(int battery, int distG, int distB)
     {
-        attributes[0] = battery;
-        attributes[1] = distG;
-        attributes[2] = distB;
+        attributes.put("battery_level", battery);
+        attributes.put("ground_distance", distG);
+        attributes.put("base_distance", distB);
     }
+
     public void updatePos(int x, int y)
     {
         pos[0] = x;
@@ -35,10 +37,11 @@ public class Record {
         return pos;
     }
 
-    public int[] getAttributes()
+    public Map<String, Integer> getAttributes()
     {
         return attributes;
     }
+
 
     public Decision getLastMove()
     {
