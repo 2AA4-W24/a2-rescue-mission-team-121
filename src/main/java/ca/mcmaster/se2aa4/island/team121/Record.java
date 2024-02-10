@@ -32,6 +32,11 @@ public class Record {
         pos[1] = y;
     }
 
+    public boolean movesIsEmpty()
+    {
+        return prevMoves.isEmpty();
+    }
+
     public int[] getPos()
     {
         return pos;
