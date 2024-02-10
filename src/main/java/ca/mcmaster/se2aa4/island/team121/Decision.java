@@ -1,4 +1,16 @@
 package ca.mcmaster.se2aa4.island.team121;
 
-public enum Decision {Fly, Scan, Stop, Turn, Echo}
+public enum Decision {
+    FLY("fly"),
+    SCAN("scan"),
+    STOP("stop"),
+    TURN("turn"),
+    ECHO("echo");
+
+    private final String name;
+
+    private Decision(String name) {
+        this.name = name;
+    }
+}
 
