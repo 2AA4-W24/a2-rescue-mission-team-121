@@ -1,5 +1,7 @@
 package ca.mcmaster.se2aa4.island.team121;
 
+import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
@@ -7,11 +9,12 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class RecordTest {
+
+public class AttributeRecordTest  {
     @Test
     public void attributeTest()
     {
-        Record record = new Record();
+        AttributeRecord record = new AttributeRecord();
         record.updateAttributes(1,2,3);
         Map<String, Integer> map =  record.getAttributes();
         int battery_level = map.get("battery_level");
