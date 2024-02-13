@@ -7,10 +7,10 @@ import java.io.File;
 public class Runner {
 
     public static void main(String[] args) {
-        // String filename = args[0];
+        String filename = args[0];
         try {
             run(Explorer.class)
-                    .exploring(new File("maps/map03.json"))
+                    .exploring(new File(filename))
                     .withSeed(42L)
                     .startingAt(1, 1, "EAST")
                     .backBefore(7000)
