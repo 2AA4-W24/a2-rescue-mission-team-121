@@ -8,9 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TurnerTest {
     private Turner turner = new Turner();
     private Decision op = Decision.TURN;
-
-
-
     @Test
     void testJSONTurner() {
         JSONObject expected_json = new JSONObject();
