@@ -8,9 +8,12 @@ public enum Decision {
     ECHO("echo");
 
     private final String name;
-
     private Decision(String name) {
         this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 }
 
