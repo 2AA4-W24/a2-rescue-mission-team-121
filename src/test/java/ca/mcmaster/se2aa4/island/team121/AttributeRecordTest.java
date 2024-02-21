@@ -13,8 +13,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class AttributeRecordTest  {
+
     private AttributeRecord record;
     @BeforeEach
+
     public void setup(){record = new AttributeRecord();}
     @Test
     public void attributeTest()

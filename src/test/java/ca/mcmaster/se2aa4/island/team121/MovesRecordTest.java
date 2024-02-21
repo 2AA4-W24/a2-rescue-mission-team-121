@@ -11,7 +11,6 @@ public class MovesRecordTest {
 
     private MovesRecord record;
 
-
     @BeforeEach
     public void setup(){record = new MovesRecord();}
 
@@ -22,6 +21,7 @@ public class MovesRecordTest {
         assertFalse(empty);
     }
 
+    @Test
     public void fullRecord()
     {
         record.addPrevMoves();
