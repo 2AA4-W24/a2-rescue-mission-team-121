@@ -57,7 +57,10 @@ public class RelativeMap implements MapUpdater {
             relative_map.put(current_pos, TileType.UNKNOWN);
     }
 
-    public void updateScan() {
-        return;
+    public void updateScan(TileType new_type) {
+        logger.info("** Updating map after scanning");
+
+        relative_map.put(current_pos, new_type);
+        logger.info("New tile type: {}", relative_map.get(current_pos));
     }
 }
