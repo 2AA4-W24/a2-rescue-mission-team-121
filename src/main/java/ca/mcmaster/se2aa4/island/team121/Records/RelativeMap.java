@@ -22,7 +22,14 @@ public class RelativeMap implements MapUpdater {
     }
 
     public void updateFly() {
-        return;
+        switch (current_heading) {
+            case NORTH -> current_pos = new Point(current_pos.x(), current_pos.y() - 1);
+            case EAST -> current_pos = new Point(current_pos.x() + 1, current_pos.y());
+            case SOUTH -> current_pos = new Point(current_pos.x(), current_pos.y() + 1);
+            case WEST -> current_pos = new Point(current_pos.x() - 1, current_pos.y());
+        }
+        if (!relative_map.containsKey(current_pos))
+            relative_map.put(current_pos, TileType.UNKNOWN);
     }
 
     public void updateTurn() {
