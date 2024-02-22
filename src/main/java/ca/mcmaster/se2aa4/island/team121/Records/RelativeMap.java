@@ -6,13 +6,13 @@ import ca.mcmaster.se2aa4.island.team121.TileType;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MapRecord {
+public class RelativeMap implements MapUpdater {
 
     Map<Point, TileType> relative_map;
     Point current_pos;
     Heading current_heading;
 
-    public MapRecord() {
+    public RelativeMap() {
         this.relative_map = new HashMap<>();
         relative_map.put(new Point(0, 0), TileType.UNKNOWN);
     }
