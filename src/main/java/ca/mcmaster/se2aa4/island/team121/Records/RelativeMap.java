@@ -29,7 +29,7 @@ public class RelativeMap implements MapUpdater {
 
     @Override
     public void updateFly() {
-        logger.info("** Updating position after flying");
+        logger.info("*** Updating position after flying");
 
         switch (current_heading) {
             case NORTH -> current_pos = new Point(current_pos.x(), current_pos.y() + 1);

@@ -44,6 +44,18 @@ public class RelativeMapTest {
     public void testUpdateFly4Headings() {
         map.updateFly();
         assertEquals(new Point(1, 0), map.getCurrentPos());
+
+        RelativeMap mapNorth = new RelativeMap(Heading.NORTH);
+        mapNorth.updateFly();
+        assertEquals(new Point(0, 1), mapNorth.getCurrentPos());
+
+        RelativeMap mapSouth = new RelativeMap(Heading.SOUTH);
+        mapSouth.updateFly();
+        assertEquals(new Point(0, -1), mapSouth.getCurrentPos());
+
+        RelativeMap mapWest = new RelativeMap(Heading.WEST);
+        mapWest.updateFly();
+        assertEquals(new Point(-1, 0), mapWest.getCurrentPos());
     }
 
     @Test
@@ -58,11 +70,12 @@ public class RelativeMapTest {
         assertEquals(Heading.EAST, map.getCurrentHeading());
     }
 
-    @Test
-    public void testUpdateTurnOppositeHeading() {
-        map.updateTurn(Heading.WEST);
-        assertEquals(Heading.WEST, map.getCurrentHeading());
-    }
+    // Not necessary as the drone cannot take a U-turn.
+//    @Test
+//    public void testUpdateTurnOppositeHeading() {
+//        map.updateTurn(Heading.WEST);
+//        assertEquals(Heading.WEST, map.getCurrentHeading());
+//    }
 
     @Test
     public void testUpdateScan() {
