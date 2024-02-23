@@ -79,6 +79,10 @@ public class RelativeMap implements MapUpdater {
 //     Abstraction leak here as it returns the Enum value, but Enums cannot be cloned.
 //     Possible solution would be to return the name of the Enum value instead.
     public TileType getTileType(Point point_query) {
+        if (!relative_map.containsKey(point_query)) {
+            logger.error("The point {} is not in the map", point_query);
+            return TileType.UNKNOWN;
+        }
         return relative_map.get(point_query);
     }
 

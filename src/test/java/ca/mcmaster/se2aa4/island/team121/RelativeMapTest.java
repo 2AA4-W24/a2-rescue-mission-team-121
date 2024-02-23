@@ -25,14 +25,21 @@ public class RelativeMapTest {
     }
 
     @Test
-    public void testGetStartingPos() {
+    public void testGetCurrentPos() {
         assertEquals(new Point(0, 0), map.getCurrentPos());
     }
 
     @Test
-    public void testGetStartingTileType() {
-        assertEquals(TileType.UNKNOWN, map.getTileType(new Point(0, 0)));
+    public void testGetTileType() {
         assertEquals(TileType.UNKNOWN, map.getTileType(map.getCurrentPos()));
+
+        map.updateScan(TileType.CREEK);
+        assertEquals(TileType.CREEK, map.getTileType(map.getCurrentPos()));
+    }
+
+    @Test
+    public void testGetTileTypeForUnknownPoint() {
+        assertEquals(TileType.UNKNOWN, map.getTileType(new Point(1, 1)));
     }
 
     @Test
@@ -81,6 +88,7 @@ public class RelativeMapTest {
     public void testUpdateTurnSameHeading() {
         map.updateTurn(Heading.EAST);
         assertEquals(Heading.EAST, map.getCurrentHeading());
+        assertEquals(new Point(0, 0), map.getCurrentPos());
     }
 
     // Not necessary as the drone cannot take a U-turn.
@@ -93,6 +101,6 @@ public class RelativeMapTest {
     @Test
     public void testUpdateScan() {
         map.updateScan(TileType.CREEK);
-        assertEquals(TileType.CREEK, map.getTileType(new Point(0, 0)));
+        assertEquals(TileType.CREEK, map.getTileType(map.getCurrentPos()));
     }
 }
