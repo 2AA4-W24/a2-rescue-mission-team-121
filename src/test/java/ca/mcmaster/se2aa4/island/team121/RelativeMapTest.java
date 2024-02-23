@@ -51,18 +51,38 @@ public class RelativeMapTest {
     public void testUpdateFly4Headings() {
         map.updateFly();
         assertEquals(new Point(1, 0), map.getCurrentPos());
+        assertEquals(TileType.UNKNOWN, map.getTileType(map.getCurrentPos()));
 
         RelativeMap mapNorth = new RelativeMap(Heading.NORTH);
         mapNorth.updateFly();
         assertEquals(new Point(0, 1), mapNorth.getCurrentPos());
+        assertEquals(TileType.UNKNOWN, mapNorth.getTileType(mapNorth.getCurrentPos()));
 
         RelativeMap mapSouth = new RelativeMap(Heading.SOUTH);
         mapSouth.updateFly();
         assertEquals(new Point(0, -1), mapSouth.getCurrentPos());
+        assertEquals(TileType.UNKNOWN, mapNorth.getTileType(mapNorth.getCurrentPos()));
 
         RelativeMap mapWest = new RelativeMap(Heading.WEST);
         mapWest.updateFly();
         assertEquals(new Point(-1, 0), mapWest.getCurrentPos());
+        assertEquals(TileType.UNKNOWN, mapNorth.getTileType(mapNorth.getCurrentPos()));
+    }
+
+    @Test
+    public void testUpdateFlyOntoScannedPoint() {
+        map.updateScan(TileType.CREEK);
+        map.updateFly();
+        map.updateFly();
+        map.updateFly();
+        map.updateTurn(Heading.NORTH);
+        map.updateTurn(Heading.WEST);
+        map.updateTurn(Heading.SOUTH);
+        map.updateTurn(Heading.WEST);
+        map.updateFly();
+
+        assertEquals(new Point(0, 0), map.getCurrentPos());
+        assertEquals(TileType.CREEK, map.getTileType(map.getCurrentPos()));
     }
 
     @Test
@@ -82,6 +102,18 @@ public class RelativeMapTest {
         map.updateTurn(Heading.EAST);
         assertEquals(Heading.EAST, map.getCurrentHeading());
         assertEquals(new Point(0, 0), map.getCurrentPos());
+    }
+
+    @Test
+    public void testUpdateTurnOntoScannedPoint() {
+        map.updateScan(TileType.CREEK);
+        map.updateTurn(Heading.NORTH);
+        map.updateTurn(Heading.WEST);
+        map.updateTurn(Heading.SOUTH);
+        map.updateTurn(Heading.EAST);
+
+        assertEquals(new Point(0, 0), map.getCurrentPos());
+        assertEquals(TileType.CREEK, map.getTileType(map.getCurrentPos()));
     }
 
     @Test
