@@ -62,6 +62,19 @@ public class RelativeMapTest {
     public void testUpdateTurn() {
         map.updateTurn(Heading.SOUTH);
         assertEquals(Heading.SOUTH, map.getCurrentHeading());
+        assertEquals(new Point(1, -1), map.getCurrentPos());
+
+        map.updateTurn(Heading.WEST);
+        assertEquals(Heading.WEST, map.getCurrentHeading());
+        assertEquals(new Point(0, -2), map.getCurrentPos());
+
+        map.updateTurn(Heading.NORTH);
+        assertEquals(Heading.NORTH, map.getCurrentHeading());
+        assertEquals(new Point(-1, -1), map.getCurrentPos());
+
+        map.updateTurn(Heading.EAST);
+        assertEquals(Heading.EAST, map.getCurrentHeading());
+        assertEquals(new Point(0, 0), map.getCurrentPos());
     }
 
     @Test
@@ -82,5 +95,4 @@ public class RelativeMapTest {
         map.updateScan(TileType.CREEK);
         assertEquals(TileType.CREEK, map.getTileType(new Point(0, 0)));
     }
-
 }
