@@ -15,9 +15,11 @@ public class RelativeMap implements MapUpdater {
     Heading current_heading;
     private final Logger logger = LogManager.getLogger();
 
-    public RelativeMap() {
+    public RelativeMap(Heading start_heading) {
         this.relative_map = new HashMap<>();
         relative_map.put(new Point(0, 0), TileType.UNKNOWN);
+        this.current_pos = new Point(0, 0);
+        this.current_heading = start_heading;
     }
 
     public int getDistanceToStart() {
@@ -59,8 +61,22 @@ public class RelativeMap implements MapUpdater {
 
     public void updateScan(TileType new_type) {
         logger.info("** Updating map after scanning");
-
         relative_map.put(current_pos, new_type);
         logger.info("New tile type: {}", relative_map.get(current_pos));
+    }
+
+    public Point getCurrentPos() {
+        return new Point(current_pos.x(), current_pos.y());
+    }
+
+    public TileType getTileType(Point point_query) {
+        // Abstraction leak here as it returns the Enum value, but Enums cannot be cloned.
+        // Possible solution would be to return the name of the Enum value instead.
+        return relative_map.get(point_query);
+    }
+
+    public Heading getCurrentHeading() {
+        // Same abstraction leak as getCurrentTileType()
+        return current_heading;
     }
 }
