@@ -1,5 +1,6 @@
 package ca.mcmaster.se2aa4.island.team121;
 
+import ca.mcmaster.se2aa4.island.team121.Records.Point;
 import ca.mcmaster.se2aa4.island.team121.Records.RelativeMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,28 +18,30 @@ public class RelativeMapTest {
 
     }
 
+    // TODO: Implement getDistanceToStart.
     @Test
     public void testGetDistanceToStart() {
         assertEquals(10, map.getDistanceToStart());
     }
 
     @Test
-    public void testGetCurrentPos() {
-        assertEquals(10, map.getDistanceToStart());
+    public void testGetStartingPos() {
+        assertEquals(new Point(0, 0), map.getCurrentPos());
     }
 
     @Test
-    public void testGetTileType() {
+    public void testGetStartingTileType() {
         assertEquals(TileType.UNKNOWN, map.getTileType(new Point(0, 0)));
+        assertEquals(TileType.UNKNOWN, map.getTileType(map.getCurrentPos()));
     }
 
     @Test
     public void testGetCurrentHeading() {
-        assertEquals(Heading.EAST, map.getCurrentHeading());
+        assertEquals(start_heading, map.getCurrentHeading());
     }
 
     @Test
-    public void testUpdateFly() {
+    public void testUpdateFly4Headings() {
         map.updateFly();
         assertEquals(new Point(1, 0), map.getCurrentPos());
     }

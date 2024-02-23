@@ -27,6 +27,7 @@ public class RelativeMap implements MapUpdater {
         return 10;
     }
 
+    @Override
     public void updateFly() {
         logger.info("** Updating position after flying");
 
@@ -44,6 +45,7 @@ public class RelativeMap implements MapUpdater {
 
     // Currently does not take into account the case where the drone is told take a U-turn,
     // but that case would most likely be handled before this method is called.
+    @Override
     public void updateTurn(Heading new_heading) {
         logger.info("** Updating map after turning");
 
@@ -62,6 +64,7 @@ public class RelativeMap implements MapUpdater {
             relative_map.put(current_pos, TileType.UNKNOWN);
     }
 
+    @Override
     public void updateScan(TileType new_type) {
         logger.info("** Updating map after scanning");
         relative_map.put(current_pos, new_type);
