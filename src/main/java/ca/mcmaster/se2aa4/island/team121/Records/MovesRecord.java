@@ -7,9 +7,9 @@ import java.util.List;
 
 public class MovesRecord<T> {
     private List<Decision> prevMoves = new ArrayList<Decision>();
-    public void addPrevMoves()
+    public void add(Decision d)
     {
-        prevMoves.add(Decision.STOP);
+        prevMoves.add(d);
     }
     public boolean movesIsEmpty()
     {

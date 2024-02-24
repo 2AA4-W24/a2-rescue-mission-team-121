@@ -24,8 +24,8 @@ public class MovesRecordTest {
     @Test
     public void fullRecord()
     {
-        record.addPrevMoves();
-        record.addPrevMoves();
+        record.addScan();
+        record.addScan();
         Decision lastMove = record.getLastMove();
         assertEquals(Decision.STOP, lastMove);
     }

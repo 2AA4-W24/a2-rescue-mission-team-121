@@ -16,4 +16,8 @@ public class AttributeRecord {
     {
         return attributes;
     }
+
+    public int getDistG(){return attributes.get("ground_distance");}
+    public int getDistB(){return attributes.get("base_distance");}
+    public int getBattery(){return attributes.get("battery_level");}
 }
