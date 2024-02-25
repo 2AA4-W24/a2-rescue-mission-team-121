@@ -8,7 +8,7 @@ public class Radar implements Module {
     private final Decision op = Decision.ECHO;
     @Override
     public JSONObject getJSON() {
-        return new JSONObject().put("action", op.toString());
+        return new JSONObject().put("action", op.getName());
     }
 
     @Override
