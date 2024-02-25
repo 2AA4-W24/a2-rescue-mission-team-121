@@ -18,7 +18,7 @@ public class MovesRecordTest {
     public void emptyRecord()
     {
         boolean empty = record.movesIsEmpty();
-        assertFalse(empty);
+        assertTrue(empty);
     }
 
     @Test
