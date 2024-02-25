@@ -15,7 +15,7 @@ public class PosRecordTest {
     public void posTest()
     {
         record.updatePos(1,2);
-        assertTrue(record.pos[1] == 1);
-        assertTrue(record.pos[2] ==2);
+        assertTrue(record.pos[0] == 1);
+        assertTrue(record.pos[1] ==2);
     }
 }
