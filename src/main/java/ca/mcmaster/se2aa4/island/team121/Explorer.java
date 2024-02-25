@@ -4,6 +4,7 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.mcmaster.se2aa4.island.team121.Records.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,7 +15,13 @@ import org.json.JSONTokener;
 public class Explorer implements IExplorerRaid {
 
     private final Logger logger = LogManager.getLogger();
-    private Decision last_action = Decision.SCAN;
+    private Decision last_action;
+    private Decision next_action;
+    private int distG;
+    private MovesRecord moves = new MovesRecord();
+    private AttributeRecord drone_attributes = new AttributeRecord();
+    private RelativeMap map = new RelativeMap(Heading.EAST);
+    private Point currPos = new Point(1, 1);
 
 
     @Override
@@ -31,22 +38,66 @@ public class Explorer implements IExplorerRaid {
     @Override
     public String takeDecision() {
         JSONObject decision = new JSONObject();
-        Decision curr_action = Decision.FLY;
-        if (last_action.equals(Decision.FLY)) {
-            last_action = Decision.STOP;
 
-        } else {
-            last_action = Decision.FLY;
+        last_action = moves.getLastMove(); //returns the last Decision object in movesrecord.
+
+        //If the moves record is empty, start with an echo
+        if (moves.movesIsEmpty())
+        {
+            next_action = Decision.ECHO;
         }
 
-        decision.put("action",last_action.name());
+        //Needs to be fixed: the numbers that echo returns as a response must be used to further determine the next action.
+        //Turn needs to be implemented based on which direction the echo is successful
+        if (last_action.equals(Decision.ECHO))
+        {
+            distG = drone_attributes.getDistG();
+            next_action = Decision.FLY;
+        }
 
+        //If the last action was fly, continue to the edge of the island, until ground is hit, when ground is hit, scan
+        if (last_action.equals(Decision.FLY))
+        {
+            if (distG>0)
+            {
+                next_action = Decision.FLY;
+                distG--;
+            }
+            else
+            {
+                next_action = Decision.SCAN;
+            }
+            map.updateFly();
+        }
+
+        //If scan is ground, means edge of island was found, go back to base, if not, keep flying
+        if (last_action.equals(Decision.SCAN))
+        {
+            if (map.getTileType(currPos) == TileType.GROUND)
+            {
+                map.updateScan(TileType.GROUND);
+                next_action = Decision.STOP;
+            }
+            else
+            {
+                next_action = Decision.FLY;
+            }
+        }
+
+        else
+        {
+            next_action = Decision.STOP;
+        }
+
+        decision.put("action",next_action.name());
+        moves.add(next_action);
         logger.info("** Decision: {}", decision.toString());
-        return last_action.name();
+        return next_action.name();
     }
 
     @Override
-    public void acknowledgeResults(String s) {
+    public void acknowledgeResults(String s)
+    {
         JSONObject response = new JSONObject(new JSONTokener(new StringReader(s)));
         logger.info("** Response received:\n"+response.toString(2));
         Integer cost = response.getInt("cost");

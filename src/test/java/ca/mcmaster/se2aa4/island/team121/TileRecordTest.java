@@ -15,7 +15,6 @@ public class TileRecordTest {
     @Test
     public void TileTest()
     {
-
         record.prevTiles(1, 2);
         assertTrue(record.tilesVisited.get(1).getType() == null);
         assertTrue(record.tilesVisited.get(1).getX() == 1);
