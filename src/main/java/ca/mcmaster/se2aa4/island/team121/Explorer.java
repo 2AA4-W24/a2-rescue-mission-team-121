@@ -25,7 +25,7 @@ public class Explorer implements IExplorerRaid {
     private RelativeMap map = new RelativeMap(Heading.EAST);
     private Point currPos = new Point(1, 1);
 
-    private Decision last_action = Decision.FLY;
+
 
 
 
@@ -94,13 +94,6 @@ public class Explorer implements IExplorerRaid {
         {
             next_action = Decision.STOP;
         }
-
-        decision.put("action",next_action.name());
-        moves.add(next_action);
-        logger.info("** Decision: {}", decision.toString());
-        return next_action.name();
-
-        Decision curr_action = Decision.FLY;
         if (last_action.equals(Decision.SCAN)) {
             last_action = Decision.STOP;
 
@@ -109,10 +102,10 @@ public class Explorer implements IExplorerRaid {
             last_action = Decision.SCAN;
         }
 
-        decision.put("action",last_action.getName());
-
-        logger.info("** Decision: {}",decision.toString());
-        return decision.toString();
+        decision.put("action",next_action.name());
+        moves.add(next_action);
+        logger.info("** Decision: {}", decision.toString());
+        return next_action.name();
 
     }
 
