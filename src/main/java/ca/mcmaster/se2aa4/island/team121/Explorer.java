@@ -11,10 +11,12 @@ import org.apache.logging.log4j.Logger;
 import eu.ace_design.island.bot.IExplorerRaid;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+import org.w3c.dom.Attr;
 
 public class Explorer implements IExplorerRaid {
 
     private final Logger logger = LogManager.getLogger();
+
     private Decision last_action;
     private Decision next_action;
     private int distG;
@@ -22,6 +24,9 @@ public class Explorer implements IExplorerRaid {
     private AttributeRecord drone_attributes = new AttributeRecord();
     private RelativeMap map = new RelativeMap(Heading.EAST);
     private Point currPos = new Point(1, 1);
+
+
+
 
 
     @Override
@@ -38,6 +43,7 @@ public class Explorer implements IExplorerRaid {
     @Override
     public String takeDecision() {
         JSONObject decision = new JSONObject();
+
 
         last_action = moves.getLastMove(); //returns the last Decision object in movesrecord.
 
@@ -88,17 +94,28 @@ public class Explorer implements IExplorerRaid {
         {
             next_action = Decision.STOP;
         }
+        if (last_action.equals(Decision.SCAN)) {
+            last_action = Decision.STOP;
+
+        } else {
+            last_action = Decision.FLY;
+            last_action = Decision.SCAN;
+        }
 
         decision.put("action",next_action.name());
         moves.add(next_action);
         logger.info("** Decision: {}", decision.toString());
         return next_action.name();
+
     }
 
     @Override
     public void acknowledgeResults(String s)
     {
         JSONObject response = new JSONObject(new JSONTokener(new StringReader(s)));
+        System.out.println(response);
+        AttributeRecord attributeRecord = new AttributeRecord();
+        attributeRecord.updateAttributes(response.getInt("budget"),-1,-1);
         logger.info("** Response received:\n"+response.toString(2));
         Integer cost = response.getInt("cost");
         logger.info("The cost of the action was {}", cost);

@@ -18,14 +18,14 @@ public class MovesRecordTest {
     public void emptyRecord()
     {
         boolean empty = record.movesIsEmpty();
-        assertFalse(empty);
+        assertTrue(empty);
     }
 
     @Test
     public void fullRecord()
     {
-        record.addScan();
-        record.addScan();
+        record.add(Decision.SCAN);
+        record.add(Decision.FLY);
         Decision lastMove = record.getLastMove();
         assertEquals(Decision.STOP, lastMove);
     }
