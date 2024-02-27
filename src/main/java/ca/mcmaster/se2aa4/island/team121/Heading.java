@@ -5,10 +5,14 @@ public enum Heading {
     SOUTH("South"),
     EAST("East"),
     WEST("West");
+
     private final String vector;
 
     private Heading(String vector) {
         this.vector = vector;
     }
-}
 
+    public String getVector() {
+        return vector;
+    }
+}
