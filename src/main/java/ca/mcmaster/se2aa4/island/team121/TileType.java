@@ -1,7 +1,7 @@
 package ca.mcmaster.se2aa4.island.team121;
 
 public enum TileType {
-    GROUND, WATER, SITE, CREEK, UNKNOWN;
+    GROUND, OCEAN, SITE, CREEK, UNKNOWN;
 
     public static TileType TileTypeOf(String type) {
         switch (type) {
@@ -9,7 +9,7 @@ public enum TileType {
                 return GROUND;
             }
             case "OCEAN" -> {
-                return WATER;
+                return OCEAN;
             }
             case "SITE" -> {
                 return SITE;
