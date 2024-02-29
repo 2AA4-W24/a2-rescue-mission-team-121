@@ -11,7 +11,11 @@ public class Radar implements ModuleHeading {
 
     @Override
     public JSONObject getJSON(Heading heading) {
-        return new JSONObject().put("action", op.getName());
+        JSONObject json = new JSONObject();
+        json.put("action", op.getName());
+        json.put("parameters", new JSONObject().put("direction", heading.getVector()));
+
+        return json;
     }
 
 }
