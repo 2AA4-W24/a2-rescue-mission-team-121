@@ -41,12 +41,17 @@ public class Explorer implements IExplorerRaid {
     public String takeDecision() {
         JSONObject decision = new JSONObject();
 
-        last_action = moves.getLastMove(); // returns the last Decision object in movesrecord.
-
         // If the moves record is empty, start with an echo
         if (moves.movesIsEmpty()) {
-            next_action = Decision.ECHO;
+            last_action = Decision.ECHO;
+            moves.add(last_action);
         }
+        else
+        {
+            last_action = moves.getLastMove(); // returns the last Decision object in movesrecord.
+        }
+
+
 
         // Needs to be fixed: the numbers that echo returns as a response must be used
         // to further determine the next action.
