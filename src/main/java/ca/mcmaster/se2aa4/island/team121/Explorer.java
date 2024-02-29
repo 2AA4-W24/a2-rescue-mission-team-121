@@ -18,12 +18,13 @@ public class Explorer implements IExplorerRaid {
     private final Logger logger = LogManager.getLogger();
 
     private Decision last_action;
-    private Decision next_action;
+    private Decision next_action = Decision.STOP;
     private int distG;
     private MovesRecord moves = new MovesRecord();
     private AttributeRecord drone_attributes = new AttributeRecord();
-    private RelativeMap map = new RelativeMap(Heading.EAST);
+    private MapUpdater map ;
     private Point currPos = new Point(1, 1);
+
 
 
 
@@ -38,12 +39,16 @@ public class Explorer implements IExplorerRaid {
         Integer batteryLevel = info.getInt("budget");
         logger.info("The drone is facing {}", direction);
         logger.info("Battery level is {}", batteryLevel);
+
+        //initialize records with info
+        drone_attributes.updateAttributes(batteryLevel, -1, -1);
+        map = new RelativeMap(Heading.headingOf(direction));
+
     }
 
     @Override
     public String takeDecision() {
         JSONObject decision = new JSONObject();
-
 
         last_action = moves.getLastMove(); //returns the last Decision object in movesrecord.
 
@@ -101,11 +106,10 @@ public class Explorer implements IExplorerRaid {
             last_action = Decision.FLY;
             last_action = Decision.SCAN;
         }
-
-        decision.put("action",next_action.name());
-        moves.add(next_action);
+        decision.put("action",next_action.getName());
         logger.info("** Decision: {}", decision.toString());
-        return next_action.name();
+
+        return decision.toString();
 
     }
 
@@ -113,9 +117,6 @@ public class Explorer implements IExplorerRaid {
     public void acknowledgeResults(String s)
     {
         JSONObject response = new JSONObject(new JSONTokener(new StringReader(s)));
-        System.out.println(response);
-        AttributeRecord attributeRecord = new AttributeRecord();
-        attributeRecord.updateAttributes(response.getInt("budget"),-1,-1);
         logger.info("** Response received:\n"+response.toString(2));
         Integer cost = response.getInt("cost");
         logger.info("The cost of the action was {}", cost);
@@ -123,12 +124,17 @@ public class Explorer implements IExplorerRaid {
         logger.info("The status of the drone is {}", status);
         JSONObject extraInfo = response.getJSONObject("extras");
         logger.info("Additional information received: {}", extraInfo);
+
+        //update the battery level
+        drone_attributes.updateAttributes(drone_attributes.getBattery()-response.getInt("cost"), -1, -1);
+        //update the map with the new tile type if we scanned
+        if(response.has("biomes")){
+            map.updateScan(TileType.TileTypeOf(response.getString("biomes")));
+        }
     }
 
     @Override
     public String deliverFinalReport() {
-
-
         return "no creek found";
     }
 

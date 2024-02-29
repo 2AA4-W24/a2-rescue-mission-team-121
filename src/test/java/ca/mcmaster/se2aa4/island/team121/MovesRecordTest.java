@@ -27,7 +27,7 @@ public class MovesRecordTest {
         record.add(Decision.SCAN);
         record.add(Decision.FLY);
         Decision lastMove = record.getLastMove();
-        assertEquals(Decision.STOP, lastMove);
+        assertEquals(Decision.FLY, lastMove);
     }
 
 }
