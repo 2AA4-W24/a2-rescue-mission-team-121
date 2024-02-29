@@ -5,12 +5,16 @@ public enum Heading {
     SOUTH("S"),
     EAST("E"),
     WEST("W");
+
     private final String vector;
 
     private Heading(String vector) {
         this.vector = vector;
     }
 
+    public String getVector() {
+        return vector;
+    }
 
     public static Heading headingOf(String direction) {
         switch (direction) {
@@ -28,7 +32,6 @@ public enum Heading {
             }
             default -> throw new IllegalArgumentException("Invalid direction: " + direction);
 
+        }
     }
 }
-}
-
