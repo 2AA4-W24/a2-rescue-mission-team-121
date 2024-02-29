@@ -1,5 +1,4 @@
 package ca.mcmaster.se2aa4.island.team121;
-import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
