@@ -4,10 +4,11 @@ public enum Decision {
     FLY("fly"),
     SCAN("scan"),
     STOP("stop"),
-    TURN("turn"),
+    HEADING("heading"),
     ECHO("echo");
 
     private final String name;
+
     private Decision(String name) {
         this.name = name;
     }
@@ -16,4 +17,3 @@ public enum Decision {
         return name;
     }
 }
-
