@@ -120,4 +120,10 @@ public class RelativeMapTest {
         map.updateScan(TileType.CREEK);
         assertEquals(TileType.CREEK, map.getTileType(map.getCurrentPos()));
     }
+
+    // @Test
+    // public void testIsOverGround() {
+    // map.updateScan(TileType.GROUND);
+    // assertEquals(true, map.isOverGound());
+    // }
 }
