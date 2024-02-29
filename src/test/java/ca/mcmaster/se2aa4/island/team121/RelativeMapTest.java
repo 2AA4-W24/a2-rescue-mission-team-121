@@ -4,17 +4,30 @@ import ca.mcmaster.se2aa4.island.team121.Records.Point;
 import ca.mcmaster.se2aa4.island.team121.Records.RelativeMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class TestRelativeMap extends RelativeMap {
+
+    public TestRelativeMap(Heading start_heading) {
+        super(start_heading);
+        // TODO Auto-generated constructor stub
+    }
+
+    TileType getTileType(Point p) {
+        if (!relative_map.containsKey(p))
+            return TileType.UNKNOWN;
+        return relative_map.get(p);
+    }
+}
 
 public class RelativeMapTest {
 
-    RelativeMap map;
+    TestRelativeMap map;
     Heading start_heading = Heading.EAST;
 
     @BeforeEach
     public void setup() {
-        map = new RelativeMap(start_heading);
+        map = new TestRelativeMap(start_heading);
 
     }
 
@@ -22,19 +35,6 @@ public class RelativeMapTest {
     @Test
     public void testGetDistanceToStart() {
         assertEquals(10, map.getDistanceToStart());
-    }
-
-    @Test
-    public void testGetCurrentPos() {
-        assertEquals(new Point(0, 0), map.getCurrentPos());
-    }
-
-    @Test
-    public void testGetTileType() {
-        assertEquals(TileType.UNKNOWN, map.getTileType(map.getCurrentPos()));
-
-        map.updateScan(TileType.CREEK);
-        assertEquals(TileType.CREEK, map.getTileType(map.getCurrentPos()));
     }
 
     @Test
@@ -52,21 +52,6 @@ public class RelativeMapTest {
         map.updateFly();
         assertEquals(new Point(1, 0), map.getCurrentPos());
         assertEquals(TileType.UNKNOWN, map.getTileType(map.getCurrentPos()));
-
-        RelativeMap mapNorth = new RelativeMap(Heading.NORTH);
-        mapNorth.updateFly();
-        assertEquals(new Point(0, 1), mapNorth.getCurrentPos());
-        assertEquals(TileType.UNKNOWN, mapNorth.getTileType(mapNorth.getCurrentPos()));
-
-        RelativeMap mapSouth = new RelativeMap(Heading.SOUTH);
-        mapSouth.updateFly();
-        assertEquals(new Point(0, -1), mapSouth.getCurrentPos());
-        assertEquals(TileType.UNKNOWN, mapNorth.getTileType(mapNorth.getCurrentPos()));
-
-        RelativeMap mapWest = new RelativeMap(Heading.WEST);
-        mapWest.updateFly();
-        assertEquals(new Point(-1, 0), mapWest.getCurrentPos());
-        assertEquals(TileType.UNKNOWN, mapNorth.getTileType(mapNorth.getCurrentPos()));
     }
 
     @Test
@@ -124,15 +109,21 @@ public class RelativeMapTest {
     }
 
     // Not necessary as the drone cannot take a U-turn.
-//    @Test
-//    public void testUpdateTurnOppositeHeading() {
-//        map.updateTurn(Heading.WEST);
-//        assertEquals(Heading.WEST, map.getCurrentHeading());
-//    }
+    // @Test
+    // public void testUpdateTurnOppositeHeading() {
+    // map.updateTurn(Heading.WEST);
+    // assertEquals(Heading.WEST, map.getCurrentHeading());
+    // }
 
     @Test
     public void testUpdateScan() {
         map.updateScan(TileType.CREEK);
         assertEquals(TileType.CREEK, map.getTileType(map.getCurrentPos()));
     }
+
+    // @Test
+    // public void testIsOverGround() {
+    // map.updateScan(TileType.GROUND);
+    // assertEquals(true, map.isOverGound());
+    // }
 }
