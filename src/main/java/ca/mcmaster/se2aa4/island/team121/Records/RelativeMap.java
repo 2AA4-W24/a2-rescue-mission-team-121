@@ -22,7 +22,7 @@ public class RelativeMap implements MapUpdater {
         this.current_heading = start_heading;
     }
 
-//    TODO: Implement this method.
+    // TODO: Implement this method.
     public int getDistanceToStart() {
         return 10;
     }
@@ -43,7 +43,8 @@ public class RelativeMap implements MapUpdater {
             relative_map.put(current_pos, TileType.UNKNOWN);
     }
 
-    // Currently does not take into account the case where the drone is told take a U-turn,
+    // Currently does not take into account the case where the drone is told take a
+    // U-turn,
     // but that case would most likely be handled before this method is called.
     @Override
     public void updateTurn(Heading new_heading) {
@@ -71,22 +72,16 @@ public class RelativeMap implements MapUpdater {
         logger.info("New tile type: {}", relative_map.get(current_pos));
     }
 
+    @Override
+    public boolean isOverGound() {
+        return relative_map.get(current_pos) == TileType.GROUND;
+    }
+
     public Point getCurrentPos() {
         return new Point(current_pos.x(), current_pos.y());
     }
 
-//     FIXME: This method is an abstraction leak.
-//     Abstraction leak here as it returns the Enum value, but Enums cannot be cloned.
-//     Possible solution would be to return the name of the Enum value instead.
-    public TileType getTileType(Point point_query) {
-        if (!relative_map.containsKey(point_query)) {
-            logger.error("The point {} is not in the map", point_query);
-            return TileType.UNKNOWN;
-        }
-        return relative_map.get(point_query);
-    }
-
-//     FIXME: Same abstraction leak as getTileType().
+    // FIXME: Same abstraction leak as getTileType().
     public Heading getCurrentHeading() {
         return current_heading;
     }

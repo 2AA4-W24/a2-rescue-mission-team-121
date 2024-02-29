@@ -22,25 +22,20 @@ public class Explorer implements IExplorerRaid {
     private int distG;
     private MovesRecord moves = new MovesRecord();
     private AttributeRecord drone_attributes = new AttributeRecord();
-    private MapUpdater map ;
+    private MapUpdater map;
     private Point currPos = new Point(1, 1);
-
-
-
-
-
 
     @Override
     public void initialize(String s) {
         logger.info("** Initializing the Exploration Command Center");
         JSONObject info = new JSONObject(new JSONTokener(new StringReader(s)));
-        logger.info("** Initialization info:\n {}",info.toString(2));
+        logger.info("** Initialization info:\n {}", info.toString(2));
         String direction = info.getString("heading");
         Integer batteryLevel = info.getInt("budget");
         logger.info("The drone is facing {}", direction);
         logger.info("Battery level is {}", batteryLevel);
 
-        //initialize records with info
+        // initialize records with info
         drone_attributes.updateAttributes(batteryLevel, -1, -1);
         map = new RelativeMap(Heading.headingOf(direction));
 
@@ -50,53 +45,45 @@ public class Explorer implements IExplorerRaid {
     public String takeDecision() {
         JSONObject decision = new JSONObject();
 
-        last_action = moves.getLastMove(); //returns the last Decision object in movesrecord.
+        last_action = moves.getLastMove(); // returns the last Decision object in movesrecord.
 
-        //If the moves record is empty, start with an echo
-        if (moves.movesIsEmpty())
-        {
+        // If the moves record is empty, start with an echo
+        if (moves.movesIsEmpty()) {
             next_action = Decision.ECHO;
         }
 
-        //Needs to be fixed: the numbers that echo returns as a response must be used to further determine the next action.
-        //Turn needs to be implemented based on which direction the echo is successful
-        if (last_action.equals(Decision.ECHO))
-        {
+        // Needs to be fixed: the numbers that echo returns as a response must be used
+        // to further determine the next action.
+        // Turn needs to be implemented based on which direction the echo is successful
+        if (last_action.equals(Decision.ECHO)) {
             distG = drone_attributes.getDistG();
             next_action = Decision.FLY;
         }
 
-        //If the last action was fly, continue to the edge of the island, until ground is hit, when ground is hit, scan
-        if (last_action.equals(Decision.FLY))
-        {
-            if (distG>0)
-            {
+        // If the last action was fly, continue to the edge of the island, until ground
+        // is hit, when ground is hit, scan
+        if (last_action.equals(Decision.FLY)) {
+            if (distG > 0) {
                 next_action = Decision.FLY;
                 distG--;
-            }
-            else
-            {
+            } else {
                 next_action = Decision.SCAN;
             }
             map.updateFly();
         }
 
-        //If scan is ground, means edge of island was found, go back to base, if not, keep flying
-        if (last_action.equals(Decision.SCAN))
-        {
-            if (map.getTileType(currPos) == TileType.GROUND)
-            {
+        // If scan is ground, means edge of island was found, go back to base, if not,
+        // keep flying
+        if (last_action.equals(Decision.SCAN)) {
+            if (map.isOverGound()) {
                 map.updateScan(TileType.GROUND);
                 next_action = Decision.STOP;
-            }
-            else
-            {
+            } else {
                 next_action = Decision.FLY;
             }
         }
 
-        else
-        {
+        else {
             next_action = Decision.STOP;
         }
         if (last_action.equals(Decision.SCAN)) {
@@ -106,7 +93,7 @@ public class Explorer implements IExplorerRaid {
             last_action = Decision.FLY;
             last_action = Decision.SCAN;
         }
-        decision.put("action",next_action.getName());
+        decision.put("action", next_action.getName());
         logger.info("** Decision: {}", decision.toString());
 
         return decision.toString();
@@ -114,10 +101,9 @@ public class Explorer implements IExplorerRaid {
     }
 
     @Override
-    public void acknowledgeResults(String s)
-    {
+    public void acknowledgeResults(String s) {
         JSONObject response = new JSONObject(new JSONTokener(new StringReader(s)));
-        logger.info("** Response received:\n"+response.toString(2));
+        logger.info("** Response received:\n" + response.toString(2));
         Integer cost = response.getInt("cost");
         logger.info("The cost of the action was {}", cost);
         String status = response.getString("status");
@@ -125,10 +111,10 @@ public class Explorer implements IExplorerRaid {
         JSONObject extraInfo = response.getJSONObject("extras");
         logger.info("Additional information received: {}", extraInfo);
 
-        //update the battery level
-        drone_attributes.updateAttributes(drone_attributes.getBattery()-response.getInt("cost"), -1, -1);
-        //update the map with the new tile type if we scanned
-        if(response.has("biomes")){
+        // update the battery level
+        drone_attributes.updateAttributes(drone_attributes.getBattery() - response.getInt("cost"), -1, -1);
+        // update the map with the new tile type if we scanned
+        if (response.has("biomes")) {
             map.updateScan(TileType.TileTypeOf(response.getString("biomes")));
         }
     }
