@@ -2,7 +2,6 @@ package ca.mcmaster.se2aa4.island.team121;
 
 import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
 
-import ca.mcmaster.se2aa4.island.team121.Records.MovesRecord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
