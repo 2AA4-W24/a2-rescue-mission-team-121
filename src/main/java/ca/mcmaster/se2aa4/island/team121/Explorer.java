@@ -1,9 +1,6 @@
 package ca.mcmaster.se2aa4.island.team121;
 
 import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.List;
-
 import ca.mcmaster.se2aa4.island.team121.Records.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,7 +8,6 @@ import org.apache.logging.log4j.Logger;
 import eu.ace_design.island.bot.IExplorerRaid;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-import org.w3c.dom.Attr;
 
 public class Explorer implements IExplorerRaid {
 
