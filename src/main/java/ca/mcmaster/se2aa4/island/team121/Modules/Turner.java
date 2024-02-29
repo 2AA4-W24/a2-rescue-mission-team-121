@@ -7,10 +7,14 @@ import org.json.JSONObject;
 
 public class Turner implements ModuleHeading {
 
-    private final Decision op = Decision.TURN;
+    private final Decision op = Decision.HEADING;
 
     @Override
     public JSONObject getJSON(Heading heading) {
-        return new JSONObject().put("action", op.getName());
+        JSONObject json = new JSONObject();
+        json.put("action", op.getName());
+        json.put("parameters", new JSONObject().put("direction", heading.getVector()));
+
+        return json;
     }
 }
