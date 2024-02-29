@@ -19,7 +19,6 @@ public class Explorer implements IExplorerRaid {
     private MovesRecord moves = new MovesRecord();
     private AttributeRecord drone_attributes = new AttributeRecord();
     private MapUpdater map;
-    private Point currPos = new Point(1, 1);
 
     @Override
     public void initialize(String s) {
