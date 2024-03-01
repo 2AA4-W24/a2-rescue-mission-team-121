@@ -43,11 +43,13 @@ public class Explorer implements IExplorerRaid {
     @Override
     public String takeDecision() {
         JSONObject decision = new JSONObject();
+      
         if (map.isOverGound()) {
             next_action = Decision.STOP;
             decision.put("action", next_action.getName());
             return decision.toString();
         }
+      
         if (!found_ground) {
             if (moves.movesIsEmpty()) {
                 next_action = Decision.ECHO;
@@ -102,6 +104,7 @@ public class Explorer implements IExplorerRaid {
     @Override
     public void acknowledgeResults(String s) {
         JSONObject response = new JSONObject(new JSONTokener(new StringReader(s)));
+      
         logger.info("** Response received:\n" + response.toString(2));
         Integer cost = response.getInt("cost");
         logger.info("The cost of the action was {}", cost);
