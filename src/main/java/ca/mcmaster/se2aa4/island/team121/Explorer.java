@@ -1,6 +1,9 @@
 package ca.mcmaster.se2aa4.island.team121;
 
 import java.io.StringReader;
+
+import ca.mcmaster.se2aa4.island.team121.Modules.*;
+import ca.mcmaster.se2aa4.island.team121.Modules.Module;
 import ca.mcmaster.se2aa4.island.team121.Records.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,7 +15,7 @@ import org.json.JSONTokener;
 public class Explorer implements IExplorerRaid {
 
     private final Logger logger = LogManager.getLogger();
-
+    boolean found_ground = false;
     private Decision last_action;
     private Decision next_action = Decision.STOP;
     private int distG;
@@ -39,56 +42,40 @@ public class Explorer implements IExplorerRaid {
     @Override
     public String takeDecision() {
         JSONObject decision = new JSONObject();
-        if (next_action == Decision.STOP) {
-            decision.put("action", "stop");
-            return decision.toString();
-        }
-        // If the moves record is empty, start with an echo
-        if((next_action == Decision.HEADING) && ( Heading.SOUTH == map.getCurrentHeading()))
-        {
-            map.updateTurn(Heading.headingOf("S"));
+        if(map.isOverGound()){
+            next_action = Decision.STOP;
             decision.put("action", next_action.getName());
-            decision.put("parameters", new JSONObject().put("direction", "S"));
-            moves.add(next_action);
-            last_action=Decision.ECHO;
             return decision.toString();
         }
 
-        if (moves.movesIsEmpty()) {
-            last_action = Decision.ECHO;
-            moves.add(last_action);
-        }
-        else
-        {
-            last_action = moves.getLastMove(); // returns the last Decision object in moves record.
-        }
-        if (last_action == Decision.ECHO) {
-            next_action = Decision.SCAN;
-            decision.put("action", "scan");
-            moves.add(next_action);
-            return decision.toString();
-
-        }
-        else if (last_action == Decision.SCAN) {
-            next_action = Decision.FLY;
-            decision.put("action", next_action.getName());
-            moves.add(next_action);
-            return decision.toString();
-
-        }
-        else if (last_action == Decision.FLY) {
-            next_action = Decision.ECHO;
-
-            decision.put("action", next_action.getName());
-            decision.put("parameters", new JSONObject().put("direction", "S"));
-
-            moves.add(next_action);
-            return decision.toString();
-
-        }
-        decision.put("action", next_action.getName());
-        logger.info("** Decision: {}", decision.toString());
-
+       if(moves.movesIsEmpty()){
+           next_action = Decision.ECHO;
+           moves.add(next_action);
+           ModuleHeading echo = new Radar();
+           decision = echo.getJSON(Heading.SOUTH);
+           return decision.toString();
+       }
+       else if (moves.getLastMove()==Decision.FLY) {
+           next_action = Decision.SCAN;
+           moves.add(next_action);
+           Module scan = new Scanner();
+           decision = scan.getJSON();
+           return decision.toString();
+       }
+       else if (moves.getLastMove()==Decision.SCAN){
+           next_action= Decision.ECHO;
+              moves.add(next_action);
+              ModuleHeading echo = new Radar();
+              decision = echo.getJSON(Heading.SOUTH);
+                return decision.toString();
+       }
+         else if (moves.getLastMove()==Decision.ECHO){
+              next_action= Decision.FLY;
+              moves.add(next_action);
+              Module fly = new Flyer();
+              decision = fly.getJSON();
+              return decision.toString();
+         }
         return decision.toString();
 
     }
@@ -112,13 +99,14 @@ public class Explorer implements IExplorerRaid {
         if (response.has("biomes")) {
             map.updateScan(TileType.TileTypeOf(response.getString("biomes")));
         }
+
         if (response.has("extras")) {
             JSONObject extras = response.getJSONObject("extras");
             if (extras.has("found")) {
                 String found = extras.getString("found");
                 if ("GROUND".equals(found)) {
                     // Do something when found is GROUND
-                    next_action = Decision.HEADING;
+                     found_ground = true;
                 }
             }
         }
