@@ -64,7 +64,6 @@ public class RelativeMap implements MapUpdater {
 
     @Override
     public boolean isOverGound() {
-        logger.info("!*!*!*!*Current tile {}: ", relative_map.get(current_pos));
         return relative_map.get(current_pos) == TileType.GROUND;
     }
 
