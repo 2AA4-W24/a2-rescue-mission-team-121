@@ -2,12 +2,15 @@ package ca.mcmaster.se2aa4.island.team121.Records;
 
 import ca.mcmaster.se2aa4.island.team121.Heading;
 import ca.mcmaster.se2aa4.island.team121.TileType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class RelativeMap implements MapUpdater {
 
+    private final Logger logger = LogManager.getLogger();
     protected Map<Point, TileType> relative_map;
     Point current_pos;
     Heading current_heading;
@@ -61,6 +64,7 @@ public class RelativeMap implements MapUpdater {
 
     @Override
     public boolean isOverGound() {
+        logger.info("!*!*!*!*Current tile {}: ", relative_map.get(current_pos));
         return relative_map.get(current_pos) == TileType.GROUND;
     }
 

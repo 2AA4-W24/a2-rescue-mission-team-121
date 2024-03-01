@@ -5,6 +5,7 @@ public enum TileType {
 
     public static TileType TileTypeOf(String type) {
         switch (type) {
+
             case "GROUND" -> {
                 return GROUND;
             }
@@ -17,7 +18,9 @@ public enum TileType {
             case "CREEK" -> {
                 return CREEK;
             }
-            default -> throw new IllegalArgumentException("Invalid type: " + type);
+            default -> {
+                return GROUND;
+            }
         }
     }
 }
