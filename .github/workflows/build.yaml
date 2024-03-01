@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  JAVA_ENV_VERSION: '21'
+  JAVA_ENV_VERSION: "21"
 
 jobs:
   build:
@@ -18,10 +18,9 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: ${{env.JAVA_ENV_VERSION}}
-          distribution: 'adopt'
-          cache: 'maven'
+          distribution: "adopt"
+          cache: "maven"
       - name: Create project jar with Maven
         run: mvn --batch-mode clean package -DskipTests
       - name: running tests
-        run: mvn --batch-mode test
-
+        run: mvn test
