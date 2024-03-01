@@ -2,6 +2,7 @@ package ca.mcmaster.se2aa4.island.team121;
 
 import java.io.StringReader;
 
+import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.Modules.*;
 import ca.mcmaster.se2aa4.island.team121.Modules.Module;
 import ca.mcmaster.se2aa4.island.team121.Records.*;
@@ -13,16 +14,17 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import javax.xml.stream.events.StartElement;
+
 public class Explorer implements IExplorerRaid {
 
     private final Logger logger = LogManager.getLogger();
     boolean found_ground = false;
-    private Decision last_action;
     private Decision next_action = Decision.STOP;
-    private int distG;
     private MovesRecord moves = new MovesRecord();
     private AttributeRecord drone_attributes = new AttributeRecord();
     private RelativeMap map = new RelativeMap(Heading.EAST);
+    private State curr_state = State.Start;
 
     @Override
     public void initialize(String s) {
@@ -52,6 +54,7 @@ public class Explorer implements IExplorerRaid {
             if (moves.movesIsEmpty()) {
                 next_action = Decision.ECHO;
                 moves.add(next_action);
+                curr_state = State.look4Ground;
                 ModuleHeading echo = new Radar();
                 decision = echo.getJSON(Heading.SOUTH);
             } else if (moves.getLastMove() == Decision.FLY) {
@@ -97,7 +100,7 @@ public class Explorer implements IExplorerRaid {
             }
         }
             return decision.toString();
-        }
+    }
 
     @Override
     public void acknowledgeResults(String s) {
