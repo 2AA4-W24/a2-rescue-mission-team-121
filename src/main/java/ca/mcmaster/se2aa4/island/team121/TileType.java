@@ -1,3 +1,22 @@
 package ca.mcmaster.se2aa4.island.team121;
 
-public enum TileType {GROUND, WATER, SITE, CREEK, UNKNOWN}
+public enum TileType {
+    GROUND, OCEAN, SITE, CREEK, UNKNOWN;
+
+    public static TileType TileTypeOf(String type) {
+        switch (type) {
+            case "OCEAN" -> {
+                return OCEAN;
+            }
+            case "SITE" -> {
+                return SITE;
+            }
+            case "CREEK" -> {
+                return CREEK;
+            }
+            default -> {
+                return GROUND;
+            }
+        }
+    }
+}

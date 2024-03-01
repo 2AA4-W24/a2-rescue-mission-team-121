@@ -6,13 +6,9 @@ import org.json.JSONObject;
 public class Flyer implements Module {
 
     private final Decision op = Decision.FLY;
+
     @Override
     public JSONObject getJSON() {
         return new JSONObject().put("action", op.getName());
-    }
-
-    @Override
-    public Decision getDecision() {
-        return op;
     }
 }

@@ -1,4 +1,5 @@
 package ca.mcmaster.se2aa4.island.team121.ModuleTests;
+
 import ca.mcmaster.se2aa4.island.team121.Decision;
 import ca.mcmaster.se2aa4.island.team121.Modules.Flyer;
 import org.json.JSONObject;
@@ -16,11 +17,5 @@ public class FlyerTest {
         expected_json.put("action", op);
 
         assertTrue(expected_json.similar(flyer.getJSON()));
-    }
-
-    @Test
-    void testDecisionFlyer() {
-        Decision flyer_decision = flyer.getDecision();
-        assertEquals(op, flyer_decision.getName());
     }
 }

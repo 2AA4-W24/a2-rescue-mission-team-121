@@ -10,10 +10,10 @@ import java.util.Map;
 
 public class RelativeMap implements MapUpdater {
 
-    Map<Point, TileType> relative_map;
+    private final Logger logger = LogManager.getLogger();
+    protected Map<Point, TileType> relative_map;
     Point current_pos;
     Heading current_heading;
-    private final Logger logger = LogManager.getLogger();
 
     public RelativeMap(Heading start_heading) {
         this.relative_map = new HashMap<>();
@@ -22,15 +22,13 @@ public class RelativeMap implements MapUpdater {
         this.current_heading = start_heading;
     }
 
-//    TODO: Implement this method.
+    // TODO: Implement this method.
     public int getDistanceToStart() {
         return 10;
     }
 
     @Override
     public void updateFly() {
-        logger.info("*** Updating position after flying");
-
         switch (current_heading) {
             case NORTH -> current_pos = new Point(current_pos.x(), current_pos.y() + 1);
             case EAST -> current_pos = new Point(current_pos.x() + 1, current_pos.y());
@@ -38,27 +36,22 @@ public class RelativeMap implements MapUpdater {
             case WEST -> current_pos = new Point(current_pos.x() - 1, current_pos.y());
         }
 
-        logger.info("Current position: {}", current_pos);
         if (!relative_map.containsKey(current_pos))
             relative_map.put(current_pos, TileType.UNKNOWN);
     }
 
-    // Currently does not take into account the case where the drone is told take a U-turn,
+    // Currently does not take into account the case where the drone is told take a
+    // U-turn,
     // but that case would most likely be handled before this method is called.
     @Override
     public void updateTurn(Heading new_heading) {
-        logger.info("** Updating map after turning");
-
         if (new_heading == current_heading) {
-            logger.error("The drone is facing the same direction");
             return;
         }
 
-        logger.info("Calling updateFly()");
         updateFly();
         current_heading = new_heading;
         updateFly();
-        logger.info("Current heading: {}", current_heading);
 
         if (!relative_map.containsKey(current_pos))
             relative_map.put(current_pos, TileType.UNKNOWN);
@@ -66,27 +59,20 @@ public class RelativeMap implements MapUpdater {
 
     @Override
     public void updateScan(TileType new_type) {
-        logger.info("** Updating map after scanning");
         relative_map.put(current_pos, new_type);
-        logger.info("New tile type: {}", relative_map.get(current_pos));
+    }
+
+    @Override
+    public boolean isOverGound() {
+        logger.info("!*!*!*!*Current tile {}: ", relative_map.get(current_pos));
+        return relative_map.get(current_pos) == TileType.GROUND;
     }
 
     public Point getCurrentPos() {
         return new Point(current_pos.x(), current_pos.y());
     }
 
-//     FIXME: This method is an abstraction leak.
-//     Abstraction leak here as it returns the Enum value, but Enums cannot be cloned.
-//     Possible solution would be to return the name of the Enum value instead.
-    public TileType getTileType(Point point_query) {
-        if (!relative_map.containsKey(point_query)) {
-            logger.error("The point {} is not in the map", point_query);
-            return TileType.UNKNOWN;
-        }
-        return relative_map.get(point_query);
-    }
-
-//     FIXME: Same abstraction leak as getTileType().
+    // FIXME: Same abstraction leak as getTileType().
     public Heading getCurrentHeading() {
         return current_heading;
     }
