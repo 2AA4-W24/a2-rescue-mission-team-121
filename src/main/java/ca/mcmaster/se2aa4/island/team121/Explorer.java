@@ -18,7 +18,7 @@ public class Explorer implements IExplorerRaid {
     private int distG;
     private MovesRecord moves = new MovesRecord();
     private AttributeRecord drone_attributes = new AttributeRecord();
-    private MapUpdater map;
+    private RelativeMap map = new RelativeMap(Heading.EAST);
 
     @Override
     public void initialize(String s) {
@@ -39,59 +39,52 @@ public class Explorer implements IExplorerRaid {
     @Override
     public String takeDecision() {
         JSONObject decision = new JSONObject();
-
+        if (next_action == Decision.STOP) {
+            decision.put("action", "stop");
+            return decision.toString();
+        }
         // If the moves record is empty, start with an echo
+        if((next_action == Decision.HEADING) && ( Heading.SOUTH == map.getCurrentHeading()))
+        {
+            map.updateTurn(Heading.headingOf("S"));
+            decision.put("action", next_action.getName());
+            decision.put("parameters", new JSONObject().put("direction", "S"));
+            moves.add(next_action);
+            last_action=Decision.ECHO;
+            return decision.toString();
+        }
+
         if (moves.movesIsEmpty()) {
             last_action = Decision.ECHO;
             moves.add(last_action);
         }
         else
         {
-            last_action = moves.getLastMove(); // returns the last Decision object in movesrecord.
+            last_action = moves.getLastMove(); // returns the last Decision object in moves record.
         }
+        if (last_action == Decision.ECHO) {
+            next_action = Decision.SCAN;
+            decision.put("action", "scan");
+            moves.add(next_action);
+            return decision.toString();
 
-
-
-        // Needs to be fixed: the numbers that echo returns as a response must be used
-        // to further determine the next action.
-        // Turn needs to be implemented based on which direction the echo is successful
-        if (last_action.equals(Decision.ECHO)) {
-            distG = drone_attributes.getDistG();
+        }
+        else if (last_action == Decision.SCAN) {
             next_action = Decision.FLY;
-        }
+            decision.put("action", next_action.getName());
+            moves.add(next_action);
+            return decision.toString();
 
-        // If the last action was fly, continue to the edge of the island, until ground
-        // is hit, when ground is hit, scan
-        if (last_action.equals(Decision.FLY)) {
-            if (distG > 0) {
-                next_action = Decision.FLY;
-                distG--;
-            } else {
-                next_action = Decision.SCAN;
-            }
-            map.updateFly();
         }
+        else if (last_action == Decision.FLY) {
+            next_action = Decision.ECHO;
 
-        // If scan is ground, means edge of island was found, go back to base, if not,
-        // keep flying
-        if (last_action.equals(Decision.SCAN)) {
-            if (map.isOverGound()) {
-                map.updateScan(TileType.GROUND);
-                next_action = Decision.STOP;
-            } else {
-                next_action = Decision.FLY;
-            }
-        }
+            decision.put("action", next_action.getName());
+            decision.put("parameters", new JSONObject().put("direction", "S"));
 
-        else {
-            next_action = Decision.STOP;
-        }
-        if (last_action.equals(Decision.SCAN)) {
-            last_action = Decision.STOP;
+            moves.add(next_action);
+            return decision.toString();
 
-        } else {
-            last_action = Decision.FLY;
-            last_action = Decision.SCAN;
         }
         decision.put("action", next_action.getName());
         logger.info("** Decision: {}", decision.toString());
@@ -111,12 +104,26 @@ public class Explorer implements IExplorerRaid {
         JSONObject extraInfo = response.getJSONObject("extras");
         logger.info("Additional information received: {}", extraInfo);
 
+
+
         // update the battery level
         drone_attributes.updateAttributes(drone_attributes.getBattery() - response.getInt("cost"), -1, -1);
         // update the map with the new tile type if we scanned
         if (response.has("biomes")) {
             map.updateScan(TileType.TileTypeOf(response.getString("biomes")));
         }
+        if (response.has("extras")) {
+            JSONObject extras = response.getJSONObject("extras");
+            if (extras.has("found")) {
+                String found = extras.getString("found");
+                if ("GROUND".equals(found)) {
+                    // Do something when found is GROUND
+                    next_action = Decision.HEADING;
+                }
+            }
+        }
+
+
     }
 
     @Override
