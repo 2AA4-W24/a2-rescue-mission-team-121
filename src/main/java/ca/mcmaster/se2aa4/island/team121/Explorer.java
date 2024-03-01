@@ -2,6 +2,7 @@ package ca.mcmaster.se2aa4.island.team121;
 
 import java.io.StringReader;
 
+import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.Modules.*;
 import ca.mcmaster.se2aa4.island.team121.Modules.Module;
 import ca.mcmaster.se2aa4.island.team121.Records.*;
@@ -13,16 +14,17 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import javax.xml.stream.events.StartElement;
+
 public class Explorer implements IExplorerRaid {
 
     private final Logger logger = LogManager.getLogger();
     boolean found_ground = false;
-    private Decision last_action;
     private Decision next_action = Decision.STOP;
-    private int distG;
     private MovesRecord moves = new MovesRecord();
     private AttributeRecord drone_attributes = new AttributeRecord();
     private RelativeMap map = new RelativeMap(Heading.EAST);
+    private State curr_state = State.Start;
 
     @Override
     public void initialize(String s) {
@@ -54,21 +56,25 @@ public class Explorer implements IExplorerRaid {
             if (moves.movesIsEmpty()) {
                 next_action = Decision.ECHO;
                 moves.add(next_action);
+                curr_state = State.look4Ground;
                 ModuleHeading echo = new Radar();
                 decision = echo.getJSON(Heading.SOUTH);
             } else if (moves.getLastMove() == Decision.FLY) {
                 next_action = Decision.SCAN;
                 moves.add(next_action);
+                curr_state = State.look4Ground;
                 Module scan = new Scanner();
                 decision = scan.getJSON();
             } else if (moves.getLastMove() == Decision.SCAN) {
                 next_action = Decision.ECHO;
                 moves.add(next_action);
+                curr_state = State.look4Ground;
                 ModuleHeading echo = new Radar();
                 decision = echo.getJSON(Heading.SOUTH);
             } else if (moves.getLastMove() == Decision.ECHO) {
                 next_action = Decision.FLY;
                 moves.add(next_action);
+                curr_state = State.look4Ground;
                 Module fly = new Flyer();
                 map.updateFly();
                 decision = fly.getJSON();
@@ -78,6 +84,7 @@ public class Explorer implements IExplorerRaid {
             if (map.getCurrentHeading() != Heading.SOUTH){
                 next_action = Decision.HEADING;
                 moves.add(next_action);
+                curr_state = State.flyToBeach;
                 ModuleHeading heading = new Turner();
                 decision = heading.getJSON(Heading.SOUTH);
                 map.updateTurn(Heading.SOUTH);
@@ -86,6 +93,7 @@ public class Explorer implements IExplorerRaid {
                 if(moves.getLastMove() == Decision.HEADING || moves.getLastMove()==Decision.SCAN){
                     next_action = Decision.FLY;
                     moves.add(next_action);
+                    curr_state = State.flyToBeach;
                     Module fly = new Flyer();
                     decision = fly.getJSON();
                     map.updateFly();
@@ -93,13 +101,15 @@ public class Explorer implements IExplorerRaid {
                 else if (moves.getLastMove() == Decision.FLY){
                     next_action = Decision.SCAN;
                     moves.add(next_action);
+                    curr_state = State.flyToBeach;
                     Module scan = new Scanner();
                     decision = scan.getJSON();
                 }
             }
         }
+        logger.info(curr_state.getName());
             return decision.toString();
-        }
+    }
 
     @Override
     public void acknowledgeResults(String s) {
