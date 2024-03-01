@@ -48,42 +48,37 @@ public class Explorer implements IExplorerRaid {
             decision.put("action", next_action.getName());
             return decision.toString();
         }
-        if(!found_ground) {
+        if (!found_ground) {
             if (moves.movesIsEmpty()) {
                 next_action = Decision.ECHO;
                 moves.add(next_action);
                 ModuleHeading echo = new Radar();
                 decision = echo.getJSON(Heading.SOUTH);
-                return decision.toString();
             } else if (moves.getLastMove() == Decision.FLY) {
                 next_action = Decision.SCAN;
                 moves.add(next_action);
                 Module scan = new Scanner();
                 decision = scan.getJSON();
-                return decision.toString();
             } else if (moves.getLastMove() == Decision.SCAN) {
                 next_action = Decision.ECHO;
                 moves.add(next_action);
                 ModuleHeading echo = new Radar();
                 decision = echo.getJSON(Heading.SOUTH);
-                return decision.toString();
             } else if (moves.getLastMove() == Decision.ECHO) {
                 next_action = Decision.FLY;
                 moves.add(next_action);
                 Module fly = new Flyer();
                 map.updateFly();
                 decision = fly.getJSON();
-                return decision.toString();
             }
         }
         else {
-            if(map.getCurrentHeading()!=Heading.SOUTH){
+            if (map.getCurrentHeading() != Heading.SOUTH){
                 next_action = Decision.HEADING;
                 moves.add(next_action);
                 ModuleHeading heading = new Turner();
                 decision = heading.getJSON(Heading.SOUTH);
                 map.updateTurn(Heading.SOUTH);
-                return decision.toString();
             }
             else {
                 if(moves.getLastMove() == Decision.HEADING || moves.getLastMove()==Decision.SCAN){
@@ -92,20 +87,16 @@ public class Explorer implements IExplorerRaid {
                     Module fly = new Flyer();
                     decision = fly.getJSON();
                     map.updateFly();
-                    return decision.toString();
                 }
                 else if (moves.getLastMove() == Decision.FLY){
                     next_action = Decision.SCAN;
                     moves.add(next_action);
                     Module scan = new Scanner();
                     decision = scan.getJSON();
-                    return decision.toString();
                 }
             }
-
         }
             return decision.toString();
-
         }
 
     @Override
@@ -118,8 +109,6 @@ public class Explorer implements IExplorerRaid {
         logger.info("The status of the drone is {}", status);
         JSONObject extraInfo = response.getJSONObject("extras");
         logger.info("Additional information received: {}", extraInfo);
-
-
 
         // update the battery level
         drone_attributes.updateAttributes(drone_attributes.getBattery() - response.getInt("cost"), -1, -1);

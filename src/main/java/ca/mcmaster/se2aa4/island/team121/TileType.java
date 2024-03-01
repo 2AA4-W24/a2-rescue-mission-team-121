@@ -5,10 +5,6 @@ public enum TileType {
 
     public static TileType TileTypeOf(String type) {
         switch (type) {
-
-            case "GROUND" -> {
-                return GROUND;
-            }
             case "OCEAN" -> {
                 return OCEAN;
             }
