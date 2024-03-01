@@ -1,6 +1,7 @@
 package ca.mcmaster.se2aa4.island.team121;
 
 public enum Heading {
+  
     NORTH("N"),
     SOUTH("S"),
     EAST("E"),

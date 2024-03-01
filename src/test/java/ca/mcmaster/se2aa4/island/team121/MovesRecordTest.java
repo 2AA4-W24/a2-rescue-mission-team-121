@@ -1,9 +1,8 @@
 package ca.mcmaster.se2aa4.island.team121;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
-
 import ca.mcmaster.se2aa4.island.team121.Records.MovesRecord;
 
 public class MovesRecordTest {
@@ -11,18 +10,18 @@ public class MovesRecordTest {
     private MovesRecord record;
 
     @BeforeEach
-    public void setup(){record = new MovesRecord();}
+    public void setup() {
+        record = new MovesRecord();
+    }
 
     @Test
-    public void emptyRecord()
-    {
+    public void emptyRecord() {
         boolean empty = record.movesIsEmpty();
         assertTrue(empty);
     }
 
     @Test
-    public void fullRecord()
-    {
+    public void fullRecord() {
         record.add(Decision.SCAN);
         record.add(Decision.FLY);
         Decision lastMove = record.getLastMove();
