@@ -1,6 +1,7 @@
 package ca.mcmaster.se2aa4.island.team121.Modules;
 
 import ca.mcmaster.se2aa4.island.team121.Heading;
+import ca.mcmaster.se2aa4.island.team121.Modules.JSONHandlers.HeadingJSONHandler;
 import org.json.JSONObject;
 
 public abstract class ModuleWithHeading extends Module {

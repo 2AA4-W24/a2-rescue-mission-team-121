@@ -14,17 +14,16 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import javax.xml.stream.events.StartElement;
-
 public class Explorer implements IExplorerRaid {
 
     private final Logger logger = LogManager.getLogger();
     boolean found_ground = false;
-    private Decision next_action = Decision.STOP;
+    private Action next_action = Action.STOP;
     private MovesRecord moves = new MovesRecord();
     private AttributeRecord drone_attributes = new AttributeRecord();
     private RelativeMap map = new RelativeMap(Heading.EAST);
     private State curr_state = State.Start;
+    private Module module;
 
     @Override
     public void initialize(String s) {
@@ -45,70 +44,64 @@ public class Explorer implements IExplorerRaid {
     @Override
     public String takeDecision() {
         JSONObject decision = new JSONObject();
-      
+
         if (map.isOverGound()) {
-            next_action = Decision.STOP;
+            next_action = Action.STOP;
             decision.put("action", next_action.getName());
             return decision.toString();
         }
       
         if (!found_ground) {
             if (moves.movesIsEmpty()) {
-                next_action = Decision.ECHO;
+                next_action = Action.ECHO;
                 moves.add(next_action);
                 curr_state = State.look4Ground;
-                ModuleHeading echo = new Radar();
-                decision = echo.getJSON(Heading.SOUTH);
-            } else if (moves.getLastMove() == Decision.FLY) {
-                next_action = Decision.SCAN;
+                module = new Radar(Heading.SOUTH);
+            } else if (moves.getLastMove() == Action.FLY) {
+                next_action = Action.SCAN;
                 moves.add(next_action);
                 curr_state = State.look4Ground;
-                Module scan = new Scanner();
-                decision = scan.getJSON();
-            } else if (moves.getLastMove() == Decision.SCAN) {
-                next_action = Decision.ECHO;
+                module = new Scanner();
+            } else if (moves.getLastMove() == Action.SCAN) {
+                next_action = Action.ECHO;
                 moves.add(next_action);
                 curr_state = State.look4Ground;
-                ModuleHeading echo = new Radar();
-                decision = echo.getJSON(Heading.SOUTH);
-            } else if (moves.getLastMove() == Decision.ECHO) {
-                next_action = Decision.FLY;
+                module = new Radar(Heading.SOUTH);
+            } else if (moves.getLastMove() == Action.ECHO) {
+                next_action = Action.FLY;
                 moves.add(next_action);
                 curr_state = State.look4Ground;
-                Module fly = new Flyer();
+                module = new Flyer();
                 map.updateFly();
-                decision = fly.getJSON();
             }
         }
         else {
             if (map.getCurrentHeading() != Heading.SOUTH){
-                next_action = Decision.HEADING;
+                next_action = Action.HEADING;
                 moves.add(next_action);
                 curr_state = State.flyToBeach;
-                ModuleHeading heading = new Turner();
-                decision = heading.getJSON(Heading.SOUTH);
+                module = new Turner(Heading.SOUTH);
                 map.updateTurn(Heading.SOUTH);
             }
             else {
-                if(moves.getLastMove() == Decision.HEADING || moves.getLastMove()==Decision.SCAN){
-                    next_action = Decision.FLY;
+                if(moves.getLastMove() == Action.HEADING || moves.getLastMove()== Action.SCAN){
+                    next_action = Action.FLY;
                     moves.add(next_action);
                     curr_state = State.flyToBeach;
-                    Module fly = new Flyer();
-                    decision = fly.getJSON();
+                    module = new Flyer();
                     map.updateFly();
                 }
-                else if (moves.getLastMove() == Decision.FLY){
-                    next_action = Decision.SCAN;
+                else if (moves.getLastMove() == Action.FLY){
+                    next_action = Action.SCAN;
                     moves.add(next_action);
                     curr_state = State.flyToBeach;
-                    Module scan = new Scanner();
-                    decision = scan.getJSON();
+                    module = new Scanner();
                 }
             }
         }
-        logger.info(curr_state.getName());
-            return decision.toString();
+        decision = module.getJSON();
+        logger.info(decision.toString());
+        return decision.toString();
     }
 
     @Override
