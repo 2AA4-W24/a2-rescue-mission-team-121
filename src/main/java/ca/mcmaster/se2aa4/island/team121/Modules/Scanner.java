@@ -1,14 +1,11 @@
 package ca.mcmaster.se2aa4.island.team121.Modules;
 
-import ca.mcmaster.se2aa4.island.team121.Decision;
-import org.json.JSONObject;
+import ca.mcmaster.se2aa4.island.team121.Action;
+import ca.mcmaster.se2aa4.island.team121.Modules.JSONHandlers.DefaultJSONHandler;
 
-public class Scanner implements Module {
-
-    private final Decision op = Decision.SCAN;
-
-    @Override
-    public JSONObject getJSON() {
-        return new JSONObject().put("action", op.getName());
-    }
+public class Scanner extends Module {
+        public Scanner() {
+            this.action = Action.SCAN;
+            this.jsoner = new DefaultJSONHandler();
+        }
 }
