@@ -1,6 +1,6 @@
 package ca.mcmaster.se2aa4.island.team121;
 
-public enum Decision {
+public enum Action {
     FLY("fly"),
     SCAN("scan"),
     STOP("stop"),
@@ -9,7 +9,7 @@ public enum Decision {
 
     private final String name;
 
-    private Decision(String name) {
+    private Action(String name) {
         this.name = name;
     }
 

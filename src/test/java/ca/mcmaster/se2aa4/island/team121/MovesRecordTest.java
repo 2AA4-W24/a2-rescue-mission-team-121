@@ -22,10 +22,10 @@ public class MovesRecordTest {
 
     @Test
     public void fullRecord() {
-        record.add(Decision.SCAN);
-        record.add(Decision.FLY);
-        Decision lastMove = record.getLastMove();
-        assertEquals(Decision.FLY, lastMove);
+        record.add(Action.SCAN);
+        record.add(Action.FLY);
+        Action lastMove = record.getLastMove();
+        assertEquals(Action.FLY, lastMove);
     }
 
 }

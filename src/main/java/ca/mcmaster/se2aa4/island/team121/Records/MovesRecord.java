@@ -1,14 +1,14 @@
 package ca.mcmaster.se2aa4.island.team121.Records;
 
-import ca.mcmaster.se2aa4.island.team121.Decision;
+import ca.mcmaster.se2aa4.island.team121.Action;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MovesRecord {
-    private List<Decision> prevMoves = new ArrayList<Decision>();
+    private List<Action> prevMoves = new ArrayList<Action>();
 
-    public void add(Decision d) {
+    public void add(Action d) {
         prevMoves.add(d);
     }
 
@@ -16,7 +16,7 @@ public class MovesRecord {
         return prevMoves.isEmpty();
     }
 
-    public Decision getLastMove() {
+    public Action getLastMove() {
         return prevMoves.get(prevMoves.size() - 1);
     }
 }
