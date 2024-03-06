@@ -2,9 +2,7 @@ package ca.mcmaster.se2aa4.island.team121;
 
 import ca.mcmaster.se2aa4.island.team121.Modules.*;
 import ca.mcmaster.se2aa4.island.team121.Modules.Module;
-import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
 import ca.mcmaster.se2aa4.island.team121.Records.RelativeMap;
-import eu.ace_design.island.game.Engine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
