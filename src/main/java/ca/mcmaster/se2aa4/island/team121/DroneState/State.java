@@ -10,8 +10,8 @@ import java.util.List;
 public abstract class State {
 
     protected int step_count = 0;
-    private boolean go_next = false;
-    private State next;
+    protected boolean go_next = false;
+    protected State next;
     protected MapUpdater map;
     protected AttributeRecord drone_attributes;
 
@@ -25,11 +25,7 @@ public abstract class State {
         return go_next;
     }
 
-    // FIXME: This is an abstraction leak
-    public State getNext() {
-        return next;
-    }
-
+    public abstract State getNext();
     public abstract JSONObject execute();
     public abstract void update(JSONObject json);
 }
