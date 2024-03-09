@@ -1,22 +1,35 @@
 package ca.mcmaster.se2aa4.island.team121.DroneState;
 
-public enum State {
-    Start("S"),
-    look4Ground("l4g"),
-    flyToBeach("f2b"),
-    onBeach("ob"),
-    islandSearch("search"),
-    emergSiteFound("emerg"),
-    exit("exit");
+import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
+import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
 
-    private final String name;
+public abstract class State {
 
-    private State(String name) {
-        this.name = name;
+    protected int step_count = 0;
+    private boolean go_next = false;
+    private State next;
+    protected MapUpdater map;
+    protected AttributeRecord drone_attributes;
+
+    public State(MapUpdater map, AttributeRecord drone_attributes) {
+        this.map = map;
+        this.drone_attributes = drone_attributes;
     }
 
-    public String getName() {
-        return name;
+    // FIXME: This is an abstraction leak
+    public boolean isGoNext() {
+        return go_next;
     }
+
+    // FIXME: This is an abstraction leak
+    public State getNext() {
+        return next;
+    }
+
+    public abstract JSONObject execute();
+    public abstract void update(JSONObject json);
 }
