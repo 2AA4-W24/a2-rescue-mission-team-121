@@ -2,6 +2,7 @@ package ca.mcmaster.se2aa4.island.team121;
 
 import java.io.StringReader;
 
+import ca.mcmaster.se2aa4.island.team121.DroneState.Start;
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.Modules.*;
 import ca.mcmaster.se2aa4.island.team121.Modules.Module;
@@ -22,7 +23,7 @@ public class Explorer implements IExplorerRaid {
     private MovesRecord moves = new MovesRecord();
     private AttributeRecord drone_attributes = new AttributeRecord();
     private RelativeMap map = new RelativeMap(Heading.EAST);
-    private State curr_state = State.Start;
+    private State curr_state = new Start(map, drone_attributes);
     private Module module;
 
     @Override
@@ -41,7 +42,6 @@ public class Explorer implements IExplorerRaid {
 
     }
 
-    State curr_state;
     @Override
     public String takeDecision() {
         JSONObject decision = new JSONObject();
