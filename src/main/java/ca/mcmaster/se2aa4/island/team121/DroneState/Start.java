@@ -29,7 +29,7 @@ public class Start extends State {
 
     @Override
     public State getNext() {
-        return new GoSouth(map, drone_attributes);
+        return new Stop(map, drone_attributes);
     }
 
     @Override
