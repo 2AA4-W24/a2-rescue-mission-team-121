@@ -14,12 +14,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FlySouth extends State {
+public class FlyNorth extends State {
     private List<Module> cycle = new ArrayList<>();
     private Module module;
 
 
-    public FlySouth(MapUpdater map, AttributeRecord drone_attributes) {
+    public FlyNorth(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
         this.cycle.add(new Flyer());
         this.cycle.add(new Scanner());
