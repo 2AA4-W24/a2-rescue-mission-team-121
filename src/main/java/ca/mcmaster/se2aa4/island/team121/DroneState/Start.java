@@ -29,7 +29,7 @@ public class Start extends State {
 
     @Override
     public State getNext() {
-        return new GoSouth(map, drone_attributes);
+        return new FindBeach(map, drone_attributes);
     }
 
     @Override
@@ -58,7 +58,6 @@ public class Start extends State {
             if(extras.has("biomes")){
                 JSONArray biomes = extras.getJSONArray("biomes");
                 map.updateScan(TileType.TileTypeOf(biomes.getString(0)));
-
             }
         }
 
