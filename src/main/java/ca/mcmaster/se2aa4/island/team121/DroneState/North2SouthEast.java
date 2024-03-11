@@ -1,10 +1,7 @@
 package ca.mcmaster.se2aa4.island.team121.DroneState;
 
 import ca.mcmaster.se2aa4.island.team121.Heading;
-import ca.mcmaster.se2aa4.island.team121.Modules.Flyer;
 import ca.mcmaster.se2aa4.island.team121.Modules.Module;
-import ca.mcmaster.se2aa4.island.team121.Modules.Radar;
-import ca.mcmaster.se2aa4.island.team121.Modules.Scanner;
 import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
 import ca.mcmaster.se2aa4.island.team121.Modules.Turner;
@@ -29,7 +26,7 @@ public class North2SouthEast extends State {
 
     @Override
     public State getNext() {
-        return new GoSouth(map, drone_attributes);
+        return new FlySouth(map, drone_attributes);
     }
 
     @Override
