@@ -56,13 +56,6 @@ public class Explorer implements IExplorerRaid {
 
 
 
-
-
-
-
-
-
-
 //        if (map.isOverGound()) {
 //            next_action = Action.STOP;
 //            decision.put("action", next_action.getName());
