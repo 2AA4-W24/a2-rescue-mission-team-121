@@ -27,6 +27,18 @@ public class FlySouth extends State {
     }
 
     @Override
+    public State getNext(){
+        return new South2NorthEast(map, drone_attributes);
+    }
+
+    @Override
+    public JSONObject execute() {
+        module = cycle.get(step_count % cycle.size());
+        step_count++;
+        return module.getJSON();
+    }
+
+    @Override
     public void update(JSONObject response){
         if (response.has("extras")) {
             JSONObject extras = response.getJSONObject("extras");
@@ -51,16 +63,5 @@ public class FlySouth extends State {
             map.updateFly();
         }
 
-    }
-
-    @Override
-    public JSONObject execute() {
-        module = cycle.get(step_count % cycle.size());
-        step_count++;
-        return module.getJSON();
-    }
-    @Override
-    public State getNext(){
-        return new South2NorthEast(map, drone_attributes);
     }
 }

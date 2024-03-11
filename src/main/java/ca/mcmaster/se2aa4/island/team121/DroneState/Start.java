@@ -8,6 +8,8 @@ import ca.mcmaster.se2aa4.island.team121.Modules.Scanner;
 import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
 import ca.mcmaster.se2aa4.island.team121.TileType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -15,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Start extends State {
+
+    private final Logger logger = LogManager.getLogger();
 
     private List<Module> cycle = new ArrayList<>();
     private Module module;
@@ -29,7 +33,7 @@ public class Start extends State {
 
     @Override
     public State getNext() {
-        return new FindBeach(map, drone_attributes);
+        return new TurnSouthAfterStart(map, drone_attributes);
     }
 
     @Override
@@ -47,6 +51,7 @@ public class Start extends State {
             if (extras.has("found")) {
                 String found = extras.getString("found");
                 if ("GROUND".equals(found)) {
+                    logger.info("Found ground!");
                     go_next = true;
                 }
             }

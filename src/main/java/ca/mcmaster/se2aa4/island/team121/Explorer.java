@@ -20,7 +20,6 @@ public class Explorer implements IExplorerRaid {
     private final Logger logger = LogManager.getLogger();
     boolean found_ground = false;
     private Action next_action = Action.STOP;
-    private MovesRecord moves = new MovesRecord();
     private AttributeRecord drone_attributes = new AttributeRecord();
     private RelativeMap map = new RelativeMap(Heading.EAST);
     private State curr_state = new Start(map, drone_attributes);
@@ -47,9 +46,9 @@ public class Explorer implements IExplorerRaid {
         JSONObject decision = new JSONObject();
 
         if (drone_attributes.getBattery() < 100) {
-            decision.put("action", next_action.getName());
+            decision = new Stopper().getJSON();
         } else {
-            curr_state = (curr_state.isGoNext()) ? curr_state : curr_state.getNext();
+            curr_state = (curr_state.isGoNext()) ? curr_state.getNext() : curr_state;
             decision = curr_state.execute();
         }
         return decision.toString();
@@ -136,6 +135,12 @@ public class Explorer implements IExplorerRaid {
 
         // update the battery level
         drone_attributes.updateAttributes(drone_attributes.getBattery() - response.getInt("cost"), -1, -1);
+        curr_state.update(response);
+
+
+
+
+
         // update the map with the new tile type if we scanned
 //        if (response.has("extras")) {
 //            JSONObject extras = response.getJSONObject("extras");
