@@ -2,11 +2,14 @@ package ca.mcmaster.se2aa4.island.team121.DroneState.GridSearch;
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.DroneState.Stop;
 import ca.mcmaster.se2aa4.island.team121.Heading;
+import ca.mcmaster.se2aa4.island.team121.Modules.Flyer;
 import ca.mcmaster.se2aa4.island.team121.Modules.Module;
 import ca.mcmaster.se2aa4.island.team121.Modules.Radar;
 import ca.mcmaster.se2aa4.island.team121.Modules.Turner;
 import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -15,12 +18,13 @@ import java.util.List;
 public class South2NorthEast extends State {
     private List<Module> cycle = new ArrayList<>();
     private Module module;
-
+    private final Logger logger = LogManager.getLogger();
     public South2NorthEast(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
         this.cycle.add(new Turner(Heading.EAST));
         this.cycle.add(new Turner(Heading.NORTH));
-        this.cycle.add(new Radar(Heading.NORTH));
+        this.cycle.add(new Radar(Heading.SOUTH));
+
     }
 
     // FIXME: Abstraction leak
@@ -33,6 +37,7 @@ public class South2NorthEast extends State {
     public JSONObject execute() {
         module = cycle.get(step_count % cycle.size());
         step_count++;
+        logger.info("its working");
         return module.getJSON();
     }
 
