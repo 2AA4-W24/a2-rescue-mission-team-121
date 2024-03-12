@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class South2NorthEast extends State {
-    private List<Module> cycle = new ArrayList<>();
-    private Module module;
+
+    private State next;
 
     public South2NorthEast(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
@@ -27,13 +27,6 @@ public class South2NorthEast extends State {
     @Override
     public State getNext() {
         return next;
-    }
-
-    @Override
-    public JSONObject execute() {
-        module = cycle.get(step_count % cycle.size());
-        step_count++;
-        return module.getJSON();
     }
 
     @Override

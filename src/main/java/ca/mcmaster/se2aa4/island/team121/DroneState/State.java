@@ -1,16 +1,21 @@
 package ca.mcmaster.se2aa4.island.team121.DroneState;
 
+import ca.mcmaster.se2aa4.island.team121.Modules.Module;
 import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class State {
 
     protected int step_count = 0;
     protected boolean go_next = false;
-    protected State next;
     protected MapUpdater map;
     protected AttributeRecord drone_attributes;
+    protected List<Module> cycle = new ArrayList<>();
+    protected Module module;
 
     public State(MapUpdater map, AttributeRecord drone_attributes) {
         this.map = map;
@@ -22,7 +27,12 @@ public abstract class State {
         return go_next;
     }
 
+    public JSONObject execute() {
+        module = cycle.get(step_count % cycle.size());
+        step_count++;
+        return module.getJSON();
+    }
+
     public abstract State getNext();
-    public abstract JSONObject execute();
     public abstract void update(JSONObject json);
 }
