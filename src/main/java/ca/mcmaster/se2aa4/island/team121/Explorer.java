@@ -2,28 +2,23 @@ package ca.mcmaster.se2aa4.island.team121;
 
 import java.io.StringReader;
 
-import ca.mcmaster.se2aa4.island.team121.DroneState.Start;
+import ca.mcmaster.se2aa4.island.team121.DroneState.GridSearch.GridSearchStart;
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.Modules.*;
-import ca.mcmaster.se2aa4.island.team121.Modules.Module;
 import ca.mcmaster.se2aa4.island.team121.Records.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import eu.ace_design.island.bot.IExplorerRaid;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
 public class Explorer implements IExplorerRaid {
 
     private final Logger logger = LogManager.getLogger();
-    boolean found_ground = false;
-    private Action next_action = Action.STOP;
     private AttributeRecord drone_attributes = new AttributeRecord();
     private RelativeMap map = new RelativeMap(Heading.EAST);
-    private State curr_state = new Start(map, drone_attributes);
-    private Module module;
+    private State curr_state = new GridSearchStart(map, drone_attributes);
 
     @Override
     public void initialize(String s) {
