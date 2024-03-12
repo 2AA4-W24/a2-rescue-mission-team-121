@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 import ca.mcmaster.se2aa4.island.team121.TileType;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,9 @@ public class FindBeach extends State {
 
     @Override
     public void update(JSONObject response){
+        System.out.println("****#!#!#!"+parser.getScan(response));
         map.updateScan((parser.getScan(response)));
+
         if (map.isOverGound())
         {
             go_next =true;

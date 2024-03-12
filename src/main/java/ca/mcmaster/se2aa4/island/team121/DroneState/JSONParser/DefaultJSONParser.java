@@ -3,7 +3,7 @@ package ca.mcmaster.se2aa4.island.team121.DroneState.JSONParser;
 import ca.mcmaster.se2aa4.island.team121.TileType;
 import org.json.JSONObject;
 
-public class defaultJSONParser implements JSONParser{
+public class DefaultJSONParser implements JSONParser{
 
     @Override
     public TileType getScan(JSONObject response) {
