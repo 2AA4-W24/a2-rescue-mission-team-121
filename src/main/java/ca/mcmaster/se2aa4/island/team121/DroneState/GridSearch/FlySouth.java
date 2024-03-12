@@ -1,5 +1,6 @@
-package ca.mcmaster.se2aa4.island.team121.DroneState;
+package ca.mcmaster.se2aa4.island.team121.DroneState.GridSearch;
 
+import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.Heading;
 import ca.mcmaster.se2aa4.island.team121.Modules.Flyer;
 import ca.mcmaster.se2aa4.island.team121.Modules.Module;
@@ -14,21 +15,20 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FlyNorth extends State {
+public class FlySouth extends State {
     private List<Module> cycle = new ArrayList<>();
     private Module module;
 
-
-    public FlyNorth(MapUpdater map, AttributeRecord drone_attributes) {
+    public FlySouth(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
         this.cycle.add(new Flyer());
         this.cycle.add(new Scanner());
-        this.cycle.add(new Radar(Heading.NORTH));
+        this.cycle.add(new Radar(Heading.SOUTH));
     }
 
     @Override
     public State getNext(){
-        return new North2SouthEast(map, drone_attributes);
+        return new South2NorthEast(map, drone_attributes);
     }
 
     @Override

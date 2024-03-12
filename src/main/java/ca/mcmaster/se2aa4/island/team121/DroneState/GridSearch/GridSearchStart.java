@@ -1,5 +1,6 @@
-package ca.mcmaster.se2aa4.island.team121.DroneState;
+package ca.mcmaster.se2aa4.island.team121.DroneState.GridSearch;
 
+import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.Heading;
 import ca.mcmaster.se2aa4.island.team121.Modules.Flyer;
 import ca.mcmaster.se2aa4.island.team121.Modules.Module;
@@ -16,13 +17,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Start extends State {
+public class GridSearchStart extends State {
 
     private final Logger logger = LogManager.getLogger();
     private List<Module> cycle = new ArrayList<>();
     private Module module;
 
-    public Start(MapUpdater map, AttributeRecord drone_attributes) {
+    public GridSearchStart(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
 
         this.cycle.add(new Scanner());
