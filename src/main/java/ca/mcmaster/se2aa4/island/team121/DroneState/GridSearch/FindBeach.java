@@ -38,10 +38,16 @@ public class FindBeach extends State {
 
     @Override
     public void update(JSONObject response){
-        map.updateScan((parser.getScan(response)));
-        if (map.isOverGound())
-        {
-            go_next =true;
+        if (response.has("extras")) {
+           JSONObject extras = response.getJSONObject("extras");
+           if(extras.has("biomes")){
+               JSONArray biomes = extras.getJSONArray("biomes");
+                map.updateScan(TileType.TileTypeOf(biomes.getString(0)));
+           }
+           if (map.isOverGound())
+           {
+               go_next =true;
+           }
         }
     }
 }
