@@ -17,25 +17,14 @@ public class TurnSouthAfterStart extends State {
 
     private final Logger logger = LogManager.getLogger();
 
-    private List<Module> cycle = new ArrayList<>();
-    private Module module;
-
     public TurnSouthAfterStart(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
-
         this.cycle.add(new Turner(Heading.SOUTH));
     }
 
     @Override
     public State getNext() {
         return new FindBeach(map, drone_attributes);
-    }
-
-    @Override
-    public JSONObject execute() {
-        module = cycle.get(step_count % cycle.size());
-        step_count++;
-        return module.getJSON();
     }
 
     @Override
