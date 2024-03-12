@@ -18,12 +18,23 @@ public class FlySouth extends State {
     private List<Module> cycle = new ArrayList<>();
     private Module module;
 
-
     public FlySouth(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
         this.cycle.add(new Flyer());
         this.cycle.add(new Scanner());
         this.cycle.add(new Radar(Heading.SOUTH));
+    }
+
+    @Override
+    public State getNext(){
+        return new South2NorthEast(map, drone_attributes);
+    }
+
+    @Override
+    public JSONObject execute() {
+        module = cycle.get(step_count % cycle.size());
+        step_count++;
+        return module.getJSON();
     }
 
     @Override
@@ -50,17 +61,5 @@ public class FlySouth extends State {
         if (module.getClass().getSimpleName().equals("Flyer")) {
             map.updateFly();
         }
-
-    }
-
-    @Override
-    public JSONObject execute() {
-        module = cycle.get(step_count % cycle.size());
-        step_count++;
-        return module.getJSON();
-    }
-    @Override
-    public State getNext(){
-        return new South2NorthEast(map, drone_attributes);
     }
 }

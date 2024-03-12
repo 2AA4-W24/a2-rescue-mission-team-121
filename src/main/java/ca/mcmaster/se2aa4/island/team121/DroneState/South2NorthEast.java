@@ -1,6 +1,7 @@
 package ca.mcmaster.se2aa4.island.team121.DroneState;
 import ca.mcmaster.se2aa4.island.team121.Heading;
 import ca.mcmaster.se2aa4.island.team121.Modules.Module;
+import ca.mcmaster.se2aa4.island.team121.Modules.Radar;
 import ca.mcmaster.se2aa4.island.team121.Modules.Turner;
 import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
@@ -15,17 +16,17 @@ public class South2NorthEast extends State{
     private List<Module> cycle = new ArrayList<>();
     private Module module;
 
-
-
     public South2NorthEast(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
         this.cycle.add(new Turner(Heading.EAST));
         this.cycle.add(new Turner(Heading.NORTH));
+        this.cycle.add(new Radar(Heading.NORTH));
     }
 
+    // FIXME: Abstraction leak
     @Override
     public State getNext() {
-        return new FlyNorth(map, drone_attributes);
+        return next;
     }
 
     @Override
@@ -37,30 +38,17 @@ public class South2NorthEast extends State{
 
     @Override
     public void update(JSONObject response) {
-        // Check if we found ground from Radar
         if (response.has("extras")) {
             JSONObject extras = response.getJSONObject("extras");
             if (extras.has("found")) {
                 String found = extras.getString("found");
-                if ("GROUND".equals(found)) {
-                    go_next = true;
+                if ("OUT_OF_RANGE".equals(found)) {
+                    next = new Stop(map, drone_attributes);
+                } else {
+                    next = new FlyNorth(map, drone_attributes);
                 }
+                go_next = true;
             }
-        }
-
-        // Update map from Scanner
-        if (response.has("extras")) {
-            JSONObject extras = response.getJSONObject("extras");
-            if(extras.has("biomes")){
-                JSONArray biomes = extras.getJSONArray("biomes");
-                map.updateScan(TileType.TileTypeOf(biomes.getString(0)));
-
-            }
-        }
-
-        if (module.getClass().getSimpleName().equals("Flyer")) {
-            map.updateFly();
         }
     }
-
 }
