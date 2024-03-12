@@ -39,12 +39,9 @@ public class FindBeach extends State {
 
     @Override
     public void update(JSONObject response){
-        System.out.println("****#!#!#!"+parser.getScan(response));
         map.updateScan((parser.getScan(response)));
 
         if (map.isOverGound())
-        {
             go_next =true;
-        }
     }
 }

@@ -1,7 +1,10 @@
 package ca.mcmaster.se2aa4.island.team121.DroneState.JSONParser;
 
 import ca.mcmaster.se2aa4.island.team121.TileType;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
+
+import java.util.logging.LogManager;
 
 public class DefaultJSONParser implements JSONParser{
 
@@ -19,19 +22,17 @@ public class DefaultJSONParser implements JSONParser{
 
     @Override
     public boolean echoGround(JSONObject response) {
-       if(response.has("extras")){
-           JSONObject extras = response.getJSONObject("extras");
-           if(extras.has("found")){
+        boolean go_next = false;
+        if (response.has("extras")) {
+            JSONObject extras = response.getJSONObject("extras");
+            if (extras.has("found")) {
                 String found = extras.getString("found");
-                if("OUT_OF_RANGE".equals(found)){
-                     return false;
+                if ("OUT_OF_RANGE".equals(found)) {
+                    go_next = true;
                 }
-                else {
-                    return true;
-                }
-           }
-       }
-        return false;
+            }
+        }
+        return go_next;
     }
 
     @Override
