@@ -26,6 +26,7 @@ public class North2SouthEast extends State {
         this.cycle.add(new Radar(Heading.SOUTH));
     }
 
+    // FIXME: Abstraction leak
     @Override
     public State getNext() {
         return next;
@@ -40,7 +41,6 @@ public class North2SouthEast extends State {
 
     @Override
     public void update(JSONObject response) {
-
         if (response.has("extras")) {
             JSONObject extras = response.getJSONObject("extras");
             if (extras.has("found")) {

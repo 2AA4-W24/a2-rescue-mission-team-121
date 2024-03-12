@@ -16,8 +16,6 @@ public class South2NorthEast extends State{
     private List<Module> cycle = new ArrayList<>();
     private Module module;
 
-
-
     public South2NorthEast(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
         this.cycle.add(new Turner(Heading.EAST));
@@ -25,6 +23,7 @@ public class South2NorthEast extends State{
         this.cycle.add(new Radar(Heading.NORTH));
     }
 
+    // FIXME: Abstraction leak
     @Override
     public State getNext() {
         return next;

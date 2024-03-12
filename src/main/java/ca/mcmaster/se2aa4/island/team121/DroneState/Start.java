@@ -19,7 +19,6 @@ import java.util.List;
 public class Start extends State {
 
     private final Logger logger = LogManager.getLogger();
-
     private List<Module> cycle = new ArrayList<>();
     private Module module;
 

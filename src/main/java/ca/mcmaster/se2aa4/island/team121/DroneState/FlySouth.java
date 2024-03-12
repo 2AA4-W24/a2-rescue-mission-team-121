@@ -18,7 +18,6 @@ public class FlySouth extends State {
     private List<Module> cycle = new ArrayList<>();
     private Module module;
 
-
     public FlySouth(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
         this.cycle.add(new Flyer());
@@ -62,6 +61,5 @@ public class FlySouth extends State {
         if (module.getClass().getSimpleName().equals("Flyer")) {
             map.updateFly();
         }
-
     }
 }
