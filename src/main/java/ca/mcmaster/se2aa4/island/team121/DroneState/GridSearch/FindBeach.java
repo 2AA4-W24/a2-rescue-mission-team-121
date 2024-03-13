@@ -30,7 +30,7 @@ public class FindBeach extends State {
     public void update(JSONObject response){
         map.updateScan((parser.getScan(response)));
 
-        if (step_count==GridSearchStart.dist)
+        if (step_count==GridSearchStart.dist-1)
             go_next =true;
 
     }
