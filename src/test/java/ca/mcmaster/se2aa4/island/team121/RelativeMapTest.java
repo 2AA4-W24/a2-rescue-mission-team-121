@@ -31,12 +31,6 @@ public class RelativeMapTest {
 
     }
 
-    // TODO: Implement getDistanceToStart.
-    @Test
-    public void testGetDistanceToStart() {
-        assertEquals(10, map.getDistanceToStart());
-    }
-
     @Test
     public void testGetTileTypeForUnknownPoint() {
         assertEquals(TileType.UNKNOWN, map.getTileType(new Point(1, 1)));

@@ -19,5 +19,5 @@ public abstract class Module {
         return this.jsoner.format(action);
     }
 
-    public abstract void updateMap();
+    public void updateMap() {} // Most Modules do not do anything with the map
 }

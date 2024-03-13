@@ -5,15 +5,9 @@ import ca.mcmaster.se2aa4.island.team121.Modules.JSONFormatters.DefaultJSONForma
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
 
 public class Stopper extends Module {
-
     public Stopper(MapUpdater map) {
         super(map);
         this.action = Action.STOP;
         this.jsoner = new DefaultJSONFormatter();
-    }
-
-    @Override
-    public void updateMap() {
-        return;
     }
 }
