@@ -14,11 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class North2SouthProg extends State {
-    private List<Module> cycle = new ArrayList<>();
-    private Module module;
+
     private State next;
-
-
 
     public North2SouthProg(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
@@ -47,17 +44,11 @@ public class North2SouthProg extends State {
 
     @Override
     public void update(JSONObject response) {
-        if (response.has("extras")) {
-            JSONObject extras = response.getJSONObject("extras");
-            if (extras.has("found")) {
-                String found = extras.getString("found");
-                if ("OUT_OF_RANGE".equals(found)) {
-                    next = new Stop(map, drone_attributes);
-                } else {
-                    next = new FlySouth(map, drone_attributes);
-                }
-                go_next = true;
-            }
+        if(parser.echoGround(response).equals("OUT_OF_RANGE")){
+            next = new Stop(map, drone_attributes);
+        } else {
+            next = new FlySouth(map, drone_attributes);
         }
+        if (step_count == 8) go_next = true;
     }
 }
