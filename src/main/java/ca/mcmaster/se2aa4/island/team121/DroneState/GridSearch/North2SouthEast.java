@@ -15,29 +15,19 @@ import java.util.List;
 import java.util.Objects;
 
 public class North2SouthEast extends State {
-    private List<Module> cycle = new ArrayList<>();
-    private Module module;
-
-
+    private State next;
 
     public North2SouthEast(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
         this.cycle.add(new Turner(Heading.EAST));
         this.cycle.add(new Turner(Heading.SOUTH));
-        this.cycle.add(new Radar(Heading.SOUTH));
+        this.cycle.add(new Radar(Heading.NORTH));
     }
 
     // FIXME: Abstraction leak
     @Override
     public State getNext() {
         return next;
-    }
-
-    @Override
-    public JSONObject execute() {
-        module = cycle.get(step_count % cycle.size());
-        step_count++;
-        return module.getJSON();
     }
 
     @Override

@@ -16,9 +16,6 @@ import java.util.List;
 
 public class FindBeach extends State {
 
-    private List<Module> cycle = new ArrayList<>();
-    private Module module;
-
     public FindBeach(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
         this.cycle.add(new Scanner());
@@ -31,17 +28,11 @@ public class FindBeach extends State {
     }
 
     @Override
-    public JSONObject execute() {
-        module = cycle.get(step_count % cycle.size());
-        step_count++;
-        return module.getJSON();
-    }
-
-    @Override
     public void update(JSONObject response){
         map.updateScan((parser.getScan(response)));
 
         if (map.isOverGound())
             go_next =true;
+
     }
 }

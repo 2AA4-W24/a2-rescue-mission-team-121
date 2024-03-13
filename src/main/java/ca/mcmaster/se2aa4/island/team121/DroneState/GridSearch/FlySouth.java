@@ -17,8 +17,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class FlySouth extends State {
-    private List<Module> cycle = new ArrayList<>();
-    private Module module;
 
     public FlySouth(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
@@ -30,13 +28,6 @@ public class FlySouth extends State {
     @Override
     public State getNext(){
         return new South2NorthEast(map, drone_attributes);
-    }
-
-    @Override
-    public JSONObject execute() {
-        module = cycle.get(step_count % cycle.size());
-        step_count++;
-        return module.getJSON();
     }
 
     @Override
