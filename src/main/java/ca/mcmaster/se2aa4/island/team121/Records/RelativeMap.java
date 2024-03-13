@@ -18,11 +18,6 @@ public class RelativeMap implements MapUpdater {
         this.current_heading = start_heading;
     }
 
-    // TODO: Implement this method.
-    public int getDistanceToStart() {
-        return 10;
-    }
-
     @Override
     public void updateFly() {
         switch (current_heading) {
