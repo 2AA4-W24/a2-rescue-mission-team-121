@@ -1,10 +1,8 @@
 package ca.mcmaster.se2aa4.island.team121.DroneState.JSONParser;
 
 import ca.mcmaster.se2aa4.island.team121.TileType;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
-import java.util.logging.LogManager;
 
 public class DefaultJSONParser implements JSONParser{
 
@@ -16,7 +14,7 @@ public class DefaultJSONParser implements JSONParser{
                 return TileType.TileTypeOf(extras.getJSONArray("biomes").getString(0));
             }
         }
-        return null;
+        return TileType.UNKNOWN;
 
     }
 
