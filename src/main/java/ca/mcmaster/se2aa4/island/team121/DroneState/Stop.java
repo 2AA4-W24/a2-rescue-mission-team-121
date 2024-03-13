@@ -17,7 +17,7 @@ public class Stop extends State {
     public Stop(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
 
-        this.cycle.add(new Stopper());
+        this.cycle.add(new Stopper(map));
     }
     @Override
     public State getNext() {

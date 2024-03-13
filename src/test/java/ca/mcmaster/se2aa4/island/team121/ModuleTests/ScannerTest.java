@@ -3,6 +3,8 @@ package ca.mcmaster.se2aa4.island.team121.ModuleTests;
 import ca.mcmaster.se2aa4.island.team121.Action;
 import ca.mcmaster.se2aa4.island.team121.Heading;
 import ca.mcmaster.se2aa4.island.team121.Modules.Scanner;
+import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
+import ca.mcmaster.se2aa4.island.team121.Records.RelativeMap;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,10 +13,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ScannerTest {
     private Scanner scanner;
     private Action action;
+    private MapUpdater map;
 
     @BeforeEach
     public void setUp() {
-        scanner = new Scanner();
+        map = new RelativeMap(Heading.EAST);
+        scanner = new Scanner(map);
         action = Action.SCAN;
     }
 

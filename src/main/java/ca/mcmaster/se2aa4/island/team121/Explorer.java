@@ -40,7 +40,7 @@ public class Explorer implements IExplorerRaid {
         JSONObject decision;
 
         if (drone_attributes.getBattery() < 100) {
-            decision = new Stopper().getJSON();
+            decision = new Stopper(map).getJSON();
         } else {
             curr_state = (curr_state.isGoNext()) ? curr_state.getNext() : curr_state;
             decision = curr_state.execute();

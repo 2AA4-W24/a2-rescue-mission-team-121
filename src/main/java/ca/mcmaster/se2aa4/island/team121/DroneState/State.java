@@ -33,6 +33,7 @@ public abstract class State {
 
     public JSONObject execute() {
         module = cycle.get(step_count % cycle.size());
+        module.updateMap();
         step_count++;
         return module.getJSON();
     }

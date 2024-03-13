@@ -19,14 +19,14 @@ public class North2SouthProg extends State {
 
     public North2SouthProg(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
-        this.cycle.add(new Turner(Heading.WEST));
-        this.cycle.add(new Turner(Heading.NORTH));
-        this.cycle.add(new Turner(Heading.EAST));
-        this.cycle.add(new Flyer());
-        this.cycle.add(new Turner(Heading.SOUTH));
-        this.cycle.add(new Flyer());
-        this.cycle.add(new Flyer());
-        this.cycle.add(new Radar(Heading.SOUTH));
+        this.cycle.add(new Turner(map, Heading.WEST));
+        this.cycle.add(new Turner(map, Heading.NORTH));
+        this.cycle.add(new Turner(map, Heading.EAST));
+        this.cycle.add(new Flyer(map));
+        this.cycle.add(new Turner(map, Heading.SOUTH));
+        this.cycle.add(new Flyer(map));
+        this.cycle.add(new Flyer(map));
+        this.cycle.add(new Radar(map, Heading.SOUTH));
     }
 
     // FIXME: Abstraction leak

@@ -20,9 +20,9 @@ public class FlySouth extends State {
 
     public FlySouth(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
-        this.cycle.add(new Flyer());
-        this.cycle.add(new Scanner());
-        this.cycle.add(new Radar(Heading.SOUTH));
+        this.cycle.add(new Flyer(map));
+        this.cycle.add(new Scanner(map));
+        this.cycle.add(new Radar(map, Heading.SOUTH));
     }
 
     @Override

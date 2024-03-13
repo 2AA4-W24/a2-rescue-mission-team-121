@@ -1,7 +1,10 @@
 package ca.mcmaster.se2aa4.island.team121.ModuleTests;
 
 import ca.mcmaster.se2aa4.island.team121.Action;
+import ca.mcmaster.se2aa4.island.team121.Heading;
 import ca.mcmaster.se2aa4.island.team121.Modules.Flyer;
+import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
+import ca.mcmaster.se2aa4.island.team121.Records.RelativeMap;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,10 +14,12 @@ public class FlyerTest {
 
     private Flyer flyer;
     private Action action;
+    private MapUpdater map;
 
     @BeforeEach
     public void setUp() {
-        flyer = new Flyer();
+        map = new RelativeMap(Heading.EAST);
+        flyer = new Flyer(map);
         action = Action.FLY;
     }
 

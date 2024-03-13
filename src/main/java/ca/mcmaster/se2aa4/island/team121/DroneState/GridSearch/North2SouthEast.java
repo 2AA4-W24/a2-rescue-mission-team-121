@@ -19,9 +19,9 @@ public class North2SouthEast extends State {
 
     public North2SouthEast(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
-        this.cycle.add(new Turner(Heading.EAST));
-        this.cycle.add(new Turner(Heading.SOUTH));
-        this.cycle.add(new Radar(Heading.SOUTH));
+        this.cycle.add(new Turner(map, Heading.EAST));
+        this.cycle.add(new Turner(map, Heading.SOUTH));
+        this.cycle.add(new Radar(map, Heading.SOUTH));
     }
 
     // FIXME: Abstraction leak
