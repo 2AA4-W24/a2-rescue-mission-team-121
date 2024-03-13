@@ -2,17 +2,10 @@ package ca.mcmaster.se2aa4.island.team121.DroneState.GridSearch;
 
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.Modules.Flyer;
-import ca.mcmaster.se2aa4.island.team121.Modules.Module;
 import ca.mcmaster.se2aa4.island.team121.Modules.Scanner;
 import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
 import org.json.JSONObject;
-import org.json.JSONArray;
-import ca.mcmaster.se2aa4.island.team121.TileType;
-
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class FindBeach extends State {
 

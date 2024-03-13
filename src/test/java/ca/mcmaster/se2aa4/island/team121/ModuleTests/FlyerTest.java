@@ -30,4 +30,10 @@ public class FlyerTest {
 
         assertTrue(expected_json.similar(flyer.getJSON()));
     }
+
+//    @Test
+//    void testUpdateMap() {
+//        flyer.updateMap();
+//        assertEquals(Heading.NORTH, map.getHeading());
+//    }
 }

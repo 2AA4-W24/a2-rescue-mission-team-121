@@ -1,18 +1,13 @@
 package ca.mcmaster.se2aa4.island.team121.DroneState.GridSearch;
+
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.DroneState.Stop;
 import ca.mcmaster.se2aa4.island.team121.Heading;
-import ca.mcmaster.se2aa4.island.team121.Modules.Module;
 import ca.mcmaster.se2aa4.island.team121.Modules.Radar;
 import ca.mcmaster.se2aa4.island.team121.Modules.Turner;
 import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class South2NorthEast extends State {
