@@ -37,18 +37,9 @@ public class South2NorthEast extends State {
     }
 
     @Override
+    //Sets next state to Stop if the echo is out of range otherwise sets next state to FlySouth
     public void update(JSONObject response) {
-        if (response.has("extras")) {
-            JSONObject extras = response.getJSONObject("extras");
-            if (extras.has("found")) {
-                String found = extras.getString("found");
-                if ("OUT_OF_RANGE".equals(found)) {
-                    next = new Stop(map, drone_attributes);
-                } else {
-                    next = new FlyNorth(map, drone_attributes);
-                }
-                go_next = true;
-            }
-        }
+        next = ((parser.echoGround(response)) ? new Stop(map, drone_attributes) : new FlyNorth(map, drone_attributes));
+        if (step_count == 3) go_next = true;
     }
 }
