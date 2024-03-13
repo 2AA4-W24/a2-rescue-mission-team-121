@@ -18,7 +18,6 @@ public class FindBeach extends State {
 
     public FindBeach(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
-        this.cycle.add(new Scanner());
         this.cycle.add(new Flyer());
     }
 
@@ -31,7 +30,7 @@ public class FindBeach extends State {
     public void update(JSONObject response){
         map.updateScan((parser.getScan(response)));
 
-        if (map.isOverGound())
+        if (step_count==GridSearchStart.dist-1)
             go_next =true;
 
     }
