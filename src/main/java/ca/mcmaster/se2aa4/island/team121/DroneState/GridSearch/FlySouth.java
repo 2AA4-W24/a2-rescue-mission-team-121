@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class FlySouth extends State {
 
@@ -31,24 +32,8 @@ public class FlySouth extends State {
 
     @Override
     public void update(JSONObject response){
-        if (response.has("extras")) {
-            JSONObject extras = response.getJSONObject("extras");
-            if (extras.has("found")) {
-                String found = extras.getString("found");
-                if ("OUT_OF_RANGE".equals(found)) {
-                    go_next = true;
-                }
-            }
-        }
-
-        // Update map from Scanner
-        if (response.has("extras")) {
-            JSONObject extras = response.getJSONObject("extras");
-            if(extras.has("biomes")){
-                JSONArray biomes = extras.getJSONArray("biomes");
-                map.updateScan(TileType.TileTypeOf(biomes.getString(0)));
-            }
-        }
+        map.updateScan(parser.getScan(response));
+        go_next= Objects.equals(parser.echoGround(response), "OUT_OF_RANGE");
 
         if (module.getClass().getSimpleName().equals("Flyer")) {
             map.updateFly();

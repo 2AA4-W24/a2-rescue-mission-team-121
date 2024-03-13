@@ -10,13 +10,13 @@ import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
 import ca.mcmaster.se2aa4.island.team121.Modules.Turner;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class North2SouthProg extends State {
     private List<Module> cycle = new ArrayList<>();
     private Module module;
+    private State next;
 
 
 

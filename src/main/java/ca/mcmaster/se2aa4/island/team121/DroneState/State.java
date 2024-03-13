@@ -1,5 +1,7 @@
 package ca.mcmaster.se2aa4.island.team121.DroneState;
 
+import ca.mcmaster.se2aa4.island.team121.DroneState.JSONParser.JSONParser;
+import ca.mcmaster.se2aa4.island.team121.DroneState.JSONParser.DefaultJSONParser;
 import ca.mcmaster.se2aa4.island.team121.Modules.Module;
 import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
@@ -14,8 +16,10 @@ public abstract class State {
     protected boolean go_next = false;
     protected MapUpdater map;
     protected AttributeRecord drone_attributes;
+    protected JSONParser parser = new DefaultJSONParser();
     protected List<Module> cycle = new ArrayList<>();
     protected Module module;
+
 
     public State(MapUpdater map, AttributeRecord drone_attributes) {
         this.map = map;

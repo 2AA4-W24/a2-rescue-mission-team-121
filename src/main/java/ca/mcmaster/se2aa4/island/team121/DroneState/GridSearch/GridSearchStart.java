@@ -36,26 +36,12 @@ public class GridSearchStart extends State {
     @Override
     public void update(JSONObject response) {
         // Check if we found ground from Radar
-        if (response.has("extras")) {
-            JSONObject extras = response.getJSONObject("extras");
-            if (extras.has("found")) {
-                String found = extras.getString("found");
-                if ("GROUND".equals(found)) {
-                    logger.info("Found ground!");
-                    go_next = true;
-                }
-            }
+        if(parser.echoGround(response).equals("GROUND")) {
+            go_next = true;
         }
 
         // Update map from Scanner
-        if (response.has("extras")) {
-            JSONObject extras = response.getJSONObject("extras");
-            if(extras.has("biomes")){
-                JSONArray biomes = extras.getJSONArray("biomes");
-                map.updateScan(TileType.TileTypeOf(biomes.getString(0)));
-            }
-        }
-
+        map.updateScan(parser.getScan(response));
         if (module.getClass().getSimpleName().equals("Flyer")) {
             map.updateFly();
         }

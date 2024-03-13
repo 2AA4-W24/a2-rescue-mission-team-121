@@ -19,6 +19,7 @@ public class South2NorthProg extends State {
     private List<Module> cycle = new ArrayList<>();
     private Module module;
     private final Logger logger = LogManager.getLogger();
+    private State next;
     public South2NorthProg(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
         this.cycle.add(new Turner(Heading.WEST));
