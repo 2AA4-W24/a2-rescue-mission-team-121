@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class FlyNorth extends State {
     private List<Module> cycle = new ArrayList<>();
@@ -42,7 +43,7 @@ public class FlyNorth extends State {
     @Override
     public void update(JSONObject response){
         map.updateScan(parser.getScan(response));
-        go_next= parser.echoGround(response);
+        go_next= Objects.equals(parser.echoGround(response), "OUT_OF_RANGE");
         if (module.getClass().getSimpleName().equals("Flyer")) {
             map.updateFly();
         }

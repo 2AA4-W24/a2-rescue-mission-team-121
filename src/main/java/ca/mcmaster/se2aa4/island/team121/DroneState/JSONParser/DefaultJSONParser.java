@@ -23,18 +23,16 @@ public class DefaultJSONParser implements JSONParser{
 
     //FIXME: Need to modify logic to handle null when echo is not used
     @Override
-    public boolean echoGround(JSONObject response) {
-        boolean go_next = false;
+    public String echoGround(JSONObject response) {
+        String found = "NO_SCAN";
         if (response.has("extras")) {
             JSONObject extras = response.getJSONObject("extras");
             if (extras.has("found")) {
-                String found = extras.getString("found");
-                if ("OUT_OF_RANGE".equals(found)) {
-                    go_next = true;
-                }
+                found = extras.getString("found");
+
             }
         }
-        return go_next;
+        return found;
     }
 
     @Override

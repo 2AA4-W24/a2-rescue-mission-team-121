@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 public interface JSONParser {
     TileType getScan(JSONObject response);
-    boolean echoGround(JSONObject response);
+    String echoGround(JSONObject response);
     int echoDistance(JSONObject response);
 
     int getCost(JSONObject response);
