@@ -20,7 +20,6 @@ import java.util.List;
 public class GridSearchStart extends State {
 
     private final Logger logger = LogManager.getLogger();
-    public static int dist;
 
     public GridSearchStart(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
@@ -37,7 +36,6 @@ public class GridSearchStart extends State {
     public void update(JSONObject response) {
         // Check if we found ground from Radar
         if(parser.echoGround(response).equals("GROUND")) {
-            dist = parser.echoDistance(response);
             go_next = true;
         }
 
