@@ -30,9 +30,6 @@ public class RelativeMap implements MapUpdater {
         return 10;
     }
 
-    public Map<Point, TileRecord> getRelativeMap() {
-        return relative_map;
-    }
     @Override
     public void updateFly() {
         switch (current_heading) {

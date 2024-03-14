@@ -14,5 +14,4 @@ public interface MapUpdater {
 
     void updateScan( TileRecord tile);
 
-    Map<Point, TileRecord> getRelativeMap();
 }
