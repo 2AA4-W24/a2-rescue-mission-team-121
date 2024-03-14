@@ -2,8 +2,9 @@ package ca.mcmaster.se2aa4.island.team121;
 
 import java.io.StringReader;
 
-import ca.mcmaster.se2aa4.island.team121.DroneState.GridSearch.GridSearchStart;
-import ca.mcmaster.se2aa4.island.team121.DroneState.State;
+import ca.mcmaster.se2aa4.island.team121.DroneState.ProgressiveScan.*;
+import ca.mcmaster.se2aa4.island.team121.DroneState.InterlacedScan.*;
+import ca.mcmaster.se2aa4.island.team121.DroneState.*;
 import ca.mcmaster.se2aa4.island.team121.Modules.*;
 import ca.mcmaster.se2aa4.island.team121.Records.*;
 import org.apache.logging.log4j.LogManager;
@@ -18,7 +19,7 @@ public class Explorer implements IExplorerRaid {
     private final Logger logger = LogManager.getLogger();
     private AttributeRecord drone_attributes = new AttributeRecord();
     private RelativeMap map = new RelativeMap(Heading.EAST);
-    private State curr_state = new GridSearchStart(map, drone_attributes);
+    private State curr_state = new ProgressiveStart(map, drone_attributes);
 
     @Override
     public void initialize(String s) {
@@ -32,7 +33,6 @@ public class Explorer implements IExplorerRaid {
 
         // initialize records with info
         drone_attributes.updateAttributes(batteryLevel, -1, -1);
-        map = new RelativeMap(Heading.headingOf(direction));
     }
 
     @Override
@@ -66,6 +66,7 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public String deliverFinalReport() {
+        map.displayMap();
         return "no creek found";
     }
 }

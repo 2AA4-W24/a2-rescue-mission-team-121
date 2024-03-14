@@ -11,13 +11,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RelativeMap implements MapUpdater {
-    private ArrayList<String> creek_ids = new ArrayList<String>();
+public class RelativeMap implements MapUpdater, MapInspector {
+
     private final Logger logger = LogManager.getLogger();
     protected Map<Point, TileRecord> relative_map;
-
-    Point current_pos;
-    Heading current_heading;
+    private Point current_pos;
+    private Heading current_heading;
 
     public RelativeMap(Heading start_heading) {
         this.relative_map = new HashMap<>();
@@ -39,14 +38,14 @@ public class RelativeMap implements MapUpdater {
             relative_map.put(current_pos, new TileRecord(TileType.UNKNOWN, Collections.emptyList()));
     }
 
-    // Currently does not take into account the case where the drone is told take a
-    // U-turn,
+    // Currently does not take into account the case where the drone is told take a U-turn,
     // but that case would most likely be handled before this method is called.
     @Override
     public void updateTurn(Heading new_heading) {
         if (new_heading == current_heading) {
             return;
         }
+
         updateFly();
         current_heading = new_heading;
         updateFly();
@@ -55,19 +54,18 @@ public class RelativeMap implements MapUpdater {
             relative_map.put(current_pos, new TileRecord(TileType.UNKNOWN, Collections.emptyList()));
     }
 
-
     @Override
     public void updateScan(TileRecord new_type) {
-        relative_map.put(current_pos, new_type);
+        relative_map.put(new Point(current_pos.x(), current_pos.y()), new_type);
     }
 
+    @Override
+    public void displayMap() {
+        for (Map.Entry<Point, TileRecord> entry : relative_map.entrySet()) {
+            if (entry.getValue().type() != TileType.UNKNOWN) {
+                logger.info("Position: " + entry.getKey() + ", TileRecord: " + entry.getValue());
 
-    public Point getCurrentPos() {
-        return new Point(current_pos.x(), current_pos.y());
-    }
-
-    // FIXME: Same abstraction leak as getTileType().
-    public Heading getCurrentHeading() {
-        return current_heading;
+            }
+        }
     }
 }
