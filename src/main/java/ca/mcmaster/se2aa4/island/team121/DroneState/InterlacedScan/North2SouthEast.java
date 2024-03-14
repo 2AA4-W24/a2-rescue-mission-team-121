@@ -1,4 +1,4 @@
-package ca.mcmaster.se2aa4.island.team121.DroneState.GridSearch;
+package ca.mcmaster.se2aa4.island.team121.DroneState.InterlacedScan;
 
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.DroneState.Stop;

@@ -1,9 +1,7 @@
-package ca.mcmaster.se2aa4.island.team121.DroneState;
+package ca.mcmaster.se2aa4.island.team121.DroneState.ProgressiveScan;
 
-import ca.mcmaster.se2aa4.island.team121.DroneState.GridSearch.FlySouth;
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.Modules.Flyer;
-import ca.mcmaster.se2aa4.island.team121.Modules.Scanner;
 import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
 import ca.mcmaster.se2aa4.island.team121.TileRecord;

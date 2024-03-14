@@ -1,6 +1,5 @@
-package ca.mcmaster.se2aa4.island.team121.DroneState.GridSearch;
+package ca.mcmaster.se2aa4.island.team121.DroneState.InterlacedScan;
 
-import ca.mcmaster.se2aa4.island.team121.DroneState.FlyStraight;
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.Heading;
 import ca.mcmaster.se2aa4.island.team121.Modules.*;
