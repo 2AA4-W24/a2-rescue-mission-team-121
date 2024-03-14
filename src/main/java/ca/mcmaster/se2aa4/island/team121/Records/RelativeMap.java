@@ -5,9 +5,9 @@ import ca.mcmaster.se2aa4.island.team121.TileRecord;
 import ca.mcmaster.se2aa4.island.team121.TileType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.util.ArrayList;
 import java.util.Collections;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +15,7 @@ public class RelativeMap implements MapUpdater {
     private ArrayList<String> creek_ids = new ArrayList<String>();
     private final Logger logger = LogManager.getLogger();
     protected Map<Point, TileRecord> relative_map;
+
     Point current_pos;
     Heading current_heading;
 
@@ -23,11 +24,6 @@ public class RelativeMap implements MapUpdater {
         relative_map.put(new Point(0, 0), new TileRecord(TileType.UNKNOWN, Collections.emptyList()));
         this.current_pos = new Point(0, 0);
         this.current_heading = start_heading;
-    }
-
-    // TODO: Implement this method.
-    public int getDistanceToStart() {
-        return 10;
     }
 
     @Override

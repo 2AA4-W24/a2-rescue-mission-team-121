@@ -40,11 +40,12 @@ public class Explorer implements IExplorerRaid {
         JSONObject decision;
 
         if (drone_attributes.getBattery() < 100) {
-            decision = new Stopper().getJSON();
+            decision = new Stopper(map).getJSON();
         } else {
             curr_state = (curr_state.isGoNext()) ? curr_state.getNext() : curr_state;
             decision = curr_state.execute();
         }
+        logger.info("Decision: {}", decision.toString(2));
         return decision.toString();
     }
 
@@ -52,13 +53,10 @@ public class Explorer implements IExplorerRaid {
     public void acknowledgeResults(String s) {
         JSONObject response = new JSONObject(new JSONTokener(new StringReader(s)));
       
-        logger.info("** Response received:\n" + response.toString(2));
         Integer cost = response.getInt("cost");
-        logger.info("The cost of the action was {}", cost);
         String status = response.getString("status");
-        logger.info("The status of the drone is {}", status);
         JSONObject extraInfo = response.getJSONObject("extras");
-        logger.info("Additional information received: {}", extraInfo);
+        logger.info("\n");
 
         // update the battery level
         drone_attributes.updateAttributes(drone_attributes.getBattery() - response.getInt("cost"), -1, -1);

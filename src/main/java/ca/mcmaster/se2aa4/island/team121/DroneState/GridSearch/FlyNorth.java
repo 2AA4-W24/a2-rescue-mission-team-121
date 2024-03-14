@@ -3,7 +3,6 @@ package ca.mcmaster.se2aa4.island.team121.DroneState.GridSearch;
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.Heading;
 import ca.mcmaster.se2aa4.island.team121.Modules.Flyer;
-import ca.mcmaster.se2aa4.island.team121.Modules.Module;
 import ca.mcmaster.se2aa4.island.team121.Modules.Scanner;
 import ca.mcmaster.se2aa4.island.team121.Modules.Radar;
 import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
@@ -19,9 +18,9 @@ import org.apache.logging.log4j.Logger;
 public class FlyNorth extends State {
     public FlyNorth(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
-        this.cycle.add(new Flyer());
-        this.cycle.add(new Scanner());
-        this.cycle.add(new Radar(Heading.NORTH));
+        this.cycle.add(new Flyer(map));
+        this.cycle.add(new Scanner(map));
+        this.cycle.add(new Radar(map, Heading.NORTH));
     }
 
     @Override
@@ -36,8 +35,5 @@ public class FlyNorth extends State {
 
         map.updateScan(tile);
         go_next= Objects.equals(parser.echoGround(response), "OUT_OF_RANGE");
-        if (module.getClass().getSimpleName().equals("Flyer")) {
-            map.updateFly();
-        }
     }
 }

@@ -17,26 +17,14 @@ import java.util.Map;
 public class Stop extends State {
     private final Logger logger = LogManager.getLogger();
 
-    private List<Module> cycle = new ArrayList<>();
-    private Module module;
-
     public Stop(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
-
-        this.cycle.add(new Stopper());
+        this.cycle.add(new Stopper(map));
     }
     @Override
     public State getNext() {
         // Does not have a next
         return null;
-    }
-
-    @Override
-    public JSONObject execute() {
-        module = cycle.get(step_count % cycle.size());
-        step_count++;
-
-        return module.getJSON();
     }
 
     @Override

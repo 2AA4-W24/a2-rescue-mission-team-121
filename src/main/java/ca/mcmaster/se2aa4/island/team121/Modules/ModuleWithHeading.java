@@ -1,15 +1,17 @@
 package ca.mcmaster.se2aa4.island.team121.Modules;
 
 import ca.mcmaster.se2aa4.island.team121.Heading;
-import ca.mcmaster.se2aa4.island.team121.Modules.JSONHandlers.HeadingJSONHandler;
+import ca.mcmaster.se2aa4.island.team121.Modules.JSONFormatters.HeadingJSONFormatter;
+import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
 import org.json.JSONObject;
 
 public abstract class ModuleWithHeading extends Module {
 
-    protected HeadingJSONHandler heading_jsoner;
+    protected HeadingJSONFormatter heading_jsoner;
     protected Heading heading;
 
-    public ModuleWithHeading(Heading heading) {
+    public ModuleWithHeading(MapUpdater map, Heading heading) {
+        super(map);
         this.heading = heading;
     }
 
