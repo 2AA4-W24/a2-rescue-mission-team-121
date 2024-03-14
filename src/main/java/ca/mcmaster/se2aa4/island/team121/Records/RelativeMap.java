@@ -2,15 +2,11 @@ package ca.mcmaster.se2aa4.island.team121.Records;
 
 import ca.mcmaster.se2aa4.island.team121.Heading;
 import ca.mcmaster.se2aa4.island.team121.TileType;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class RelativeMap implements MapUpdater {
 
-    private final Logger logger = LogManager.getLogger();
     protected Map<Point, TileType> relative_map;
     Point current_pos;
     Heading current_heading;
@@ -20,11 +16,6 @@ public class RelativeMap implements MapUpdater {
         relative_map.put(new Point(0, 0), TileType.UNKNOWN);
         this.current_pos = new Point(0, 0);
         this.current_heading = start_heading;
-    }
-
-    // TODO: Implement this method.
-    public int getDistanceToStart() {
-        return 10;
     }
 
     @Override

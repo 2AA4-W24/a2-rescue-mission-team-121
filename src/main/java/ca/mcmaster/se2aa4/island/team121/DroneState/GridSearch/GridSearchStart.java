@@ -3,19 +3,13 @@ package ca.mcmaster.se2aa4.island.team121.DroneState.GridSearch;
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.Heading;
 import ca.mcmaster.se2aa4.island.team121.Modules.Flyer;
-import ca.mcmaster.se2aa4.island.team121.Modules.Module;
 import ca.mcmaster.se2aa4.island.team121.Modules.Radar;
 import ca.mcmaster.se2aa4.island.team121.Modules.Scanner;
 import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
-import ca.mcmaster.se2aa4.island.team121.TileType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class GridSearchStart extends State {
 
@@ -23,8 +17,9 @@ public class GridSearchStart extends State {
 
     public GridSearchStart(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
-        this.cycle.add(new Radar(Heading.SOUTH));
-        this.cycle.add(new Flyer());
+        this.cycle.add(new Scanner(map));
+        this.cycle.add(new Radar(map, Heading.SOUTH));
+        this.cycle.add(new Flyer(map));
     }
 
     @Override
@@ -41,8 +36,5 @@ public class GridSearchStart extends State {
 
         // Update map from Scanner
         map.updateScan(parser.getScan(response));
-        if (module.getClass().getSimpleName().equals("Flyer")) {
-            map.updateFly();
-        }
     }
 }

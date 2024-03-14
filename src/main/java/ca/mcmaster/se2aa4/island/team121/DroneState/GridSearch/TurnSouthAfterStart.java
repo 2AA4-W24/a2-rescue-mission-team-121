@@ -18,8 +18,8 @@ public class TurnSouthAfterStart extends State {
 
     public TurnSouthAfterStart(MapUpdater map, AttributeRecord drone_attributes) {
         super(map, drone_attributes);
-        this.cycle.add(new Turner(Heading.SOUTH));
-        this.cycle.add(new Radar(Heading.SOUTH));
+        this.cycle.add(new Turner(map, Heading.SOUTH));
+        this.cycle.add(new Radar(map, Heading.SOUTH));
     }
 
     @Override
