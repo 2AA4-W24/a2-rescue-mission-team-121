@@ -4,12 +4,18 @@ import ca.mcmaster.se2aa4.island.team121.Modules.*;
 import ca.mcmaster.se2aa4.island.team121.Modules.Module;
 import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
+import ca.mcmaster.se2aa4.island.team121.Records.Point;
+import ca.mcmaster.se2aa4.island.team121.TileRecord;
 import org.json.JSONObject;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Stop extends State {
+    private final Logger logger = LogManager.getLogger();
 
     private List<Module> cycle = new ArrayList<>();
     private Module module;
@@ -29,6 +35,7 @@ public class Stop extends State {
     public JSONObject execute() {
         module = cycle.get(step_count % cycle.size());
         step_count++;
+
         return module.getJSON();
     }
 
