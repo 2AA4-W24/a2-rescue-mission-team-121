@@ -1,27 +1,29 @@
-package ca.mcmaster.se2aa4.island.team121.DroneState;
+package ca.mcmaster.se2aa4.island.team121.DroneState.DoubleInterlaced;
 
 import ca.mcmaster.se2aa4.island.team121.DroneState.GridSearch.FlySouth;
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.Modules.Flyer;
-import ca.mcmaster.se2aa4.island.team121.Modules.Scanner;
 import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
 import ca.mcmaster.se2aa4.island.team121.TileRecord;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
-public class FlyStraight extends State {
+public class FlyStraightDI extends State {
 
     private int flight_length;
+    private final Logger logger = LogManager.getLogger();
 
-    public FlyStraight(MapUpdater map, AttributeRecord drone_attributes, int dist) {
-        super(map, drone_attributes);
+    public FlyStraightDI(MapUpdater map, int dist) {
+        super(map);
         this.cycle.add(new Flyer(map));
         flight_length = dist;
     }
 
     @Override
     public State getNext(){
-        return new FlySouth(map, drone_attributes);
+        return new FlySouthEastDI(map);
     }
 
     @Override
@@ -29,7 +31,8 @@ public class FlyStraight extends State {
         TileRecord tile = new TileRecord(parser.getScan(response),parser.getId(response));
         map.updateScan(tile);
 
-        if (step_count == flight_length-1)
+        if (step_count == flight_length-1) {
             go_next = true;
+        }
     }
 }

@@ -17,8 +17,8 @@ import java.util.Map;
 public class Stop extends State {
     private final Logger logger = LogManager.getLogger();
 
-    public Stop(MapUpdater map, AttributeRecord drone_attributes) {
-        super(map, drone_attributes);
+    public Stop(MapUpdater map) {
+        super(map);
         this.cycle.add(new Stopper(map));
     }
     @Override
