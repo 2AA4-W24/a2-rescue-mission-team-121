@@ -11,5 +11,4 @@ public interface MapUpdater {
     void updateFly();
     void updateTurn(Heading new_heading);
     void updateScan(TileRecord tile);
-
 }

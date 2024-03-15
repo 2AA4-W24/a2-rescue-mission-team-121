@@ -19,13 +19,11 @@ public abstract class State {
     protected JSONParser parser = new DefaultJSONParser();
     protected List<Module> cycle = new ArrayList<>();
     protected MapUpdater map;
-    protected AttributeRecord drone_attributes;
     private final Logger logger = LogManager.getLogger();
     protected Module module;
 
     public State(MapUpdater map) {
         this.map = map;
-        this.drone_attributes = drone_attributes;
     }
 
     // FIXME: This is an abstraction leak

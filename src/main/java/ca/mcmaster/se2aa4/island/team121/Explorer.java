@@ -1,9 +1,14 @@
 package ca.mcmaster.se2aa4.island.team121;
 
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 import ca.mcmaster.se2aa4.island.team121.DroneState.DoubleInterlaced.GridSearchStartDI;
-import ca.mcmaster.se2aa4.island.team121.DroneState.GridSearch.GridSearchStart;
+import ca.mcmaster.se2aa4.island.team121.DroneState.InterlacedScan.InterlacedStart;
+import ca.mcmaster.se2aa4.island.team121.DroneState.ProgressiveScan.ProgressiveStart;
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.Modules.*;
 import ca.mcmaster.se2aa4.island.team121.Records.*;
@@ -33,17 +38,17 @@ public class Explorer implements IExplorerRaid {
 
         // initialize records with info
         drone_attributes.updateAttributes(batteryLevel, -1, -1);
-        map = new RelativeMap(Heading.headingOf(direction));
     }
 
     @Override
     public String takeDecision() {
         JSONObject decision;
-
-        curr_state = (curr_state.isGoNext()) ? curr_state.getNext() : curr_state;
-        decision = curr_state.execute();
-
-        logger.info("Decision: {}", decision.toString(2));
+        if (drone_attributes.getBattery() < 100) {
+            decision = new Stopper(map).getJSON();
+        } else {
+            curr_state = (curr_state.isGoNext()) ? curr_state.getNext() : curr_state;
+            decision = curr_state.execute();
+        }
         return decision.toString();
     }
 
@@ -54,16 +59,29 @@ public class Explorer implements IExplorerRaid {
         Integer cost = response.getInt("cost");
         String status = response.getString("status");
         JSONObject extraInfo = response.getJSONObject("extras");
-        logger.info("\n");
 
         // update the battery level
         drone_attributes.updateAttributes(drone_attributes.getBattery() - response.getInt("cost"), -1, -1);
-        logger.info("Battery Used:"+ (70000-drone_attributes.getBattery()));
         curr_state.update(response);
     }
 
     @Override
     public String deliverFinalReport() {
+        Map<TileRecord, Double> creek_distances = map.getCreekSiteDistances();
+        List<Double> creek_distances_list = new ArrayList<>(creek_distances.values());
+        Collections.sort(creek_distances_list);
+
+        if (!creek_distances.isEmpty()) {
+            Double closest_distance = creek_distances_list.get(0);
+            for (Map.Entry<TileRecord, Double> entry : creek_distances.entrySet()) {
+                if (entry.getValue().equals(closest_distance)) {
+                    TileRecord creek = entry.getKey();
+                    logger.info(creek);
+                    logger.info(creek.id().get(0));
+                    return creek.id().get(0);
+                }
+            }
+        }
         return "no creek found";
     }
 }

@@ -1,20 +1,16 @@
-package ca.mcmaster.se2aa4.island.team121.DroneState.GridSearch;
+package ca.mcmaster.se2aa4.island.team121.DroneState.InterlacedScan;
 
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.Modules.Flyer;
-import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
 import ca.mcmaster.se2aa4.island.team121.TileRecord;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
-public class FlyStraight extends State {
+public class FlyStraightIS extends State {
 
     private int flight_length;
-    private final Logger logger = LogManager.getLogger();
 
-    public FlyStraight(MapUpdater map, int dist) {
+    public FlyStraightIS(MapUpdater map, int dist) {
         super(map);
         this.cycle.add(new Flyer(map));
         flight_length = dist;
@@ -30,9 +26,7 @@ public class FlyStraight extends State {
         TileRecord tile = new TileRecord(parser.getScan(response),parser.getId(response));
         map.updateScan(tile);
 
-        if (step_count == flight_length-1) {
+        if (step_count == flight_length-1)
             go_next = true;
-            logger.info("beach found complete");
-        }
     }
 }

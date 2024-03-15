@@ -1,4 +1,4 @@
-package ca.mcmaster.se2aa4.island.team121.DroneState.DoubleInterlaced;
+package ca.mcmaster.se2aa4.island.team121.DroneState.InterlacedScan;
 
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.Heading;
@@ -9,11 +9,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
-public class GridSearchStartDI extends State {
+public class InterlacedStart extends State {
 
     private final Logger logger = LogManager.getLogger();
 
-    public GridSearchStartDI(MapUpdater map) {
+    public InterlacedStart(MapUpdater map) {
         super(map);
         this.cycle.add(new Radar(map, Heading.SOUTH));
         this.cycle.add(new Flyer(map));
@@ -21,11 +21,12 @@ public class GridSearchStartDI extends State {
 
     @Override
     public State getNext() {
-        return new TurnSouthAfterStartDI(map);
+        return new TurnSouthAfterStart(map);
     }
 
     @Override
     public void update(JSONObject response) {
+        // Check if we found ground from Radar
         if(parser.echoGround(response).equals("GROUND")) {
             go_next = true;
         }

@@ -1,18 +1,16 @@
-package ca.mcmaster.se2aa4.island.team121.DroneState.GridSearch;
+package ca.mcmaster.se2aa4.island.team121.DroneState.ProgressiveScan;
 
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.Heading;
 import ca.mcmaster.se2aa4.island.team121.Modules.Flyer;
-import ca.mcmaster.se2aa4.island.team121.Modules.Scanner;
 import ca.mcmaster.se2aa4.island.team121.Modules.Radar;
+import ca.mcmaster.se2aa4.island.team121.Modules.Scanner;
 import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
 import ca.mcmaster.se2aa4.island.team121.TileRecord;
 import org.json.JSONObject;
-import java.util.Objects;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
+import java.util.Objects;
 
 
 public class FlyNorth extends State {
@@ -30,10 +28,11 @@ public class FlyNorth extends State {
 
     @Override
     public void update(JSONObject response){
-
         TileRecord tile = new TileRecord(parser.getScan(response),parser.getId(response));
+        if (module.getClass().getSimpleName().equals("Scanner")) {
+            map.updateScan(tile);
+        }
 
-        map.updateScan(tile);
         go_next= Objects.equals(parser.echoGround(response), "OUT_OF_RANGE");
     }
 }
