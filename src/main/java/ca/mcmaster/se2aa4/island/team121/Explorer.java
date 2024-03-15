@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import ca.mcmaster.se2aa4.island.team121.DroneState.ProgressiveScan.*;
 import ca.mcmaster.se2aa4.island.team121.DroneState.InterlacedScan.*;
 import ca.mcmaster.se2aa4.island.team121.DroneState.*;
 import ca.mcmaster.se2aa4.island.team121.Modules.*;
@@ -75,6 +74,8 @@ public class Explorer implements IExplorerRaid {
             for (Map.Entry<TileRecord, Double> entry : creek_distances.entrySet()) {
                 if (entry.getValue().equals(closest_distance)) {
                     TileRecord creek = entry.getKey();
+                    logger.info(creek);
+                    logger.info(creek.id().get(0));
                     return creek.id().get(0);
                 }
             }
