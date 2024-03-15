@@ -36,7 +36,6 @@ public class North2SouthUTurnEastDI extends State {
                     ? new TurnBackSouthWest(map, drone_attributes) : new FlySouthEastDI(map, drone_attributes));
         if (step_count == 3) {
             go_next = true;
-            logger.info("N2SE Uturn complete");
         }
     }
 }

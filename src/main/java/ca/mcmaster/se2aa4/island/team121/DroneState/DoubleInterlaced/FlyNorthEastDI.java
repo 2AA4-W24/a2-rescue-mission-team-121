@@ -36,6 +36,5 @@ public class FlyNorthEastDI extends State {
 
         map.updateScan(tile);
         go_next= Objects.equals(parser.echoGround(response), "OUT_OF_RANGE");
-        logger.info("fly north E complete");
     }
 }

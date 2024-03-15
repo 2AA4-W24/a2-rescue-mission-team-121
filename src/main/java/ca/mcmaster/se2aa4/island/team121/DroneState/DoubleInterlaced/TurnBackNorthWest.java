@@ -36,7 +36,6 @@ public class TurnBackNorthWest extends State {
     @Override
     public void update(JSONObject response) {
         if (step_count == 9) {
-            logger.info("turn back NW complete");
             go_next = true;
         }
     }

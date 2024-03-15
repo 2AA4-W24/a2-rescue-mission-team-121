@@ -29,7 +29,6 @@ public class GridSearchStartDI extends State {
     public void update(JSONObject response) {
         if(parser.echoGround(response).equals("GROUND")) {
             go_next = true;
-            logger.info("start complete");
         }
     }
 }

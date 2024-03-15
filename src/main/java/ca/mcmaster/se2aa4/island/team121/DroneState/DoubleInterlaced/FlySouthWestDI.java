@@ -33,6 +33,5 @@ public class FlySouthWestDI extends State {
         TileRecord tile = new TileRecord(parser.getScan(response),parser.getId(response));
         map.updateScan(tile);
         go_next= Objects.equals(parser.echoGround(response), "OUT_OF_RANGE");
-        logger.info("fly SW complete");
     }
 }

@@ -33,10 +33,8 @@ public class North2SouthUTurnWestDI extends State {
     @Override
     public void update(JSONObject response) {
         next = ((Objects.equals(parser.echoGround(response), "OUT_OF_RANGE")) ? new Stop(map, drone_attributes) : new FlySouthWestDI(map, drone_attributes));
-        if (step_count == 3)
-        {
+        if (step_count == 3) {
             go_next = true;
-            logger.info("N2SW Uturn complete");
         }
 
     }

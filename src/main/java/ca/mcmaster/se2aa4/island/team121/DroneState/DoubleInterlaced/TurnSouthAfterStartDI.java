@@ -31,7 +31,6 @@ public class TurnSouthAfterStartDI extends State {
     public void update(JSONObject response) {
         dist = parser.echoDistance(response);
         if (step_count == 2) {
-            logger.info("turn S complete");
             go_next = true;
         }
     }

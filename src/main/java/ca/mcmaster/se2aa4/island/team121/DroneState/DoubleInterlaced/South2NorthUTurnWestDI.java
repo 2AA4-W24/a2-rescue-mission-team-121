@@ -35,7 +35,6 @@ public class South2NorthUTurnWestDI extends State{
         next = ((Objects.equals(parser.echoGround(response), "OUT_OF_RANGE")) ? new Stop(map, drone_attributes) : new FlyNorthWestDI(map, drone_attributes));
         if (step_count == 3) {
             go_next = true;
-            logger.info("S2NW uturn complete");
         }
     }
 }
