@@ -5,11 +5,8 @@ import ca.mcmaster.se2aa4.island.team121.TileRecord;
 import ca.mcmaster.se2aa4.island.team121.TileType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import java.util.ArrayList;
-import java.util.Collections;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class RelativeMap implements MapUpdater, MapInspector {
 
@@ -64,8 +61,27 @@ public class RelativeMap implements MapUpdater, MapInspector {
         for (Map.Entry<Point, TileRecord> entry : relative_map.entrySet()) {
             if (entry.getValue().type() != TileType.UNKNOWN) {
                 logger.info("Position: " + entry.getKey() + ", TileRecord: " + entry.getValue());
-
             }
         }
+    }
+
+    @Override
+    public Map<TileRecord, Double> getCreekSiteDistances() {
+        Map<TileRecord, Double> creek_site_distances = new HashMap<>();
+
+        Point site_point = new Point(0, 0);
+        for (Map.Entry<Point, TileRecord> entry : relative_map.entrySet()) {
+            if (entry.getValue().type() == TileType.SITE) {
+                site_point = entry.getKey();
+            }
+        }
+
+        for (Map.Entry<Point, TileRecord> entry : relative_map.entrySet()) {
+            if (entry.getValue().type() == TileType.CREEK) {
+                creek_site_distances.put(entry.getValue(), entry.getKey().getDistance(site_point));
+            }
+        }
+
+        return creek_site_distances;
     }
 }
