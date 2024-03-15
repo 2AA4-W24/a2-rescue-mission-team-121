@@ -16,15 +16,15 @@ public class TurnSouthAfterStartDI extends State {
 
     private int dist;
 
-    public TurnSouthAfterStartDI(MapUpdater map, AttributeRecord drone_attributes) {
-        super(map, drone_attributes);
+    public TurnSouthAfterStartDI(MapUpdater map) {
+        super(map);
         this.cycle.add(new Turner(map, Heading.SOUTH));
         this.cycle.add(new Radar(map, Heading.SOUTH));
     }
 
     @Override
     public State getNext() {
-        return new FlyStraightDI(map, drone_attributes, dist);
+        return new FlyStraightDI(map, dist);
     }
 
     @Override

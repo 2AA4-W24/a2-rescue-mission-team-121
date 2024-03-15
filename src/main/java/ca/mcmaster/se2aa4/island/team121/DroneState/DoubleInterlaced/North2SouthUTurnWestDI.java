@@ -17,8 +17,8 @@ public class North2SouthUTurnWestDI extends State {
     private State next;
     private final Logger logger = LogManager.getLogger();
 
-    public North2SouthUTurnWestDI(MapUpdater map, AttributeRecord drone_attributes) {
-        super(map, drone_attributes);
+    public North2SouthUTurnWestDI(MapUpdater map) {
+        super(map);
         this.cycle.add(new Turner(map, Heading.WEST));
         this.cycle.add(new Turner(map, Heading.SOUTH));
         this.cycle.add(new Radar(map, Heading.SOUTH));
@@ -32,7 +32,7 @@ public class North2SouthUTurnWestDI extends State {
 
     @Override
     public void update(JSONObject response) {
-        next = ((Objects.equals(parser.echoGround(response), "OUT_OF_RANGE")) ? new Stop(map, drone_attributes) : new FlySouthWestDI(map, drone_attributes));
+        next = ((Objects.equals(parser.echoGround(response), "OUT_OF_RANGE")) ? new Stop(map) : new FlySouthWestDI(map));
         if (step_count == 3) {
             go_next = true;
         }

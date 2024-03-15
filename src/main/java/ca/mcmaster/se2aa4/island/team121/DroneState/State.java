@@ -23,7 +23,7 @@ public abstract class State {
     private final Logger logger = LogManager.getLogger();
     protected Module module;
 
-    public State(MapUpdater map, AttributeRecord drone_attributes) {
+    public State(MapUpdater map) {
         this.map = map;
         this.drone_attributes = drone_attributes;
     }

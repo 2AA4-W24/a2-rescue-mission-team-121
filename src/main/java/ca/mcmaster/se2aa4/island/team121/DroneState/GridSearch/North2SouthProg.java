@@ -14,8 +14,8 @@ public class North2SouthProg extends State {
 
     private State next;
 
-    public North2SouthProg(MapUpdater map, AttributeRecord drone_attributes) {
-        super(map, drone_attributes);
+    public North2SouthProg(MapUpdater map) {
+        super(map);
         this.cycle.add(new Turner(map, Heading.WEST));
         this.cycle.add(new Turner(map, Heading.NORTH));
         this.cycle.add(new Turner(map, Heading.EAST));
@@ -35,9 +35,9 @@ public class North2SouthProg extends State {
     @Override
     public void update(JSONObject response) {
         if(parser.echoGround(response).equals("OUT_OF_RANGE")){
-            next = new Stop(map, drone_attributes);
+            next = new Stop(map);
         } else {
-            next = new FlySouth(map, drone_attributes);
+            next = new FlySouth(map);
         }
         if (step_count == 8) go_next = true;
     }

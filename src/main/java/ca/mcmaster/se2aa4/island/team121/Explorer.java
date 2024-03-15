@@ -19,7 +19,7 @@ public class Explorer implements IExplorerRaid {
     private final Logger logger = LogManager.getLogger();
     private AttributeRecord drone_attributes = new AttributeRecord();
     private RelativeMap map = new RelativeMap(Heading.EAST);
-    private State curr_state = new GridSearchStartDI(map, drone_attributes);
+    private State curr_state = new GridSearchStartDI(map);
 
     @Override
     public void initialize(String s) {

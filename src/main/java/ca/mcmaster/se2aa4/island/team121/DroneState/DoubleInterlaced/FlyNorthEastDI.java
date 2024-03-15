@@ -17,8 +17,8 @@ import java.util.Objects;
 
 public class FlyNorthEastDI extends State {
     private final Logger logger = LogManager.getLogger();
-    public FlyNorthEastDI(MapUpdater map, AttributeRecord drone_attributes) {
-        super(map, drone_attributes);
+    public FlyNorthEastDI(MapUpdater map) {
+        super(map);
         this.cycle.add(new Flyer(map));
         this.cycle.add(new Scanner(map));
         this.cycle.add(new Radar(map, Heading.NORTH));
@@ -26,7 +26,7 @@ public class FlyNorthEastDI extends State {
 
     @Override
     public State getNext(){
-        return new North2SouthUTurnEastDI(map, drone_attributes);
+        return new North2SouthUTurnEastDI(map);
     }
 
     @Override

@@ -14,8 +14,8 @@ public class TurnBackNorthWest extends State {
     private State next;
     private final Logger logger = LogManager.getLogger();
 
-    public TurnBackNorthWest(MapUpdater map, AttributeRecord drone_attributes) {
-        super(map, drone_attributes);
+    public TurnBackNorthWest(MapUpdater map) {
+        super(map);
         this.cycle.add(new Turner(map, Heading.WEST));
         this.cycle.add(new Turner(map, Heading.SOUTH));
         this.cycle.add(new Turner(map, Heading.EAST));
@@ -30,7 +30,7 @@ public class TurnBackNorthWest extends State {
     // FIXME: Abstraction leak
     @Override
     public State getNext() {
-        return new FlyNorthWestDI(map, drone_attributes);
+        return new FlyNorthWestDI(map);
     }
 
     @Override

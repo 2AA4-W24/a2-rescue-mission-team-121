@@ -14,15 +14,15 @@ public class GridSearchStartDI extends State {
 
     private final Logger logger = LogManager.getLogger();
 
-    public GridSearchStartDI(MapUpdater map, AttributeRecord drone_attributes) {
-        super(map, drone_attributes);
+    public GridSearchStartDI(MapUpdater map) {
+        super(map);
         this.cycle.add(new Radar(map, Heading.SOUTH));
         this.cycle.add(new Flyer(map));
     }
 
     @Override
     public State getNext() {
-        return new TurnSouthAfterStartDI(map, drone_attributes);
+        return new TurnSouthAfterStartDI(map);
     }
 
     @Override

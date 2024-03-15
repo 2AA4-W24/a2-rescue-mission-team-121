@@ -13,8 +13,8 @@ import java.util.Objects;
 public class North2SouthEast extends State {
     private State next;
 
-    public North2SouthEast(MapUpdater map, AttributeRecord drone_attributes) {
-        super(map, drone_attributes);
+    public North2SouthEast(MapUpdater map) {
+        super(map);
         this.cycle.add(new Turner(map, Heading.EAST));
         this.cycle.add(new Turner(map, Heading.SOUTH));
         this.cycle.add(new Radar(map, Heading.SOUTH));
@@ -29,7 +29,7 @@ public class North2SouthEast extends State {
     @Override
     public void update(JSONObject response) {
         //Sets next state to Stop if the echo is out of range otherwise sets next state to FlySouth
-        next = ((Objects.equals(parser.echoGround(response), "OUT_OF_RANGE")) ? new Stop(map, drone_attributes) : new FlySouth(map, drone_attributes));
+        next = ((Objects.equals(parser.echoGround(response), "OUT_OF_RANGE")) ? new Stop(map) : new FlySouth(map));
         if (step_count == 3) go_next = true;
     }
 }

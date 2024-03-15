@@ -14,15 +14,15 @@ public class FlyStraight extends State {
     private int flight_length;
     private final Logger logger = LogManager.getLogger();
 
-    public FlyStraight(MapUpdater map, AttributeRecord drone_attributes, int dist) {
-        super(map, drone_attributes);
+    public FlyStraight(MapUpdater map, int dist) {
+        super(map);
         this.cycle.add(new Flyer(map));
         flight_length = dist;
     }
 
     @Override
     public State getNext(){
-        return new FlySouth(map, drone_attributes);
+        return new FlySouth(map);
     }
 
     @Override

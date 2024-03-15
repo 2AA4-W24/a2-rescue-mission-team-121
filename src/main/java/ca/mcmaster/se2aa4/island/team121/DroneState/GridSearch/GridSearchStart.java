@@ -16,8 +16,8 @@ public class GridSearchStart extends State {
 
     private final Logger logger = LogManager.getLogger();
 
-    public GridSearchStart(MapUpdater map, AttributeRecord drone_attributes) {
-        super(map, drone_attributes);
+    public GridSearchStart(MapUpdater map) {
+        super(map);
         this.cycle.add(new Scanner(map));
         this.cycle.add(new Radar(map, Heading.SOUTH));
         this.cycle.add(new Flyer(map));
@@ -25,7 +25,7 @@ public class GridSearchStart extends State {
 
     @Override
     public State getNext() {
-        return new TurnSouthAfterStart(map, drone_attributes);
+        return new TurnSouthAfterStart(map);
     }
 
     @Override
