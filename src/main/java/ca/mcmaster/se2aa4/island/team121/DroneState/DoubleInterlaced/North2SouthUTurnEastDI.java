@@ -1,18 +1,21 @@
-package ca.mcmaster.se2aa4.island.team121.DroneState.InterlacedScan;
+package ca.mcmaster.se2aa4.island.team121.DroneState.DoubleInterlaced;
 
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
-import ca.mcmaster.se2aa4.island.team121.DroneState.Stop;
 import ca.mcmaster.se2aa4.island.team121.Heading;
 import ca.mcmaster.se2aa4.island.team121.Modules.Radar;
-import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
 import ca.mcmaster.se2aa4.island.team121.Modules.Turner;
+import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
+
 import java.util.Objects;
 
-public class North2SouthEast extends State {
+public class North2SouthUTurnEastDI extends State {
     private State next;
+    private final Logger logger = LogManager.getLogger();
 
-    public North2SouthEast(MapUpdater map) {
+    public North2SouthUTurnEastDI(MapUpdater map) {
         super(map);
         this.cycle.add(new Turner(map, Heading.EAST));
         this.cycle.add(new Turner(map, Heading.SOUTH));
@@ -27,8 +30,10 @@ public class North2SouthEast extends State {
 
     @Override
     public void update(JSONObject response) {
-        //Sets next state to Stop if the echo is out of range otherwise sets next state to FlySouth
-        next = ((Objects.equals(parser.echoGround(response), "OUT_OF_RANGE")) ? new Stop(map) : new FlySouth(map));
-        if (step_count == 3) go_next = true;
+        next = ((Objects.equals(parser.echoGround(response), "OUT_OF_RANGE"))
+                    ? new TurnBackSouthWest(map) : new FlySouthEastDI(map));
+        if (step_count == 3) {
+            go_next = true;
+        }
     }
 }

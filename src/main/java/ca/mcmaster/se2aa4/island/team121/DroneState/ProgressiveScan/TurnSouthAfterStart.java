@@ -4,7 +4,6 @@ import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.Heading;
 import ca.mcmaster.se2aa4.island.team121.Modules.Radar;
 import ca.mcmaster.se2aa4.island.team121.Modules.Turner;
-import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,15 +15,15 @@ public class TurnSouthAfterStart extends State {
 
     private int dist;
 
-    public TurnSouthAfterStart(MapUpdater map, AttributeRecord drone_attributes) {
-        super(map, drone_attributes);
+    public TurnSouthAfterStart(MapUpdater map) {
+        super(map);
         this.cycle.add(new Turner(map, Heading.SOUTH));
         this.cycle.add(new Radar(map, Heading.SOUTH));
     }
 
     @Override
     public State getNext() {
-        return new FlyStraight(map, drone_attributes, dist);
+        return new FlyStraight(map, dist);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package ca.mcmaster.se2aa4.island.team121.DroneState.ProgressiveScan;
+package ca.mcmaster.se2aa4.island.team121.DroneState.DoubleInterlaced;
 
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.Modules.Flyer;
@@ -8,12 +8,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
-public class FlyStraight extends State {
+public class FlyStraightDI extends State {
 
     private int flight_length;
     private final Logger logger = LogManager.getLogger();
 
-    public FlyStraight(MapUpdater map, int dist) {
+    public FlyStraightDI(MapUpdater map, int dist) {
         super(map);
         this.cycle.add(new Flyer(map));
         flight_length = dist;
@@ -21,7 +21,7 @@ public class FlyStraight extends State {
 
     @Override
     public State getNext(){
-        return new FlySouth(map);
+        return new FlySouthEastDI(map);
     }
 
     @Override

@@ -2,9 +2,12 @@ package ca.mcmaster.se2aa4.island.team121.DroneState;
 
 import ca.mcmaster.se2aa4.island.team121.DroneState.JSONParser.JSONParser;
 import ca.mcmaster.se2aa4.island.team121.DroneState.JSONParser.DefaultJSONParser;
+import ca.mcmaster.se2aa4.island.team121.Heading;
 import ca.mcmaster.se2aa4.island.team121.Modules.Module;
 import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +19,11 @@ public abstract class State {
     protected JSONParser parser = new DefaultJSONParser();
     protected List<Module> cycle = new ArrayList<>();
     protected MapUpdater map;
-    protected AttributeRecord drone_attributes;
+    private final Logger logger = LogManager.getLogger();
     protected Module module;
 
-    public State(MapUpdater map, AttributeRecord drone_attributes) {
+    public State(MapUpdater map) {
         this.map = map;
-        this.drone_attributes = drone_attributes;
     }
 
     // FIXME: This is an abstraction leak
