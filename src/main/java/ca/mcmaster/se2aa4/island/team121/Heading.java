@@ -19,16 +19,16 @@ public enum Heading {
 
     public static Heading headingOf(String direction) {
         switch (direction) {
-            case "N" -> {
+            case "N","NORTH" -> {
                 return NORTH;
             }
-            case "S" -> {
+            case "S","SOUTH" -> {
                 return SOUTH;
             }
-            case "E" -> {
+            case "E","EAST" -> {
                 return EAST;
             }
-            case "W" -> {
+            case "W","WEST" -> {
                 return WEST;
             }
             default -> throw new IllegalArgumentException("Invalid direction: " + direction);

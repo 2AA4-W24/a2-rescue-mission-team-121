@@ -27,10 +27,7 @@ public class FlyStraight extends State {
 
     @Override
     public void update(JSONObject response){
-        TileRecord tile = new TileRecord(parser.getScan(response),parser.getId(response));
-        map.updateScan(tile);
-
-        if (step_count == flight_length-1) {
+        if (step_count == flight_length+1) {
             go_next = true;
             logger.info("beach found complete");
         }

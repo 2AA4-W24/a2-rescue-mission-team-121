@@ -5,7 +5,6 @@ import java.io.StringReader;
 import ca.mcmaster.se2aa4.island.team121.DroneState.DoubleInterlaced.GridSearchStartDI;
 import ca.mcmaster.se2aa4.island.team121.DroneState.GridSearch.GridSearchStart;
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
-import ca.mcmaster.se2aa4.island.team121.Modules.*;
 import ca.mcmaster.se2aa4.island.team121.Records.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,9 +17,9 @@ public class Explorer implements IExplorerRaid {
 
     private final Logger logger = LogManager.getLogger();
     private AttributeRecord drone_attributes = new AttributeRecord();
-    private RelativeMap map = new RelativeMap(Heading.EAST);
-    private State curr_state = new GridSearchStartDI(map);
-
+    private RelativeMap map;
+    private State curr_state;
+    private Heading start_heading;
     @Override
     public void initialize(String s) {
         logger.info("** Initializing the Exploration Command Center");
@@ -34,6 +33,11 @@ public class Explorer implements IExplorerRaid {
         // initialize records with info
         drone_attributes.updateAttributes(batteryLevel, -1, -1);
         map = new RelativeMap(Heading.headingOf(direction));
+        start_heading = Heading.headingOf(direction);
+        if (start_heading == Heading.WEST) {
+            curr_state = new GridSearchStartWest(map);
+        } else if (start_heading == Heading.EAST) {
+            curr_state = new GridSearchStartEast(map);
     }
 
     @Override

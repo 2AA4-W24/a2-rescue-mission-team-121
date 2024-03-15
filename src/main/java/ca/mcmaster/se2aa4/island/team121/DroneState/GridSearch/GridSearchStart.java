@@ -14,31 +14,33 @@ import org.json.JSONObject;
 
 public class GridSearchStart extends State {
 
+    private State next;
     private final Logger logger = LogManager.getLogger();
+
 
     public GridSearchStart(MapUpdater map) {
         super(map);
         this.cycle.add(new Scanner(map));
-        this.cycle.add(new Radar(map, Heading.SOUTH));
+        this.cycle.add(new Radar(map, Heading.NORTH)); //0
+        this.cycle.add(new Radar(map, Heading.SOUTH)); //1
         this.cycle.add(new Flyer(map));
     }
 
     @Override
     public State getNext() {
-        return new TurnSouthAfterStart(map);
+        return next;
     }
 
     @Override
     public void update(JSONObject response) {
+        logger.info(step_count);
         // Check if we found ground from Radar
-        if(parser.echoGround(response).equals("GROUND")) {
-            go_next = true;
-        }
-        // Update map from Scanner
-        TileRecord tile = new TileRecord(parser.getScan(response),parser.getId(response));
-        map.updateScan(tile);
-        if (module.getClass().getSimpleName().equals("Flyer")) {
-            map.updateFly();
+        if (parser.echoGround(response).equals("GROUND") && step_count % 4 == 2) {
+            next = new TurnNorthAfterStart(map);
+            go_next= true;
+        } else if (parser.echoGround(response).equals("GROUND") && step_count % 4 == 3) {
+            next = new TurnSouthAfterStart(map);
+            go_next= true;
         }
     }
 }

@@ -16,6 +16,8 @@ import org.apache.logging.log4j.Logger;
 
 
 public class FlyNorth extends State {
+
+
     public FlyNorth(MapUpdater map) {
         super(map);
         this.cycle.add(new Flyer(map));
