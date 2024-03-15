@@ -10,7 +10,6 @@ import java.util.Collections;
 
 import java.util.HashMap;
 import java.util.Map;
-
 public class RelativeMap implements MapUpdater {
     private ArrayList<String> creek_ids = new ArrayList<String>();
     private final Logger logger = LogManager.getLogger();
