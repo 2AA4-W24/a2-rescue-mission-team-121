@@ -20,8 +20,8 @@ public class FlyNorthEastDI extends State {
 
     public FlyNorthEastDI(MapUpdater map) {
         super(map);
-        this.cycle.add(new Flyer(map));
         this.cycle.add(new Scanner(map));
+        this.cycle.add(new Flyer(map));
         this.cycle.add(new Radar(map, Heading.NORTH));
     }
 

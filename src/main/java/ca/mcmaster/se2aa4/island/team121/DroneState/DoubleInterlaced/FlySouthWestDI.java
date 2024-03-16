@@ -18,8 +18,8 @@ public class FlySouthWestDI extends State {
     private final Logger logger = LogManager.getLogger();
     public FlySouthWestDI(MapUpdater map) {
         super(map);
-        this.cycle.add(new Flyer(map));
         this.cycle.add(new Scanner(map));
+        this.cycle.add(new Flyer(map));
         this.cycle.add(new Radar(map, Heading.SOUTH));
     }
 

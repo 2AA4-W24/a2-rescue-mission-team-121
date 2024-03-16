@@ -19,8 +19,8 @@ public class FlySouthEastDI extends State {
 
     public FlySouthEastDI(MapUpdater map) {
         super(map);
-        this.cycle.add(new Flyer(map));
         this.cycle.add(new Scanner(map));
+        this.cycle.add(new Flyer(map));
         this.cycle.add(new Radar(map, Heading.SOUTH));
     }
 
