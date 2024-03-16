@@ -3,7 +3,6 @@ package ca.mcmaster.se2aa4.island.team121;
 import java.io.StringReader;
 
 import ca.mcmaster.se2aa4.island.team121.DroneState.DoubleInterlaced.GridSearchStartDI;
-import ca.mcmaster.se2aa4.island.team121.DroneState.GridSearch.GridSearchStart;
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.Records.*;
 import org.apache.logging.log4j.LogManager;
@@ -19,7 +18,9 @@ public class Explorer implements IExplorerRaid {
     private AttributeRecord drone_attributes = new AttributeRecord();
     private RelativeMap map;
     private State curr_state;
-    private Heading start_heading;
+    public static Heading start_heading;
+
+
     @Override
     public void initialize(String s) {
         logger.info("** Initializing the Exploration Command Center");
@@ -34,10 +35,7 @@ public class Explorer implements IExplorerRaid {
         drone_attributes.updateAttributes(batteryLevel, -1, -1);
         map = new RelativeMap(Heading.headingOf(direction));
         start_heading = Heading.headingOf(direction);
-        if (start_heading == Heading.WEST) {
-            curr_state = new GridSearchStartWest(map);
-        } else if (start_heading == Heading.EAST) {
-            curr_state = new GridSearchStartEast(map);
+        curr_state = new GridSearchStartDI(map, start_heading);
     }
 
     @Override
@@ -70,4 +68,6 @@ public class Explorer implements IExplorerRaid {
     public String deliverFinalReport() {
         return "no creek found";
     }
+
+
 }

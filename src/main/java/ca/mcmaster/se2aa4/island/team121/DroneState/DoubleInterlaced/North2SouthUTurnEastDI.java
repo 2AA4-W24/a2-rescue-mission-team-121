@@ -32,8 +32,20 @@ public class North2SouthUTurnEastDI extends State {
 
     @Override
     public void update(JSONObject response) {
-        next = ((Objects.equals(parser.echoGround(response), "OUT_OF_RANGE"))
-                    ? new TurnBackSouthWest(map) : new FlySouthEastDI(map));
+        if (init_scan_heading == Heading.EAST) {
+            if (Objects.equals(parser.echoGround(response), "OUT_OF_RANGE"))
+                next = new TurnBackSouthWest(map);
+            else {
+                next = new FlySouthEastDI(map);
+            }
+        }
+        else if (init_scan_heading == Heading.WEST){
+            if (Objects.equals(parser.echoGround(response), "OUT_OF_RANGE"))
+                next = new Stop(map);
+            else {
+                next = new FlySouthEastDI(map);
+            }
+        }
         if (step_count == 3) {
             go_next = true;
         }

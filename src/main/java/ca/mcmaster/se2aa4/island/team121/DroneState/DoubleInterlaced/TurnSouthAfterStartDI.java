@@ -2,8 +2,7 @@ package ca.mcmaster.se2aa4.island.team121.DroneState.DoubleInterlaced;
 
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.Heading;
-import ca.mcmaster.se2aa4.island.team121.Modules.Radar;
-import ca.mcmaster.se2aa4.island.team121.Modules.Turner;
+import ca.mcmaster.se2aa4.island.team121.Modules.*;
 import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
 import org.apache.logging.log4j.LogManager;
@@ -14,7 +13,7 @@ public class TurnSouthAfterStartDI extends State {
 
     private final Logger logger = LogManager.getLogger();
 
-    private int dist;
+    private int dist = 0;
 
     public TurnSouthAfterStartDI(MapUpdater map) {
         super(map);
@@ -24,14 +23,16 @@ public class TurnSouthAfterStartDI extends State {
 
     @Override
     public State getNext() {
-        return new FlyStraightDI(map, dist);
+        return new FlyStraightDI(map, dist, Heading.SOUTH);
     }
 
     @Override
     public void update(JSONObject response) {
-        dist = parser.echoDistance(response);
-        if (step_count == 2) {
-            go_next = true;
+        if (parser.echoGround(response).equals("GROUND")) {
+            dist = parser.echoDistance(response);
+            logger.info(dist);
         }
+        if (step_count == 2)
+            go_next = true;
     }
 }

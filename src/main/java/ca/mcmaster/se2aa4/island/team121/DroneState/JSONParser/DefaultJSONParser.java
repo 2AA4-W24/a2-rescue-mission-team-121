@@ -40,7 +40,6 @@ public class DefaultJSONParser implements JSONParser{
             JSONObject extras = response.getJSONObject("extras");
             if (extras.has("found")) {
                 found = extras.getString("found");
-
             }
         }
         return found;
