@@ -12,7 +12,7 @@ public class TurnSouthAfterStart extends State {
 
     private final Logger logger = LogManager.getLogger();
 
-    private int dist;
+    private int dist = 0;
 
     public TurnSouthAfterStart(MapUpdater map) {
         super(map);
@@ -27,7 +27,9 @@ public class TurnSouthAfterStart extends State {
 
     @Override
     public void update(JSONObject response) {
-        dist = parser.echoDistance(response);
+        if (parser.echoGround(response) == "GROUND") {
+            dist = parser.echoDistance(response);
+        }
         if (step_count == 2)
             go_next = true;
     }

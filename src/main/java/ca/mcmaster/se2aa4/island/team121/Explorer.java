@@ -7,10 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import ca.mcmaster.se2aa4.island.team121.DroneState.DoubleInterlaced.GridSearchStartDI;
-import ca.mcmaster.se2aa4.island.team121.DroneState.InterlacedScan.InterlacedStart;
-import ca.mcmaster.se2aa4.island.team121.DroneState.ProgressiveScan.ProgressiveStart;
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
-import ca.mcmaster.se2aa4.island.team121.Modules.*;
+import ca.mcmaster.se2aa4.island.team121.Modules.Stopper;
 import ca.mcmaster.se2aa4.island.team121.Records.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,8 +21,10 @@ public class Explorer implements IExplorerRaid {
 
     private final Logger logger = LogManager.getLogger();
     private AttributeRecord drone_attributes = new AttributeRecord();
-    private RelativeMap map = new RelativeMap(Heading.EAST);
-    private State curr_state = new GridSearchStartDI(map);
+    private RelativeMap map;
+    private State curr_state;
+    public static Heading start_heading;
+
 
     @Override
     public void initialize(String s) {
@@ -38,6 +38,9 @@ public class Explorer implements IExplorerRaid {
 
         // initialize records with info
         drone_attributes.updateAttributes(batteryLevel, -1, -1);
+        map = new RelativeMap(Heading.headingOf(direction));
+        start_heading = Heading.headingOf(direction);
+        curr_state = new GridSearchStartDI(map, start_heading);
     }
 
     @Override

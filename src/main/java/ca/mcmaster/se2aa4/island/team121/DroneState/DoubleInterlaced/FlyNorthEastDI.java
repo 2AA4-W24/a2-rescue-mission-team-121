@@ -15,10 +15,11 @@ import java.util.Objects;
 
 public class FlyNorthEastDI extends State {
     private final Logger logger = LogManager.getLogger();
+
     public FlyNorthEastDI(MapUpdater map) {
         super(map);
-        this.cycle.add(new Flyer(map));
         this.cycle.add(new Scanner(map));
+        this.cycle.add(new Flyer(map));
         this.cycle.add(new Radar(map, Heading.NORTH));
     }
 
@@ -31,7 +32,7 @@ public class FlyNorthEastDI extends State {
     public void update(JSONObject response){
 
         TileRecord tile = new TileRecord(parser.getScan(response),parser.getId(response));
-
+        logger.info("***********fly north east");
         map.updateScan(tile);
         go_next= Objects.equals(parser.echoGround(response), "OUT_OF_RANGE");
     }

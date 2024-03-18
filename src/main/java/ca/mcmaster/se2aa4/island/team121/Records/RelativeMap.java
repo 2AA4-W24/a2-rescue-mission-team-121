@@ -6,7 +6,9 @@ import ca.mcmaster.se2aa4.island.team121.TileType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RelativeMap implements MapUpdater, MapInspector {
 

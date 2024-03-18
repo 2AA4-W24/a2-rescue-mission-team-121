@@ -3,7 +3,9 @@ package ca.mcmaster.se2aa4.island.team121.DroneState.DoubleInterlaced;
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.DroneState.Stop;
 import ca.mcmaster.se2aa4.island.team121.Heading;
+import ca.mcmaster.se2aa4.island.team121.Modules.Flyer;
 import ca.mcmaster.se2aa4.island.team121.Modules.Radar;
+import ca.mcmaster.se2aa4.island.team121.Modules.Scanner;
 import ca.mcmaster.se2aa4.island.team121.Modules.Turner;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
 import org.apache.logging.log4j.LogManager;
@@ -31,7 +33,21 @@ public class North2SouthUTurnWestDI extends State {
 
     @Override
     public void update(JSONObject response) {
-        next = ((Objects.equals(parser.echoGround(response), "OUT_OF_RANGE")) ? new Stop(map) : new FlySouthWestDI(map));
+        if (init_scan_heading == Heading.EAST) {
+            if (Objects.equals(parser.echoGround(response), "OUT_OF_RANGE"))
+                next = new Stop(map);
+            else {
+                next = new FlySouthWestDI(map);
+            }
+        }
+        else if (init_scan_heading == Heading.WEST){
+            if (Objects.equals(parser.echoGround(response), "OUT_OF_RANGE"))
+                next = new TurnBackSouthEast(map);
+            else {
+                next = new FlySouthWestDI(map);
+            }
+        }
+
         if (step_count == 3) {
             go_next = true;
         }
