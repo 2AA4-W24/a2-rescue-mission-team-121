@@ -16,9 +16,8 @@ public class GridSearchStartDI extends State {
 
     public GridSearchStartDI(MapUpdater map, Heading scan_dir) {
         super(map);
-        init_scan_heading=scan_dir;
-        this.cycle.add(new Radar(map, Heading.NORTH)); //0
-        this.cycle.add(new Radar(map, Heading.SOUTH)); //1
+        this.cycle.add(new Radar(map, Heading.NORTH)); //1
+        this.cycle.add(new Radar(map, Heading.SOUTH)); //2
         this.cycle.add(new Flyer(map));
     }
 
@@ -30,12 +29,11 @@ public class GridSearchStartDI extends State {
     @Override
     public void update(JSONObject response) {
         // Check if we found ground from Radar
-        logger.info(init_scan_heading.toString());
         if (parser.echoGround(response).equals("GROUND") && step_count % 3 == 1) {
-            next = new TurnNorthAfterStartDI(map);
+            next = new TurnAfterStartDI(map, Heading.NORTH);
             go_next= true;
         } else if (parser.echoGround(response).equals("GROUND") && step_count % 3 == 2) {
-            next = new TurnSouthAfterStartDI(map);
+            next = new TurnAfterStartDI(map, Heading.SOUTH);
             go_next= true;
         }
     }

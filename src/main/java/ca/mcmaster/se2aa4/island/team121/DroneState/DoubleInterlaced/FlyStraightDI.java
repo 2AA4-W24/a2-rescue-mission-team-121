@@ -1,6 +1,7 @@
 package ca.mcmaster.se2aa4.island.team121.DroneState.DoubleInterlaced;
 
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
+import ca.mcmaster.se2aa4.island.team121.Explorer;
 import ca.mcmaster.se2aa4.island.team121.Heading;
 import ca.mcmaster.se2aa4.island.team121.Modules.Flyer;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
@@ -33,10 +34,10 @@ public class FlyStraightDI extends State {
         TileRecord tile = new TileRecord(parser.getScan(response),parser.getId(response));
         map.updateScan(tile);
         logger.info(heading.toString() + " " + step_count + " " + flight_length);
-        logger.info(heading.toString() + " " + init_scan_heading.toString());
+        logger.info(heading.toString() + " " + Explorer.start_heading.toString());
         if (step_count == flight_length+1) {
             if (heading == Heading.NORTH) {
-                if (init_scan_heading == Heading.EAST) {
+                if (Explorer.start_heading == Heading.EAST) {
                     next = new FlyNorthEastDI(map);
                 }
                 else{
@@ -44,7 +45,7 @@ public class FlyStraightDI extends State {
                 }
             }
             else if (heading == Heading.SOUTH){
-                if (init_scan_heading==Heading.EAST){
+                if (Explorer.start_heading==Heading.EAST){
                     next = new FlySouthEastDI(map);
                 }
                 else {

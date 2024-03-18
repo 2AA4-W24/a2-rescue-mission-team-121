@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import ca.mcmaster.se2aa4.island.team121.DroneState.DoubleInterlaced.GridSearchStartDI;
+import ca.mcmaster.se2aa4.island.team121.DroneState.DoubleInterlaced.NorthSouthCheckDI;
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.Modules.Stopper;
 import ca.mcmaster.se2aa4.island.team121.Records.*;
@@ -40,7 +41,13 @@ public class Explorer implements IExplorerRaid {
         drone_attributes.updateAttributes(batteryLevel, -1, -1);
         map = new RelativeMap(Heading.headingOf(direction));
         start_heading = Heading.headingOf(direction);
-        curr_state = new GridSearchStartDI(map, start_heading);
+        if (start_heading == Heading.EAST || start_heading == Heading.WEST) {
+            curr_state = new GridSearchStartDI(map, start_heading);
+        }
+        else {
+            curr_state = new NorthSouthCheckDI(map);
+        }
+
     }
 
     @Override

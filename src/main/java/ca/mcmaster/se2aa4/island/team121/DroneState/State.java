@@ -21,7 +21,6 @@ public abstract class State {
     protected MapUpdater map;
     private final Logger logger = LogManager.getLogger();
     protected Module module;
-    protected Heading init_scan_heading = Explorer.start_heading;
 
     public State(MapUpdater map) {
         this.map = map;
