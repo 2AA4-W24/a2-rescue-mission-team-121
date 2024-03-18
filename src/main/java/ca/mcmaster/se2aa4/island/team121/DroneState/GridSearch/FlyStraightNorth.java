@@ -29,7 +29,6 @@ public class FlyStraightNorth extends State {
     public void update(JSONObject response){
         if (step_count == flight_length+1) {
             go_next = true;
-            logger.info("beach found complete");
         }
     }
 }

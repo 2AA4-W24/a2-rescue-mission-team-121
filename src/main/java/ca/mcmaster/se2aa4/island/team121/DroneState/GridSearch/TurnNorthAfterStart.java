@@ -12,7 +12,6 @@ import org.json.JSONObject;
 public class TurnNorthAfterStart extends State {
 
     private final Logger logger = LogManager.getLogger();
-
     private int dist = 0;
 
     public TurnNorthAfterStart(MapUpdater map) {
@@ -28,7 +27,7 @@ public class TurnNorthAfterStart extends State {
 
     @Override
     public void update(JSONObject response) {
-        if (parser.echoGround(response) == "GROUND") {
+        if (parser.echoGround(response).equals("GROUND")) {
             dist = parser.echoDistance(response);
         }
         if (step_count == 2)

@@ -29,7 +29,7 @@ public class FlyNorth extends State {
     @Override
     public void update(JSONObject response){
         TileRecord tile = new TileRecord(parser.getScan(response),parser.getId(response));
-        if (module.getClass().getSimpleName().equals("Scanner")) {
+        if (module.getClass().getSimpleName().equals("Scanner")) { // Only update the map if the module is a scanner
             map.updateScan(tile);
         }
 
