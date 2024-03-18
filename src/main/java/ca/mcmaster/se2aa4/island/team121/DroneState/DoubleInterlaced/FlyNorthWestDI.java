@@ -30,10 +30,9 @@ public class FlyNorthWestDI extends State {
 
     @Override
     public void update(JSONObject response){
-
         TileRecord tile = new TileRecord(parser.getScan(response),parser.getId(response));
         map.updateScan(tile);
-        logger.info("*******fly north west");
+//        logger.info("*******fly north west");
         go_next= Objects.equals(parser.echoGround(response), "OUT_OF_RANGE");
     }
 }

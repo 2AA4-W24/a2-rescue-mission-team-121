@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 public class TurnBackNorthWest extends State {
+
     private State next;
     private final Logger logger = LogManager.getLogger();
 

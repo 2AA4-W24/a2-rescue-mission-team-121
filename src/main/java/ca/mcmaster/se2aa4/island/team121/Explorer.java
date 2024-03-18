@@ -70,18 +70,22 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public String deliverFinalReport() {
+        map.displayMap();
+
         Map<TileRecord, Double> creek_distances = map.getCreekSiteDistances();
-        List<Double> creek_distances_list = new ArrayList<>(creek_distances.values());
-        Collections.sort(creek_distances_list);
+        List<Double> distances_list = new ArrayList<>(creek_distances.values());
+        Collections.sort(distances_list);
+        for (Map.Entry<TileRecord, Double> entry : creek_distances.entrySet()) {
+            logger.info("Creek: {} Distance: {}", entry.getKey().id().get(0), entry.getValue());
+        }
 
         if (!creek_distances.isEmpty()) {
-            Double closest_distance = creek_distances_list.get(0);
+            Double closest_distance = distances_list.get(0);
             for (Map.Entry<TileRecord, Double> entry : creek_distances.entrySet()) {
                 if (entry.getValue().equals(closest_distance)) {
-                    TileRecord creek = entry.getKey();
-                    logger.info(creek);
-                    logger.info(creek.id().get(0));
-                    return creek.id().get(0);
+                    TileRecord closest_creek = entry.getKey();
+                    logger.info("Closest Creek: {}", closest_creek.id().get(0));
+                    return closest_creek.id().get(0);
                 }
             }
         }

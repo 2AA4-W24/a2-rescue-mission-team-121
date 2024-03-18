@@ -13,7 +13,6 @@ public class FlyStraightDI extends State {
 
     private int flight_length;
     private final Logger logger = LogManager.getLogger();
-
     private Heading heading;
     private State next;
 

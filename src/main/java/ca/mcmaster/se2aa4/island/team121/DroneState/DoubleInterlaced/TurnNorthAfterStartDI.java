@@ -12,9 +12,7 @@ import org.json.JSONObject;
 public class TurnNorthAfterStartDI extends State {
 
     private final Logger logger = LogManager.getLogger();
-
     private int dist = 0;
-
 
     public TurnNorthAfterStartDI(MapUpdater map) {
         super(map);

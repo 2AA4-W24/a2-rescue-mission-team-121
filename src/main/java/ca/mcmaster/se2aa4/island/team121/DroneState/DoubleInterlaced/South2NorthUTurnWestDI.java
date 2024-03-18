@@ -21,7 +21,6 @@ public class South2NorthUTurnWestDI extends State{
         super(map);
         this.cycle.add(new Turner(map, Heading.WEST));
         this.cycle.add(new Turner(map, Heading.NORTH));
-        this.cycle.add(new Scanner(map));
         this.cycle.add(new Radar(map, Heading.NORTH));
 
     }

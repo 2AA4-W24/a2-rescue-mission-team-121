@@ -30,9 +30,10 @@ public class FlyNorthEastDI extends State {
 
     @Override
     public void update(JSONObject response){
-
         TileRecord tile = new TileRecord(parser.getScan(response),parser.getId(response));
-        logger.info("***********fly north east");
+//        logger.info("***********fly north east");
+        // TODO: Should check if the current Module is a Scanner, but okay in this situation because it doesn't
+        // stay in the same spot after the scan
         map.updateScan(tile);
         go_next= Objects.equals(parser.echoGround(response), "OUT_OF_RANGE");
     }

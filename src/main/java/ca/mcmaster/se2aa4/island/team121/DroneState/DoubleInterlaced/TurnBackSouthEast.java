@@ -38,7 +38,6 @@ public class TurnBackSouthEast extends State {
 
     @Override
     public void update(JSONObject response) {
-
         if (step_count == 9) {
             go_next = true;
         }
