@@ -41,7 +41,6 @@
 //    }
 //
 //    @Test
-//    void testGetCurrentPos() {
 //        assertEquals(new Point(0, 0), relativeMap.getCurrentPos());
 //    }
 //
