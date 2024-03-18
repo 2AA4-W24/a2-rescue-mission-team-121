@@ -3,65 +3,36 @@ package ca.mcmaster.se2aa4.island.team121.DroneState.GridSearch;
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.Heading;
 import ca.mcmaster.se2aa4.island.team121.Modules.Flyer;
-import ca.mcmaster.se2aa4.island.team121.Modules.Module;
-import ca.mcmaster.se2aa4.island.team121.Modules.Scanner;
 import ca.mcmaster.se2aa4.island.team121.Modules.Radar;
-import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
+import ca.mcmaster.se2aa4.island.team121.Modules.Scanner;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
-import ca.mcmaster.se2aa4.island.team121.TileType;
-import org.json.JSONArray;
+import ca.mcmaster.se2aa4.island.team121.TileRecord;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
+
 
 public class FlyNorth extends State {
-    private List<Module> cycle = new ArrayList<>();
-    private Module module;
 
-
-    public FlyNorth(MapUpdater map, AttributeRecord drone_attributes) {
-        super(map, drone_attributes);
-        this.cycle.add(new Flyer());
-        this.cycle.add(new Scanner());
-        this.cycle.add(new Radar(Heading.NORTH));
+    public FlyNorth(MapUpdater map) {
+        super(map);
+        this.cycle.add(new Flyer(map));
+        this.cycle.add(new Scanner(map));
+        this.cycle.add(new Radar(map, Heading.NORTH));
     }
 
     @Override
     public State getNext(){
-        return new North2SouthEast(map, drone_attributes);
-    }
-
-    @Override
-    public JSONObject execute() {
-        module = cycle.get(step_count % cycle.size());
-        step_count++;
-        return module.getJSON();
+        return new North2SouthProg(map);
     }
 
     @Override
     public void update(JSONObject response){
-        if (response.has("extras")) {
-            JSONObject extras = response.getJSONObject("extras");
-            if (extras.has("found")) {
-                String found = extras.getString("found");
-                if ("OUT_OF_RANGE".equals(found)) {
-                    go_next = true;
-                }
-            }
+        TileRecord tile = new TileRecord(parser.getScan(response),parser.getId(response));
+        if (module.getClass().getSimpleName().equals("Scanner")) { // Only update the map if the module is a scanner
+            map.updateScan(tile);
         }
 
-        // Update map from Scanner
-        if (response.has("extras")) {
-            JSONObject extras = response.getJSONObject("extras");
-            if(extras.has("biomes")){
-                JSONArray biomes = extras.getJSONArray("biomes");
-                map.updateScan(TileType.TileTypeOf(biomes.getString(0)));
-            }
-        }
-
-        if (module.getClass().getSimpleName().equals("Flyer")) {
-            map.updateFly();
-        }
+        go_next= Objects.equals(parser.echoGround(response), "OUT_OF_RANGE");
     }
 }

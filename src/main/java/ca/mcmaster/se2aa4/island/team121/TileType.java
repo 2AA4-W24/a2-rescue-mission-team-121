@@ -1,13 +1,15 @@
 package ca.mcmaster.se2aa4.island.team121;
 
+import ca.mcmaster.se2aa4.island.team121.DroneState.JSONParser.DefaultJSONParser;
+import org.json.JSONObject;
+
 public enum TileType {
-    GROUND, OCEAN, SITE, CREEK, UNKNOWN;
+    SITE, CREEK, UNKNOWN;
+
+    private DefaultJSONParser parser;
 
     public static TileType TileTypeOf(String type) {
         switch (type) {
-            case "OCEAN" -> {
-                return OCEAN;
-            }
             case "SITE" -> {
                 return SITE;
             }
@@ -15,8 +17,11 @@ public enum TileType {
                 return CREEK;
             }
             default -> {
-                return GROUND;
+                return UNKNOWN;
             }
         }
     }
+
+
+
 }
