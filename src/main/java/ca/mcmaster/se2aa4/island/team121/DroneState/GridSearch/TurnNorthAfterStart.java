@@ -1,4 +1,4 @@
-package ca.mcmaster.se2aa4.island.team121.DroneState.ProgressiveScan;
+package ca.mcmaster.se2aa4.island.team121.DroneState.GridSearch;
 
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.Heading;
@@ -9,26 +9,27 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
-public class TurnSouthAfterStart extends State {
+public class TurnNorthAfterStart extends State {
 
     private final Logger logger = LogManager.getLogger();
+    private int dist = 0;
 
-    private int dist;
-
-    public TurnSouthAfterStart(MapUpdater map) {
+    public TurnNorthAfterStart(MapUpdater map) {
         super(map);
-        this.cycle.add(new Turner(map, Heading.SOUTH));
-        this.cycle.add(new Radar(map, Heading.SOUTH));
+        this.cycle.add(new Turner(map, Heading.NORTH));
+        this.cycle.add(new Radar(map, Heading.NORTH));
     }
 
     @Override
     public State getNext() {
-        return new FlyStraight(map, dist);
+        return new FlyStraightNorth(map, dist);
     }
 
     @Override
     public void update(JSONObject response) {
-        dist = parser.echoDistance(response);
+        if (parser.echoGround(response).equals("GROUND")) {
+            dist = parser.echoDistance(response);
+        }
         if (step_count == 2)
             go_next = true;
     }

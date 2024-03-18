@@ -16,7 +16,7 @@ public class DefaultJSONParser implements JSONParser{
                 if(extras.has("creeks")){
                     JSONArray creeks = extras.getJSONArray("creeks");
                     if(!creeks.isEmpty()){
-                        logger.info("Creek found");
+//                        logger.info("Creek found");
                         return TileType.CREEK;
                     }
                 }
@@ -40,7 +40,6 @@ public class DefaultJSONParser implements JSONParser{
             JSONObject extras = response.getJSONObject("extras");
             if (extras.has("found")) {
                 found = extras.getString("found");
-
             }
         }
         return found;
@@ -92,6 +91,4 @@ public class DefaultJSONParser implements JSONParser{
         }
         return Ids;
     }
-
-
 }

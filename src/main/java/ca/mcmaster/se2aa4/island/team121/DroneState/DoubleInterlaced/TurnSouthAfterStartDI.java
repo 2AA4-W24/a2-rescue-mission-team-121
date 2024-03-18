@@ -12,8 +12,7 @@ import org.json.JSONObject;
 public class TurnSouthAfterStartDI extends State {
 
     private final Logger logger = LogManager.getLogger();
-
-    private int dist;
+    private int dist = 0;
 
     public TurnSouthAfterStartDI(MapUpdater map) {
         super(map);
@@ -23,14 +22,16 @@ public class TurnSouthAfterStartDI extends State {
 
     @Override
     public State getNext() {
-        return new FlyStraightDI(map, dist);
+        return new FlyStraightDI(map, dist, Heading.SOUTH);
     }
 
     @Override
     public void update(JSONObject response) {
-        dist = parser.echoDistance(response);
-        if (step_count == 2) {
-            go_next = true;
+        if (parser.echoGround(response).equals("GROUND")) {
+            dist = parser.echoDistance(response);
+            logger.info(dist);
         }
+        if (step_count == 2)
+            go_next = true;
     }
 }

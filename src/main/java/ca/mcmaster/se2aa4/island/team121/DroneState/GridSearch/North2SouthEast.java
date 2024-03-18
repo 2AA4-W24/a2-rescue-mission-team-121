@@ -1,4 +1,4 @@
-package ca.mcmaster.se2aa4.island.team121.DroneState.InterlacedScan;
+package ca.mcmaster.se2aa4.island.team121.DroneState.GridSearch;
 
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.DroneState.Stop;
@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import java.util.Objects;
 
 public class North2SouthEast extends State {
+
     private State next;
 
     public North2SouthEast(MapUpdater map) {

@@ -2,9 +2,9 @@ package ca.mcmaster.se2aa4.island.team121.DroneState;
 
 import ca.mcmaster.se2aa4.island.team121.DroneState.JSONParser.JSONParser;
 import ca.mcmaster.se2aa4.island.team121.DroneState.JSONParser.DefaultJSONParser;
+import ca.mcmaster.se2aa4.island.team121.Explorer;
 import ca.mcmaster.se2aa4.island.team121.Heading;
 import ca.mcmaster.se2aa4.island.team121.Modules.Module;
-import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,6 +21,7 @@ public abstract class State {
     protected MapUpdater map;
     private final Logger logger = LogManager.getLogger();
     protected Module module;
+    protected Heading init_scan_heading = Explorer.start_heading;
 
     public State(MapUpdater map) {
         this.map = map;
