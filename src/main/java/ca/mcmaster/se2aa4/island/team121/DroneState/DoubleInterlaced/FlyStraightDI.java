@@ -34,7 +34,7 @@ public class FlyStraightDI extends State {
         map.updateScan(tile);
         logger.info(heading.toString() + " " + step_count + " " + flight_length);
         logger.info(heading.toString() + " " + init_scan_heading.toString());
-        if (step_count == flight_length) {
+        if (step_count == flight_length+1) {
             if (heading == Heading.NORTH) {
                 if (init_scan_heading == Heading.EAST) {
                     next = new FlyNorthEastDI(map);
