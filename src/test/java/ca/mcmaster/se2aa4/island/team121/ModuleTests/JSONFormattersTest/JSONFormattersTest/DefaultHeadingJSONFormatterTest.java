@@ -1,4 +1,5 @@
-package ca.mcmaster.se2aa4.island.team121;
+package ca.mcmaster.se2aa4.island.team121.ModuleTests.JSONFormattersTest.JSONFormattersTest;
+import ca.mcmaster.se2aa4.island.team121.Heading;
 import ca.mcmaster.se2aa4.island.team121.Modules.JSONFormatters.DefaultHeadingJSONFormatter;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;

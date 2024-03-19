@@ -1,7 +1,9 @@
-package ca.mcmaster.se2aa4.island.team121;
+package ca.mcmaster.se2aa4.island.team121.JSONParserTest;
 import ca.mcmaster.se2aa4.island.team121.DroneState.JSONParser.DefaultJSONParser;
+import ca.mcmaster.se2aa4.island.team121.TileType;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -72,7 +74,7 @@ public class DefaultJSONParserTest {
     @Test
     void testGetScan() {
         JSONObject empty = new JSONObject();
-        assertEquals(TileType.UNKNOWN, defaultJSONParser.getScan(empty));
+        Assertions.assertEquals(TileType.UNKNOWN, defaultJSONParser.getScan(empty));
         assertEquals(TileType.UNKNOWN, defaultJSONParser.getScan((responseUnknown)));
         assertEquals(TileType.CREEK, defaultJSONParser.getScan(responseCreek));
         assertEquals(TileType.SITE, defaultJSONParser.getScan(responseSite));
