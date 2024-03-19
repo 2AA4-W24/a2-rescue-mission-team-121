@@ -13,16 +13,17 @@ public class TurnAfterNorthSouthCheckDI extends State {
 
     private final Logger logger = LogManager.getLogger();
     private Heading heading;
-    public TurnAfterNorthSouthCheckDI(MapUpdater map, Heading heading) {
+
+    public TurnAfterNorthSouthCheckDI(MapUpdater map) {
         super(map);
-        this.heading=heading;
+        this.heading=map.getScanHeading();
         this.cycle.add(new Turner(map, heading));
         this.cycle.add(new Radar(map, heading));
     }
 
     @Override
     public State getNext() {
-        return new GridSearchStartDI(map, heading);
+        return new GridSearchStartDI(map);
     }
 
     @Override

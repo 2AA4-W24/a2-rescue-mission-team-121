@@ -33,11 +33,10 @@ public class FlyStraightDI extends State {
     public void update(JSONObject response){
         TileRecord tile = new TileRecord(parser.getScan(response),parser.getId(response));
         map.updateScan(tile);
-        logger.info(heading.toString() + " " + step_count + " " + flight_length);
-        logger.info(heading.toString() + " " + Explorer.start_heading.toString());
+
         if (step_count == flight_length+1) {
             if (heading == Heading.NORTH) {
-                if (Explorer.start_heading == Heading.EAST) {
+                if (map.getScanHeading() == Heading.EAST) {
                     next = new FlyNorthEastDI(map);
                 }
                 else{
@@ -45,7 +44,7 @@ public class FlyStraightDI extends State {
                 }
             }
             else if (heading == Heading.SOUTH){
-                if (Explorer.start_heading==Heading.EAST){
+                if (map.getScanHeading()==Heading.EAST){
                     next = new FlySouthEastDI(map);
                 }
                 else {

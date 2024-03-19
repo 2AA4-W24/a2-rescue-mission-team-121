@@ -14,7 +14,6 @@ public class NorthSouthCheckDI extends State {
 
     private State next;
     private final Logger logger = LogManager.getLogger();
-    private Heading next_heading;
 
     public NorthSouthCheckDI(MapUpdater map) {
         super(map);
@@ -32,12 +31,12 @@ public class NorthSouthCheckDI extends State {
     public void update(JSONObject response) {
         // Check if we found ground from Radar
         if (parser.echoGround(response).equals("GROUND") && step_count % 3 == 1) {
-            next = new TurnAfterNorthSouthCheckDI(map, Heading.EAST);
-            Explorer.start_heading = Heading.EAST;
+            map.updateScanHeading(Heading.EAST);
+            next = new TurnAfterNorthSouthCheckDI(map);
             go_next= true;
         } else if (parser.echoGround(response).equals("GROUND") && step_count % 3 == 2) {
-            next = new TurnAfterNorthSouthCheckDI(map, Heading.WEST);
-            Explorer.start_heading = Heading.WEST;
+            map.updateScanHeading(Heading.WEST);
+            next = new TurnAfterNorthSouthCheckDI(map);
             go_next= true;
         }
     }

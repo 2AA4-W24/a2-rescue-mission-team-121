@@ -17,6 +17,8 @@ public class RelativeMap implements MapUpdater, MapInspector {
     private Point current_pos;
     private Heading current_heading;
 
+    private Heading init_scan_heading;
+
     public RelativeMap(Heading start_heading) {
         this.relative_map = new HashMap<>();
         relative_map.put(new Point(0, 0), new TileRecord(TileType.UNKNOWN, Collections.emptyList()));
@@ -24,6 +26,15 @@ public class RelativeMap implements MapUpdater, MapInspector {
         this.current_heading = start_heading;
     }
 
+    @Override
+    public void updateScanHeading(Heading heading) {
+        init_scan_heading = heading;
+    }
+
+    @Override
+    public Heading getScanHeading() {
+        return init_scan_heading;
+    }
     @Override
     public void updateFly() {
         switch (current_heading) {

@@ -14,7 +14,7 @@ public class GridSearchStartDI extends State {
     private State next;
     private final Logger logger = LogManager.getLogger();
 
-    public GridSearchStartDI(MapUpdater map, Heading scan_dir) {
+    public GridSearchStartDI(MapUpdater map) {
         super(map);
         this.cycle.add(new Radar(map, Heading.NORTH)); //1
         this.cycle.add(new Radar(map, Heading.SOUTH)); //2

@@ -24,7 +24,7 @@ public class Explorer implements IExplorerRaid {
     private AttributeRecord drone_attributes = new AttributeRecord();
     private RelativeMap map;
     private State curr_state;
-    public static Heading start_heading;
+    private Heading start_heading;
 
 
     @Override
@@ -40,9 +40,10 @@ public class Explorer implements IExplorerRaid {
         // initialize records with info
         drone_attributes.updateAttributes(batteryLevel, -1, -1);
         map = new RelativeMap(Heading.headingOf(direction));
-        start_heading = Heading.headingOf(direction);
+        map.updateScanHeading(Heading.headingOf((direction)));
+        start_heading = map.getScanHeading();
         if (start_heading == Heading.EAST || start_heading == Heading.WEST) {
-            curr_state = new GridSearchStartDI(map, start_heading);
+            curr_state = new GridSearchStartDI(map);
         }
         else {
             curr_state = new NorthSouthCheckDI(map);
