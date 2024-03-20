@@ -58,11 +58,8 @@ public class DefaultJSONParser implements JSONParser{
 
     @Override
     public int getCost(JSONObject response) {
-        if (response.has("data")) {
-            JSONObject data = response.getJSONObject("data");
-            if(data.has("cost")){
-                return data.getInt("cost");
-            }
+        if(response.has("cost")){
+            return response.getInt("cost");
         }
         return -1;
     }

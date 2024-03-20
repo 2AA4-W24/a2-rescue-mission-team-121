@@ -7,14 +7,11 @@ import ca.mcmaster.se2aa4.island.team121.Modules.Radar;
 import ca.mcmaster.se2aa4.island.team121.Modules.Scanner;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
 import ca.mcmaster.se2aa4.island.team121.TileRecord;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.util.Objects;
 
 public class FlyNorthEastDI extends State {
-    private final Logger logger = LogManager.getLogger();
 
     public FlyNorthEastDI(MapUpdater map) {
         super(map);
@@ -31,7 +28,6 @@ public class FlyNorthEastDI extends State {
     @Override
     public void update(JSONObject response){
         TileRecord tile = new TileRecord(parser.getScan(response),parser.getId(response));
-
         // TODO: Should check if the current Module is a Scanner, but okay in this situation because it doesn't
         // stay in the same spot after the scan
         map.updateScan(tile);
