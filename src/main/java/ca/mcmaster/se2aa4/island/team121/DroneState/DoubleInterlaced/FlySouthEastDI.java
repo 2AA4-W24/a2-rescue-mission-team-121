@@ -7,14 +7,11 @@ import ca.mcmaster.se2aa4.island.team121.Modules.Radar;
 import ca.mcmaster.se2aa4.island.team121.Modules.Scanner;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
 import ca.mcmaster.se2aa4.island.team121.TileRecord;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.util.Objects;
 
 public class FlySouthEastDI extends State {
-    private final Logger logger = LogManager.getLogger();
 
     public FlySouthEastDI(MapUpdater map) {
         super(map);
@@ -32,7 +29,6 @@ public class FlySouthEastDI extends State {
     public void update(JSONObject response){
         TileRecord tile = new TileRecord(parser.getScan(response),parser.getId(response));
         map.updateScan(tile);
-//        logger.info("******fly south east");
         go_next= Objects.equals(parser.echoGround(response), "OUT_OF_RANGE");
     }
 }
