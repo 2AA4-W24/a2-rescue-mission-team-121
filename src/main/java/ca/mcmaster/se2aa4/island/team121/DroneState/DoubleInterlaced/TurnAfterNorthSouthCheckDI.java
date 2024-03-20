@@ -9,28 +9,25 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
-public class TurnNorthAfterStartDI extends State {
+public class TurnAfterNorthSouthCheckDI extends State {
 
     private final Logger logger = LogManager.getLogger();
-    private int dist = 0;
+    private Heading heading;
 
-    public TurnNorthAfterStartDI(MapUpdater map) {
+    public TurnAfterNorthSouthCheckDI(MapUpdater map) {
         super(map);
-        this.cycle.add(new Turner(map, Heading.NORTH));
-        this.cycle.add(new Radar(map, Heading.NORTH));
+        this.heading=map.getScanHeading();
+        this.cycle.add(new Turner(map, heading));
+        this.cycle.add(new Radar(map, heading));
     }
 
     @Override
     public State getNext() {
-        return new FlyStraightDI(map, dist, Heading.NORTH);
+        return new GridSearchStartDI(map);
     }
 
     @Override
     public void update(JSONObject response) {
-        if (parser.echoGround(response).equals("GROUND")) {
-            dist = parser.echoDistance(response);
-            logger.info(dist);
-        }
         if (step_count == 2)
             go_next = true;
     }

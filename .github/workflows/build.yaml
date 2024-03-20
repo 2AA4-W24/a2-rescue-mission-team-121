@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+      - zayed
+      - stef
+      - william
+      - dev
 
 env:
   JAVA_ENV_VERSION: "21"
