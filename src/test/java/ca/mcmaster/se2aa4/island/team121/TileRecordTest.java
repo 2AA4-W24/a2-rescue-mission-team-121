@@ -1,4 +1,4 @@
-package ca.mcmaster.se2aa4.island.team121.StateTest;
+package ca.mcmaster.se2aa4.island.team121;
 import ca.mcmaster.se2aa4.island.team121.TileRecord;
 import ca.mcmaster.se2aa4.island.team121.TileType;
 import java.util.List;
