@@ -1,7 +1,6 @@
-package ca.mcmaster.se2aa4.island.team121;
+package ca.mcmaster.se2aa4.island.team121.BusinessDrivenObjects;
 
-import ca.mcmaster.se2aa4.island.team121.DroneState.JSONParser.DefaultJSONParser;
-import org.json.JSONObject;
+import ca.mcmaster.se2aa4.island.team121.JSONParser.DefaultJSONParser;
 
 public enum TileType {
     SITE, CREEK, UNKNOWN;

@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import ca.mcmaster.se2aa4.island.team121.BusinessDrivenObjects.Heading;
+import ca.mcmaster.se2aa4.island.team121.BusinessDrivenObjects.TileRecord;
 import ca.mcmaster.se2aa4.island.team121.DroneState.DoubleInterlaced.GridSearchStartDI;
 import ca.mcmaster.se2aa4.island.team121.DroneState.DoubleInterlaced.NorthSouthCheckDI;
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
@@ -38,7 +40,7 @@ public class Explorer implements IExplorerRaid {
         logger.info("Battery level is {}", batteryLevel);
 
         // initialize records with info
-        drone_attributes.updateAttributes(batteryLevel, -1, -1);
+        drone_attributes.updateAttributes(batteryLevel);
         map = new RelativeMap(Heading.headingOf(direction));
         map.updateScanHeading(Heading.headingOf((direction)));
         start_heading = map.getScanHeading();
@@ -54,7 +56,7 @@ public class Explorer implements IExplorerRaid {
     @Override
     public String takeDecision() {
         JSONObject decision;
-        if (drone_attributes.getBattery() < 100) {
+        if (drone_attributes.getBattery() < 30) {
             decision = new Stopper(map).getJSON();
         } else {
             curr_state = (curr_state.isGoNext()) ? curr_state.getNext() : curr_state;
@@ -72,7 +74,7 @@ public class Explorer implements IExplorerRaid {
         JSONObject extraInfo = response.getJSONObject("extras");
 
         // update the battery level
-        drone_attributes.updateAttributes(drone_attributes.getBattery() - response.getInt("cost"), -1, -1);
+        drone_attributes.updateAttributes(drone_attributes.getBattery() - response.getInt("cost"));
         curr_state.update(response);
     }
 

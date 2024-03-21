@@ -2,22 +2,16 @@ package ca.mcmaster.se2aa4.island.team121.DroneState.DoubleInterlaced;
 
 import ca.mcmaster.se2aa4.island.team121.DroneState.State;
 import ca.mcmaster.se2aa4.island.team121.DroneState.Stop;
-import ca.mcmaster.se2aa4.island.team121.Explorer;
-import ca.mcmaster.se2aa4.island.team121.Heading;
-import ca.mcmaster.se2aa4.island.team121.Modules.Flyer;
+import ca.mcmaster.se2aa4.island.team121.BusinessDrivenObjects.Heading;
 import ca.mcmaster.se2aa4.island.team121.Modules.Radar;
-import ca.mcmaster.se2aa4.island.team121.Modules.Scanner;
 import ca.mcmaster.se2aa4.island.team121.Modules.Turner;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.util.Objects;
 
 public class North2SouthUTurnWestDI extends State {
     private State next;
-    private final Logger logger = LogManager.getLogger();
 
     public North2SouthUTurnWestDI(MapUpdater map) {
         super(map);

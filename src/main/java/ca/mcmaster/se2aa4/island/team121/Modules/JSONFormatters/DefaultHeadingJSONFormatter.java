@@ -1,6 +1,6 @@
 package ca.mcmaster.se2aa4.island.team121.Modules.JSONFormatters;
 
-import ca.mcmaster.se2aa4.island.team121.Heading;
+import ca.mcmaster.se2aa4.island.team121.BusinessDrivenObjects.Heading;
 import org.json.JSONObject;
 
 public class DefaultHeadingJSONFormatter implements HeadingJSONFormatter {
