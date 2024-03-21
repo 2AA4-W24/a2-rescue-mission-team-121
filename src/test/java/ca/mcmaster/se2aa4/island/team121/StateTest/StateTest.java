@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
 import ca.mcmaster.se2aa4.island.team121.Records.RelativeMap;
-import ca.mcmaster.se2aa4.island.team121.Heading;
+import ca.mcmaster.se2aa4.island.team121.BusinessDrivenObjects.Heading;
 
 
 class TestingState extends State {

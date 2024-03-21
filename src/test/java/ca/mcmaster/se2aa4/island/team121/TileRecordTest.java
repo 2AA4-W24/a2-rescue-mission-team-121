@@ -1,13 +1,10 @@
 package ca.mcmaster.se2aa4.island.team121;
-import ca.mcmaster.se2aa4.island.team121.TileRecord;
-import ca.mcmaster.se2aa4.island.team121.TileType;
+import ca.mcmaster.se2aa4.island.team121.BusinessDrivenObjects.TileRecord;
+import ca.mcmaster.se2aa4.island.team121.BusinessDrivenObjects.TileType;
 import java.util.List;
-import java.util.ArrayList;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TileRecordTest {
     @Test

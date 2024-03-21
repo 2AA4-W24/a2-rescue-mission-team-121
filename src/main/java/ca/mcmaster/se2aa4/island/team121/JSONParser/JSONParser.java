@@ -1,6 +1,6 @@
-package ca.mcmaster.se2aa4.island.team121.DroneState.JSONParser;
+package ca.mcmaster.se2aa4.island.team121.JSONParser;
 
-import ca.mcmaster.se2aa4.island.team121.TileType;
+import ca.mcmaster.se2aa4.island.team121.BusinessDrivenObjects.TileType;
 import org.json.JSONObject;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package ca.mcmaster.se2aa4.island.team121.Records;
+package ca.mcmaster.se2aa4.island.team121.BusinessDrivenObjects;
 
 public record Point(int x, int y) {
     public Double getDistance(Point other) {
