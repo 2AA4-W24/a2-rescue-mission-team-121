@@ -6,9 +6,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import ca.mcmaster.se2aa4.island.team121.DroneState.DoubleInterlaced.GridSearchStartDI;
-import ca.mcmaster.se2aa4.island.team121.DroneState.DoubleInterlaced.NorthSouthCheckDI;
-import ca.mcmaster.se2aa4.island.team121.DroneState.State;
+import ca.mcmaster.se2aa4.island.team121.droneState.doubleInterlaced.GridSearchStartDI;
+import ca.mcmaster.se2aa4.island.team121.droneState.doubleInterlaced.NorthSouthCheckDI;
+import ca.mcmaster.se2aa4.island.team121.droneState.State;
 import ca.mcmaster.se2aa4.island.team121.Modules.Stopper;
 import ca.mcmaster.se2aa4.island.team121.Records.*;
 import org.apache.logging.log4j.LogManager;

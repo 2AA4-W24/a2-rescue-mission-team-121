@@ -1,5 +1,5 @@
 package ca.mcmaster.se2aa4.island.team121.StateTest;
-import ca.mcmaster.se2aa4.island.team121.DroneState.State;
+import ca.mcmaster.se2aa4.island.team121.droneState.State;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

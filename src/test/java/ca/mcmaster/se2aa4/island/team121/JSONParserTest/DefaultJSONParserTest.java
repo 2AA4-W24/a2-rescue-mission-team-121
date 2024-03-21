@@ -1,5 +1,5 @@
 package ca.mcmaster.se2aa4.island.team121.JSONParserTest;
-import ca.mcmaster.se2aa4.island.team121.DroneState.JSONParser.DefaultJSONParser;
+import ca.mcmaster.se2aa4.island.team121.droneState.JSONParser.DefaultJSONParser;
 import ca.mcmaster.se2aa4.island.team121.TileType;
 import org.json.JSONArray;
 import org.json.JSONObject;
