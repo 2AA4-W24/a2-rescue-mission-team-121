@@ -70,6 +70,12 @@
       <artifactId>json</artifactId>
       <version>20231013</version>
     </dependency>
+  <!--Unit testing with jUnit 5-->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>5.10.1</version>
+    </dependency>
     <!-- Unit testing with jUnit 5-->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
