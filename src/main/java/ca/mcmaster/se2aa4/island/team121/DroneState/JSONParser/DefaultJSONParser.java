@@ -1,14 +1,11 @@
 package ca.mcmaster.se2aa4.island.team121.DroneState.JSONParser;
 
 import ca.mcmaster.se2aa4.island.team121.TileType;
-import org.apache.bcel.generic.NEW;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import org.json.JSONArray;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 public class DefaultJSONParser implements JSONParser{
-    private static final Logger logger = LogManager.getLogger(DefaultJSONParser.class);
     @Override
     public TileType getScan(JSONObject response) {
          if(response.has("extras")){
@@ -24,7 +21,7 @@ public class DefaultJSONParser implements JSONParser{
          if (response.has("extras")){
              JSONObject extras = response.getJSONObject("extras");
              if (extras.has("sites")){
-                if (extras.getJSONArray("sites").length() > 0){
+                if (!extras.getJSONArray("sites").isEmpty()){
                     return TileType.SITE;
                 }
              }
@@ -66,7 +63,7 @@ public class DefaultJSONParser implements JSONParser{
 
     @Override
     public ArrayList<String> getId(JSONObject response) {
-        ArrayList<String> Ids = new ArrayList<String>();
+        ArrayList<String> Ids = new ArrayList<>();
         if (response.has("extras")) {
             JSONObject extras = response.getJSONObject("extras");
             if(extras.has("creeks")){
