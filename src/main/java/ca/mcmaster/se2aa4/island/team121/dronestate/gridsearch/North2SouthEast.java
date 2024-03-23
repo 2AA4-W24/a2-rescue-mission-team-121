@@ -32,6 +32,8 @@ public class North2SouthEast extends State {
     public void update(JSONObject response) {
         //Sets next state to Stop if the echo is out of range otherwise sets next state to FlySouth
         next = Objects.equals( "OUT_OF_RANGE",parser.echoGround(response)) ? new Stop(map) : new FlySouth(map);
-        if (step_count == 3) go_next = true;
+        if (step_count == 3) {
+            go_next = true;
+        }
     }
 }

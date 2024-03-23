@@ -42,10 +42,12 @@ public class RelativeMap implements MapUpdater, MapInspector {
             case EAST -> current_pos = new Point(current_pos.x() + 1, current_pos.y());
             case SOUTH -> current_pos = new Point(current_pos.x(), current_pos.y() - 1);
             case WEST -> current_pos = new Point(current_pos.x() - 1, current_pos.y());
+            default -> throw new IllegalStateException("Unexpected value: " + current_heading);
         }
 
-        if (!relative_map.containsKey(current_pos))
+        if (!relative_map.containsKey(current_pos)) {
             relative_map.put(current_pos, new TileRecord(TileType.UNKNOWN, Collections.emptyList()));
+        }
     }
 
     // Currently does not take into account the case where the drone is told take a U-turn,
@@ -60,8 +62,9 @@ public class RelativeMap implements MapUpdater, MapInspector {
         current_heading = new_heading;
         updateFly();
 
-        if (!relative_map.containsKey(current_pos))
+        if (!relative_map.containsKey(current_pos)) {
             relative_map.put(current_pos, new TileRecord(TileType.UNKNOWN, Collections.emptyList()));
+        }
     }
 
     @Override

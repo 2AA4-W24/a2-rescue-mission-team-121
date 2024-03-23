@@ -3,7 +3,7 @@ package ca.mcmaster.se2aa4.island.team121.modules.jsonparser;
 import ca.mcmaster.se2aa4.island.team121.TileType;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface JSONParser {
     TileType getScan(JSONObject response);
@@ -12,5 +12,5 @@ public interface JSONParser {
 
     int getCost(JSONObject response);
 
-    ArrayList<String> getId(JSONObject response);
+    List<String> getId(JSONObject response);
 }
