@@ -28,8 +28,9 @@ public class North2SouthUTurnWestDI extends State {
     @Override
     public void update(JSONObject response) {
         if (map.getScanHeading() == Heading.EAST) {
-            if (Objects.equals("OUT_OF_RANGE",parser.echoGround(response)))
+            if (Objects.equals("OUT_OF_RANGE",parser.echoGround(response))) {
                 next = new Stop(map);
+            }
             else {
                 next = new FlySouthWestDI(map);
             }
