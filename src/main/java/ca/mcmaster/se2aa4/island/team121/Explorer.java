@@ -1,11 +1,11 @@
 package ca.mcmaster.se2aa4.island.team121;
 
-import ca.mcmaster.se2aa4.island.team121.Modules.Stopper;
-import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
-import ca.mcmaster.se2aa4.island.team121.Records.RelativeMap;
-import ca.mcmaster.se2aa4.island.team121.droneState.State;
-import ca.mcmaster.se2aa4.island.team121.droneState.doubleInterlaced.GridSearchStartDI;
-import ca.mcmaster.se2aa4.island.team121.droneState.doubleInterlaced.NorthSouthCheckDI;
+import ca.mcmaster.se2aa4.island.team121.modules.Stopper;
+import ca.mcmaster.se2aa4.island.team121.records.AttributeRecord;
+import ca.mcmaster.se2aa4.island.team121.records.RelativeMap;
+import ca.mcmaster.se2aa4.island.team121.dronestate.State;
+import ca.mcmaster.se2aa4.island.team121.dronestate.doubleinterlaced.GridSearchStartDI;
+import ca.mcmaster.se2aa4.island.team121.dronestate.doubleinterlaced.NorthSouthCheckDI;
 import eu.ace_design.island.bot.IExplorerRaid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -42,7 +42,7 @@ public class Explorer implements IExplorerRaid {
         // initialize records with info
         drone_attributes.updateAttributes(batteryLevel, -1, -1);
         map = new RelativeMap(Heading.headingOf(direction));
-        map.updateScanHeading(Heading.headingOf((direction)));
+        map.updateScanHeading(Heading.headingOf(direction));
         start_heading = map.getScanHeading();
         if (start_heading == Heading.EAST || start_heading == Heading.WEST) {
             curr_state = new GridSearchStartDI(map);
@@ -59,7 +59,7 @@ public class Explorer implements IExplorerRaid {
         if (drone_attributes.getBattery() < 100) {
             decision = new Stopper(map).getJSON();
         } else {
-            curr_state = (curr_state.isGoNext()) ? curr_state.getNext() : curr_state;
+            curr_state = curr_state.isGoNext() ? curr_state.getNext() : curr_state;
             decision = curr_state.execute();
         }
         return decision.toString();

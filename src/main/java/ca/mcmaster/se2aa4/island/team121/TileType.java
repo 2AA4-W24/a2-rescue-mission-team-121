@@ -3,7 +3,7 @@ package ca.mcmaster.se2aa4.island.team121;
 public enum TileType {
     SITE, CREEK, UNKNOWN;
 
-    public static TileType TileTypeOf(String type) {
+    public static TileType tiletypeOf(String type) {
         switch (type) {
             case "SITE" -> {
                 return SITE;
