@@ -1,0 +1,220 @@
+@startuml
+
+skin rose
+
+package Modules {
+
+  package JSONFormatters {
+    interface JSONFormatter {
+      {abstract} +JSONObject format(Action action)
+    }
+
+    interface HeadingJSONFormatter {
+      {abstract} +JSONObject addHeading(JSONObject curr_json, Heading heading)
+    }
+
+    class DefaultJSONFormatter {
+      +JSONObject format(Action action)
+    }
+
+    class DefaultHeadingJSONFormatter {
+      +JSONObject addHeading(JSONObject curr_json, Heading heading)
+    }
+
+    JSONFormatter <|.. DefaultJSONFormatter
+    HeadingJSONFormatter <|.. DefaultHeadingJSONFormatter
+  }
+
+  abstract class Module {
+    #JSONFormatter jsoner
+    #Action action
+    #MapUpdater map
+    +Module(MapUpdater map)
+    {abstract} +JSONObject getJSON()
+    +void updateMap()
+  }
+
+  abstract class ModuleWithHeading {
+    #HeadingJSONFormatter heading_jsoner
+    #Heading heading
+    +ModuleWithHeading(MapUpdater map, Heading heading)
+    {abstract} +JSONObject getJSON()
+  }
+
+  class Flyer {
+    +void updateMap()
+  }
+  class Scanner
+  class Stopper
+  class Radar
+  class Turner {
+    +void updateMap()
+  }
+
+  enum Action {
+    FLY
+    SCAN
+    STOP
+    HEADING
+    ECHO
+    +String getName()
+  }
+  Action <-- Module
+  Action <-- JSONFormatter
+
+  enum Heading {
+    NORTH
+    EAST
+    SOUTH
+    WEST
+    +String getVector()
+    {static} +Heading headingOf()
+  }
+  Heading <-- ModuleWithHeading
+  Heading <-- HeadingJSONFormatter
+
+  Module <|-- ModuleWithHeading
+  Module <|-- Flyer
+  Module <|-- Scanner
+  Module <|-- Stopper
+  Module o--> JSONFormatter
+
+  ModuleWithHeading <|-- Turner
+  ModuleWithHeading <|-- Radar
+  ModuleWithHeading o--> HeadingJSONFormatter
+}
+
+package Record {
+  interface MapUpdater {
+    {abstract} +void updateFly()
+    {abstract} +void updateTurn(Heading new_heading)
+    {abstract} +void updateScan(TileRecord tile)
+    {abstract} +void updateScanHeading(Heading heading)
+    {abstract} +Heading getScanHeading()
+  }
+
+  interface MapInspector {
+    {abstract} +void displayMap()
+    {abstract} +Map<TileRecord, Double> getCreekSiteDistances()
+  }
+
+  class RelativeMap {
+    -Map<Point, TileRecord> relative_map
+    -Point current_pos
+    -Heading current_heading
+    -Heading init_scan_heading
+    +void updateFly()
+    +void updateTurn(Heading new_heading)
+    +void updateScan(TileRecord tile)
+    +void updateScanHeading(Heading heading)
+    +Heading getScanHeading()
+    +void displayMap()
+    +Map<TileRecord, Double> getCreekSiteDistances()
+  }
+
+  struct Point {
+    +int x
+    +int y
+    +Double getDistance(Point other)
+  }
+
+  struct TileRecord {
+    +TileType type
+    +List<String> id
+  }
+  TileRecord <-- MapUpdater
+  TileRecord <-- MapInspector
+
+  class AttributeRecord {
+    -Map<String, Integer> attributes
+    +void updateAttributes(int battery, int distG, int distB)
+    +Map<String, Integer> getAttributes()
+  }
+
+  enum Heading {
+    NORTH
+    EAST
+    SOUTH
+    WEST
+    +String getVector()
+    {static} +Heading headingOf()
+  }
+  Heading <-- MapUpdater
+
+  enum TileType {
+    SITE
+    CREEK
+    UNKNOWN
+    {static} +TileType tileTypeOf()
+  }
+  TileType <-- TileRecord
+
+  MapUpdater <|.. RelativeMap
+
+  MapInspector <|.. RelativeMap
+
+  RelativeMap --> Point
+}
+
+package DroneState {
+  package JSONParsers {
+    interface JSONParser {
+      {abstract} +TileType getScan(JSONObject response)
+      {abstract} +String echoGround(JSONObject response)
+      {abstract} +int echoDistance(JSONObject response)
+      {abstract} +int getCost(JSONObject response)
+      {abstract} +List<String> getId(JSONObject response)
+    }
+
+    class DefaultJSONFormatter {
+      +TileType getScan(JSONObject response)
+      +String echoGround(JSONObject response)
+      +int echoDistance(JSONObject response)
+      +int getCost(JSONObject response)
+      +List<String> getId(JSONObject response)
+    }
+
+    JSONParser <|.. DefaultJSONFormatter
+    JSONParser --> TileType
+  }
+
+  abstract class State {
+    #int step_count
+    #boolean go_next
+    #JSONParser parser
+    #List<Module> cycle
+    #MapUpdater map
+    #Module curr_module
+    #Heading init_scan_heading
+    +State(MapUpdater map)
+    +boolean isGoNext()
+    +JSONObject execute()
+    {abstract} +State getNext
+    {abstract} +void update()
+  }
+
+  State o--> JSONParser
+  State --> Module
+}
+
+Module --> MapUpdater
+
+class Explorer {
+  -AttributeRecord drone_attributes
+  -RelativeMap map
+  -State curr_state
+  -Heading start_heading
+  +void initialize()
+  +String takeDecision()
+  +void acknowledgeResults()
+  +String deliverFinalReport
+}
+
+class Runner
+
+Explorer o--> RelativeMap
+Explorer o--> AttributeRecord
+Explorer o--> State
+Runner *--> Explorer
+
+@enduml
