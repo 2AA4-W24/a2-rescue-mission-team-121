@@ -1,0 +1,79 @@
+@startuml
+
+skin rose
+
+[-> Explorer ++ : initialize()
+  Explorer -> MapUpdater ++ : new()
+  MapUpdater --> Explorer --
+
+  Explorer -> State ++ : new()
+  State --> Explorer --
+Explorer -->[ --
+
+loop until ACTION.STOP
+
+  [-> Explorer ++ : takeDecision()
+  Explorer -> State : isGoNext()
+  activate State
+  State --> Explorer: go_next
+  deactivate State
+
+  alt go_next == true
+    Explorer -> State : getNext()
+    activate State
+    State --> Explorer
+    deactivate State
+  end
+
+  Explorer -> State : execute()
+  activate State
+
+    State -> Module : updateMap()
+    activate Module
+
+      Module -> MapUpdater : update()
+      activate MapUpdater
+      MapUpdater --> Module
+      deactivate MapUpdater
+
+    Module --> State
+    deactivate Module
+
+    State -> Module : getJSON()
+    activate Module
+
+      Module -> JSONFormatter : format()
+      activate JSONFormatter
+      JSONFormatter --> Module
+      deactivate JSONFormatter
+
+    Module --> State
+    deactivate Module
+
+  State --> Explorer : decision
+  deactivate State
+  Explorer -->[ --
+
+  [-> Explorer ++ : acknowledgeResults()
+  Explorer -> State : update()
+  activate State
+
+    State -> JSONParser : parse(response)
+    activate JSONParser
+    JSONParser --> State
+    deactivate JSONParser
+
+  State --> Explorer :  go_next, next_state
+  deactivate State
+
+  Explorer -->[ --
+end
+
+[-> Explorer ++ : deliverFinalReport()
+  Explorer -> MapInspector : getCreekSiteDistances()
+  activate MapInspector
+  MapInspector --> Explorer : distances
+  deactivate MapInspector
+Explorer -->[ -- : closest creek found
+
+@enduml
