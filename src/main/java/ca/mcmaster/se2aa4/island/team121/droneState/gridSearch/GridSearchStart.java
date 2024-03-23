@@ -1,4 +1,4 @@
-package ca.mcmaster.se2aa4.island.team121.droneState.GridSearch;
+package ca.mcmaster.se2aa4.island.team121.droneState.gridSearch;
 
 import ca.mcmaster.se2aa4.island.team121.Heading;
 import ca.mcmaster.se2aa4.island.team121.Modules.Flyer;
