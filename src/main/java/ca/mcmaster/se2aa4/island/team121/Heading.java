@@ -9,7 +9,7 @@ public enum Heading {
 
     private final String vector;
 
-    private Heading(String vector) {
+    Heading(String vector) {
         this.vector = vector;
     }
 
@@ -35,22 +35,4 @@ public enum Heading {
 
         }
     }
-    public Heading opposite() {
-        switch (this) {
-            case NORTH -> {
-                return SOUTH;
-            }
-            case SOUTH -> {
-                return NORTH;
-            }
-            case EAST -> {
-                return WEST;
-            }
-            case WEST -> {
-                return EAST;
-            }
-            default -> throw new IllegalArgumentException("Invalid direction: " + this);
-        }
-    }
-
 }

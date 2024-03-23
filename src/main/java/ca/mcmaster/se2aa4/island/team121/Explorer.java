@@ -1,34 +1,36 @@
 package ca.mcmaster.se2aa4.island.team121;
 
+import ca.mcmaster.se2aa4.island.team121.modules.Stopper;
+import ca.mcmaster.se2aa4.island.team121.records.AttributeRecord;
+import ca.mcmaster.se2aa4.island.team121.records.RelativeMap;
+import ca.mcmaster.se2aa4.island.team121.dronestate.State;
+import ca.mcmaster.se2aa4.island.team121.dronestate.doubleinterlaced.GridSearchStartDI;
+import ca.mcmaster.se2aa4.island.team121.dronestate.doubleinterlaced.NorthSouthCheckDI;
+import eu.ace_design.island.bot.IExplorerRaid;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import ca.mcmaster.se2aa4.island.team121.DroneState.DoubleInterlaced.GridSearchStartDI;
-import ca.mcmaster.se2aa4.island.team121.DroneState.DoubleInterlaced.NorthSouthCheckDI;
-import ca.mcmaster.se2aa4.island.team121.DroneState.State;
-import ca.mcmaster.se2aa4.island.team121.Modules.Stopper;
-import ca.mcmaster.se2aa4.island.team121.Records.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import eu.ace_design.island.bot.IExplorerRaid;
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
+@SuppressWarnings("unused")
 public class Explorer implements IExplorerRaid {
 
     private final Logger logger = LogManager.getLogger();
-    private AttributeRecord drone_attributes = new AttributeRecord();
+    private final AttributeRecord drone_attributes = new AttributeRecord();
     private RelativeMap map;
     private State curr_state;
-    private Heading start_heading;
+
 
 
     @Override
     public void initialize(String s) {
+        Heading start_heading;
         logger.info("** Initializing the Exploration Command Center");
         JSONObject info = new JSONObject(new JSONTokener(new StringReader(s)));
         logger.info("** Initialization info:\n {}", info.toString(2));
@@ -40,7 +42,7 @@ public class Explorer implements IExplorerRaid {
         // initialize records with info
         drone_attributes.updateAttributes(batteryLevel, -1, -1);
         map = new RelativeMap(Heading.headingOf(direction));
-        map.updateScanHeading(Heading.headingOf((direction)));
+        map.updateScanHeading(Heading.headingOf(direction));
         start_heading = map.getScanHeading();
         if (start_heading == Heading.EAST || start_heading == Heading.WEST) {
             curr_state = new GridSearchStartDI(map);
@@ -57,7 +59,7 @@ public class Explorer implements IExplorerRaid {
         if (drone_attributes.getBattery() < 100) {
             decision = new Stopper(map).getJSON();
         } else {
-            curr_state = (curr_state.isGoNext()) ? curr_state.getNext() : curr_state;
+            curr_state = curr_state.isGoNext() ? curr_state.getNext() : curr_state;
             decision = curr_state.execute();
         }
         return decision.toString();
@@ -66,8 +68,7 @@ public class Explorer implements IExplorerRaid {
     @Override
     public void acknowledgeResults(String s) {
         JSONObject response = new JSONObject(new JSONTokener(new StringReader(s)));
-      
-        Integer cost = response.getInt("cost");
+
         String status = response.getString("status");
         JSONObject extraInfo = response.getJSONObject("extras");
 
