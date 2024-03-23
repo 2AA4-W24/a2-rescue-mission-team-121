@@ -68,8 +68,7 @@ public class Explorer implements IExplorerRaid {
     @Override
     public void acknowledgeResults(String s) {
         JSONObject response = new JSONObject(new JSONTokener(new StringReader(s)));
-      
-        Integer cost = response.getInt("cost");
+
         String status = response.getString("status");
         JSONObject extraInfo = response.getJSONObject("extras");
 
