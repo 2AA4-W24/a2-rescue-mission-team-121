@@ -1,9 +1,10 @@
 package ca.mcmaster.se2aa4.island.team121.droneState.JSONParser;
 
 import ca.mcmaster.se2aa4.island.team121.TileType;
-import org.json.JSONObject;
-import java.util.ArrayList;
 import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class DefaultJSONParser implements JSONParser{
     private static final String extrasStr = "extras";

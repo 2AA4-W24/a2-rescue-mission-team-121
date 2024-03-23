@@ -1,34 +1,36 @@
 package ca.mcmaster.se2aa4.island.team121;
 
+import ca.mcmaster.se2aa4.island.team121.Modules.Stopper;
+import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
+import ca.mcmaster.se2aa4.island.team121.Records.RelativeMap;
+import ca.mcmaster.se2aa4.island.team121.droneState.State;
+import ca.mcmaster.se2aa4.island.team121.droneState.doubleInterlaced.GridSearchStartDI;
+import ca.mcmaster.se2aa4.island.team121.droneState.doubleInterlaced.NorthSouthCheckDI;
+import eu.ace_design.island.bot.IExplorerRaid;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import ca.mcmaster.se2aa4.island.team121.droneState.doubleInterlaced.GridSearchStartDI;
-import ca.mcmaster.se2aa4.island.team121.droneState.doubleInterlaced.NorthSouthCheckDI;
-import ca.mcmaster.se2aa4.island.team121.droneState.State;
-import ca.mcmaster.se2aa4.island.team121.Modules.Stopper;
-import ca.mcmaster.se2aa4.island.team121.Records.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import eu.ace_design.island.bot.IExplorerRaid;
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
+@SuppressWarnings("unused")
 public class Explorer implements IExplorerRaid {
 
     private final Logger logger = LogManager.getLogger();
-    private AttributeRecord drone_attributes = new AttributeRecord();
+    private final AttributeRecord drone_attributes = new AttributeRecord();
     private RelativeMap map;
     private State curr_state;
-    private Heading start_heading;
+
 
 
     @Override
     public void initialize(String s) {
+        Heading start_heading;
         logger.info("** Initializing the Exploration Command Center");
         JSONObject info = new JSONObject(new JSONTokener(new StringReader(s)));
         logger.info("** Initialization info:\n {}", info.toString(2));

@@ -9,7 +9,7 @@ public enum Heading {
 
     private final String vector;
 
-    private Heading(String vector) {
+    Heading(String vector) {
         this.vector = vector;
     }
 

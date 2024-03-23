@@ -1,6 +1,7 @@
 package ca.mcmaster.se2aa4.island.team121.JSONParserTest;
-import ca.mcmaster.se2aa4.island.team121.droneState.JSONParser.DefaultJSONParser;
+
 import ca.mcmaster.se2aa4.island.team121.TileType;
+import ca.mcmaster.se2aa4.island.team121.droneState.JSONParser.DefaultJSONParser;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
@@ -9,16 +10,16 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DefaultJSONParserTest {
 
-    JSONObject responseCreek = new JSONObject();
-    JSONObject responseSite = new JSONObject();
-    JSONObject responseUnknown = new JSONObject();
-    JSONObject responseGround = new JSONObject();
-    JSONObject responseOOR = new JSONObject();
-    DefaultJSONParser defaultJSONParser = new DefaultJSONParser();
+    final JSONObject responseCreek = new JSONObject();
+    final JSONObject responseSite = new JSONObject();
+    final JSONObject responseUnknown = new JSONObject();
+    final JSONObject responseGround = new JSONObject();
+    final JSONObject responseOOR = new JSONObject();
+    final DefaultJSONParser defaultJSONParser = new DefaultJSONParser();
 
     @BeforeEach
     void setUp() {
@@ -107,7 +108,7 @@ public class DefaultJSONParserTest {
     @Test
     void testGetId() {
         JSONObject empty = new JSONObject();
-        ArrayList<String> Ids = new ArrayList<String>();
+        ArrayList<String> Ids = new ArrayList<>();
         assertEquals(Ids, defaultJSONParser.getId(empty));
         assertEquals(Ids, defaultJSONParser.getId(responseUnknown));
         assertEquals(Ids, defaultJSONParser.getId(responseGround));

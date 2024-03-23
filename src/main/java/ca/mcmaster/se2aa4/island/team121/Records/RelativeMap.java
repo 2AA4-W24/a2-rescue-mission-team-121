@@ -13,7 +13,7 @@ import java.util.Map;
 public class RelativeMap implements MapUpdater, MapInspector {
 
     private final Logger logger = LogManager.getLogger();
-    protected Map<Point, TileRecord> relative_map;
+    protected final Map<Point, TileRecord> relative_map;
     private Point current_pos;
     private Heading current_heading;
 

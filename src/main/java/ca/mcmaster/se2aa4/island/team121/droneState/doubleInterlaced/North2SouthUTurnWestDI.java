@@ -1,11 +1,11 @@
 package ca.mcmaster.se2aa4.island.team121.droneState.doubleInterlaced;
 
-import ca.mcmaster.se2aa4.island.team121.droneState.State;
-import ca.mcmaster.se2aa4.island.team121.droneState.Stop;
 import ca.mcmaster.se2aa4.island.team121.Heading;
 import ca.mcmaster.se2aa4.island.team121.Modules.Radar;
 import ca.mcmaster.se2aa4.island.team121.Modules.Turner;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
+import ca.mcmaster.se2aa4.island.team121.droneState.State;
+import ca.mcmaster.se2aa4.island.team121.droneState.Stop;
 import org.json.JSONObject;
 
 import java.util.Objects;

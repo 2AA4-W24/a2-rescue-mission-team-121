@@ -1,16 +1,16 @@
 package ca.mcmaster.se2aa4.island.team121.droneState.doubleInterlaced;
 
-import ca.mcmaster.se2aa4.island.team121.droneState.State;
 import ca.mcmaster.se2aa4.island.team121.Heading;
 import ca.mcmaster.se2aa4.island.team121.Modules.Flyer;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
 import ca.mcmaster.se2aa4.island.team121.TileRecord;
+import ca.mcmaster.se2aa4.island.team121.droneState.State;
 import org.json.JSONObject;
 
 public class FlyStraightDI extends State {
 
-    private int flight_length;
-    private Heading heading;
+    private final int flight_length;
+    private final Heading heading;
     private State next;
 
     public FlyStraightDI(MapUpdater map, int dist, Heading heading) {

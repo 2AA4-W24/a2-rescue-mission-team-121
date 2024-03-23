@@ -1,6 +1,6 @@
 package ca.mcmaster.se2aa4.island.team121.droneState;
 
-import ca.mcmaster.se2aa4.island.team121.Modules.*;
+import ca.mcmaster.se2aa4.island.team121.Modules.Stopper;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
 import org.json.JSONObject;
 

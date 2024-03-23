@@ -8,7 +8,7 @@ import org.json.JSONObject;
 public abstract class ModuleWithHeading extends Module {
 
     protected HeadingJSONFormatter heading_jsoner;
-    protected Heading heading;
+    protected final Heading heading;
 
     public ModuleWithHeading(MapUpdater map, Heading heading) {
         super(map);

@@ -1,15 +1,15 @@
 package ca.mcmaster.se2aa4.island.team121.droneState.doubleInterlaced;
 
-import ca.mcmaster.se2aa4.island.team121.droneState.State;
 import ca.mcmaster.se2aa4.island.team121.Heading;
 import ca.mcmaster.se2aa4.island.team121.Modules.Radar;
 import ca.mcmaster.se2aa4.island.team121.Modules.Turner;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
+import ca.mcmaster.se2aa4.island.team121.droneState.State;
 import org.json.JSONObject;
 
 public class TurnAfterStartDI extends State {
     private int dist = 0;
-    private Heading heading;
+    private final Heading heading;
     public TurnAfterStartDI(MapUpdater map, Heading heading) {
         super(map);
         this.heading=heading;

@@ -1,12 +1,14 @@
 package ca.mcmaster.se2aa4.island.team121.StateTest;
+
+import ca.mcmaster.se2aa4.island.team121.Heading;
+import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
+import ca.mcmaster.se2aa4.island.team121.Records.RelativeMap;
 import ca.mcmaster.se2aa4.island.team121.droneState.State;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
-import ca.mcmaster.se2aa4.island.team121.Records.RelativeMap;
-import ca.mcmaster.se2aa4.island.team121.Heading;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class TestingState extends State {
@@ -35,20 +37,18 @@ public class StateTest {
     public void testIsGoNext() {
         MapUpdater map = new RelativeMap(Heading.NORTH);
         State state = new TestingState(map);
-        assertEquals(false, state.isGoNext());
+        assertFalse(state.isGoNext());
     }
     @Test
     public void testExecute() {
         MapUpdater map = new RelativeMap(Heading.NORTH);
         State state = new TestingState(map);
-//        JSONObject json = state.execute();
-//        assertEquals(0, json.length());
     }
     @Test
     public void testGetNext() {
         MapUpdater map = new RelativeMap(Heading.NORTH);
         State state = new TestingState(map);
-        assertEquals(null, state.getNext());
+        assertNull(state.getNext());
     }
     @Test
     public void testUpdate() {

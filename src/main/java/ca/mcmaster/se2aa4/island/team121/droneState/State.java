@@ -1,11 +1,12 @@
 package ca.mcmaster.se2aa4.island.team121.droneState;
 
-import ca.mcmaster.se2aa4.island.team121.droneState.JSONParser.JSONParser;
-import ca.mcmaster.se2aa4.island.team121.droneState.JSONParser.DefaultJSONParser;
 import ca.mcmaster.se2aa4.island.team121.Heading;
 import ca.mcmaster.se2aa4.island.team121.Modules.Module;
 import ca.mcmaster.se2aa4.island.team121.Records.MapUpdater;
+import ca.mcmaster.se2aa4.island.team121.droneState.JSONParser.DefaultJSONParser;
+import ca.mcmaster.se2aa4.island.team121.droneState.JSONParser.JSONParser;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,11 +14,11 @@ public abstract class State {
 
     protected int step_count = 0;
     protected boolean go_next = false;
-    protected JSONParser parser = new DefaultJSONParser();
-    protected List<Module> cycle = new ArrayList<>();
-    protected MapUpdater map;
+    protected final JSONParser parser = new DefaultJSONParser();
+    protected final List<Module> cycle = new ArrayList<>();
+    protected final MapUpdater map;
     protected Module module;
-    protected Heading scan_heading;
+    protected final Heading scan_heading;
 
     protected State(MapUpdater map) {
         this.map = map;

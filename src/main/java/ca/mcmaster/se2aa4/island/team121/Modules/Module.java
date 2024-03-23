@@ -9,7 +9,7 @@ public abstract class Module {
 
     protected JSONFormatter jsoner;
     protected Action action;
-    protected MapUpdater map;
+    protected final MapUpdater map;
 
     public Module(MapUpdater map) {
         this.map = map;

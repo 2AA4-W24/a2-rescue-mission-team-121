@@ -1,13 +1,12 @@
 package ca.mcmaster.se2aa4.island.team121.RecordTests;
 
 import ca.mcmaster.se2aa4.island.team121.Records.AttributeRecord;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AttributeRecordTest {
 

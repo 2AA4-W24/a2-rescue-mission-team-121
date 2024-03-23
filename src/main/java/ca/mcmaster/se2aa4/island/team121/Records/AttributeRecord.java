@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AttributeRecord {
-    private Map<String, Integer> attributes = new HashMap<>(); //battery level, dist to ground, dist to base
+    private final Map<String, Integer> attributes = new HashMap<>(); //battery level, dist to ground, dist to base
 
     public void updateAttributes(int battery, int distG, int distB)
     {
@@ -17,7 +17,5 @@ public class AttributeRecord {
         return attributes;
     }
 
-    public int getDistG(){return attributes.get("ground_distance");}
-    public int getDistB(){return attributes.get("base_distance");}
     public int getBattery(){return attributes.get("battery_level");}
 }
