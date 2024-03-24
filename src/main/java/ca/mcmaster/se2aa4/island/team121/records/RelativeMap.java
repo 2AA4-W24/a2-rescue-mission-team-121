@@ -64,8 +64,9 @@ public class RelativeMap implements MapUpdater, MapInspector {
         current_heading = new_heading;
         updateFly();
 
-        if (!relative_map.containsKey(current_pos))
+        if (!relative_map.containsKey(current_pos)) {
             relative_map.put(current_pos, new TileRecord(TileType.UNKNOWN, Collections.emptyList()));
+        }
     }
 
     @Override
