@@ -32,7 +32,6 @@ public class DefaultJSONParser implements JSONParser{
 
         return TileType.UNKNOWN;
     }
-    //FIXME: Need to modify logic to handle null when echo is not used
     @Override
     public String echoGround(JSONObject response) {
         String found = "NO_SCAN";
