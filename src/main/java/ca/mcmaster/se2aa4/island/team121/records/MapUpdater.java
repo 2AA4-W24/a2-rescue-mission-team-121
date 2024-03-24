@@ -1,7 +1,7 @@
 package ca.mcmaster.se2aa4.island.team121.records;
 
-import ca.mcmaster.se2aa4.island.team121.Heading;
-import ca.mcmaster.se2aa4.island.team121.TileRecord;
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Heading;
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.TileRecord;
 
 public interface MapUpdater {
     void updateFly();

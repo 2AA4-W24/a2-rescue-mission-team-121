@@ -1,6 +1,6 @@
 package ca.mcmaster.se2aa4.island.team121.recordtests;
 
-import ca.mcmaster.se2aa4.island.team121.records.Point;
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Point;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

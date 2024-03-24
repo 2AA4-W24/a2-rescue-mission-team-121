@@ -1,6 +1,6 @@
-package ca.mcmaster.se2aa4.island.team121.modules.jsonparser;
+package ca.mcmaster.se2aa4.island.team121.jsonparser;
 
-import ca.mcmaster.se2aa4.island.team121.TileType;
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.TileType;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

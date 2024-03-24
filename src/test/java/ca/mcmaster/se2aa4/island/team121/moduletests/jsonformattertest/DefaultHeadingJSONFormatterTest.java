@@ -1,6 +1,6 @@
 package ca.mcmaster.se2aa4.island.team121.moduletests.jsonformattertest;
 
-import ca.mcmaster.se2aa4.island.team121.Heading;
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Heading;
 import ca.mcmaster.se2aa4.island.team121.modules.jsonformatters.DefaultHeadingJSONFormatter;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;

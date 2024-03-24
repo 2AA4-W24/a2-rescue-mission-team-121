@@ -1,7 +1,7 @@
 package ca.mcmaster.se2aa4.island.team121.moduletests;
 
-import ca.mcmaster.se2aa4.island.team121.Action;
-import ca.mcmaster.se2aa4.island.team121.Heading;
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Action;
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Heading;
 import ca.mcmaster.se2aa4.island.team121.modules.Flyer;
 import ca.mcmaster.se2aa4.island.team121.records.MapUpdater;
 import ca.mcmaster.se2aa4.island.team121.records.RelativeMap;

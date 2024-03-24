@@ -1,5 +1,7 @@
 package ca.mcmaster.se2aa4.island.team121;
 
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.TileRecord;
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.TileType;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package ca.mcmaster.se2aa4.island.team121.records;
 
-import ca.mcmaster.se2aa4.island.team121.TileRecord;
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.TileRecord;
 
 import java.util.Map;
 

@@ -1,7 +1,7 @@
 package ca.mcmaster.se2aa4.island.team121.jsonparsertest;
 
-import ca.mcmaster.se2aa4.island.team121.TileType;
-import ca.mcmaster.se2aa4.island.team121.modules.jsonparser.DefaultJSONParser;
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.TileType;
+import ca.mcmaster.se2aa4.island.team121.jsonparser.DefaultJSONParser;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;

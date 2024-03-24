@@ -1,6 +1,6 @@
 package ca.mcmaster.se2aa4.island.team121.statetest;
 
-import ca.mcmaster.se2aa4.island.team121.Heading;
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Heading;
 import ca.mcmaster.se2aa4.island.team121.dronestate.State;
 import ca.mcmaster.se2aa4.island.team121.records.MapUpdater;
 import ca.mcmaster.se2aa4.island.team121.records.RelativeMap;
