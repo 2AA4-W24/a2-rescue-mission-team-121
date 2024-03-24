@@ -1,8 +1,8 @@
 package ca.mcmaster.se2aa4.island.team121.dronestate.gridsearch;
 
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Heading;
 import ca.mcmaster.se2aa4.island.team121.dronestate.State;
 import ca.mcmaster.se2aa4.island.team121.dronestate.Stop;
-import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Heading;
 import ca.mcmaster.se2aa4.island.team121.modules.Flyer;
 import ca.mcmaster.se2aa4.island.team121.modules.Radar;
 import ca.mcmaster.se2aa4.island.team121.modules.Turner;
@@ -33,11 +33,13 @@ public class North2SouthProg extends State {
 
     @Override
     public void update(JSONObject response) {
-        if(parser.echoGround(response).equals("OUT_OF_RANGE")){
+        if("OUT_OF_RANGE".equals(parser.echoGround(response))){
             next = new Stop(map);
         } else {
             next = new FlySouth(map);
         }
-        if (step_count == 8) go_next = true;
+        if (step_count == 8) {
+            go_next = true;
+        }
     }
 }

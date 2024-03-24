@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: ca.mcmaster.se2aa4.island.team121.statetest.StateTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 s -- in ca.mcmaster.se2aa4.island.team121.statetest.StateTest

@@ -1,12 +1,13 @@
 package ca.mcmaster.se2aa4.island.team121.dronestate.gridsearch;
 
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Heading;
 import ca.mcmaster.se2aa4.island.team121.dronestate.State;
 import ca.mcmaster.se2aa4.island.team121.dronestate.Stop;
-import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Heading;
 import ca.mcmaster.se2aa4.island.team121.modules.Radar;
-import ca.mcmaster.se2aa4.island.team121.records.MapUpdater;
 import ca.mcmaster.se2aa4.island.team121.modules.Turner;
+import ca.mcmaster.se2aa4.island.team121.records.MapUpdater;
 import org.json.JSONObject;
+
 import java.util.Objects;
 
 public class North2SouthEast extends State {
@@ -29,7 +30,9 @@ public class North2SouthEast extends State {
     @Override
     public void update(JSONObject response) {
         //Sets next state to Stop if the echo is out of range otherwise sets next state to FlySouth
-        next = ((Objects.equals(parser.echoGround(response), "OUT_OF_RANGE")) ? new Stop(map) : new FlySouth(map));
-        if (step_count == 3) go_next = true;
+        next = Objects.equals(parser.echoGround(response), "OUT_OF_RANGE")? new Stop(map) : new FlySouth(map);
+        if (step_count == 3) {
+            go_next = true;
+        }
     }
 }

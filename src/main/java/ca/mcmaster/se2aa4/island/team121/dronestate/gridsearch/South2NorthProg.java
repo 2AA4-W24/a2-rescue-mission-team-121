@@ -1,8 +1,8 @@
 package ca.mcmaster.se2aa4.island.team121.dronestate.gridsearch;
 
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Heading;
 import ca.mcmaster.se2aa4.island.team121.dronestate.State;
 import ca.mcmaster.se2aa4.island.team121.dronestate.Stop;
-import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Heading;
 import ca.mcmaster.se2aa4.island.team121.modules.Flyer;
 import ca.mcmaster.se2aa4.island.team121.modules.Radar;
 import ca.mcmaster.se2aa4.island.team121.modules.Turner;
@@ -39,6 +39,8 @@ public class South2NorthProg extends State {
         } else {
             next = new FlyNorth(map);
         }
-        if (step_count == 8) go_next = true;
+        if (step_count == 8) {
+            go_next = true;
+        }
     }
 }

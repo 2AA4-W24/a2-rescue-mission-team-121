@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FlyStraightDI.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">McMaster :: SFWRENG :: 2AA4 :: Island :: team121</a> &gt; <a href="index.source.html" class="el_package">ca.mcmaster.se2aa4.island.team121.dronestate.doubleinterlaced</a> &gt; <span class="el_source">FlyStraightDI.java</span></div><h1>FlyStraightDI.java</h1><pre class="source lang-java linenums">package ca.mcmaster.se2aa4.island.team121.dronestate.doubleinterlaced;
+
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Heading;
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.TileRecord;
+import ca.mcmaster.se2aa4.island.team121.dronestate.State;
+import ca.mcmaster.se2aa4.island.team121.modules.Flyer;
+import ca.mcmaster.se2aa4.island.team121.records.MapUpdater;
+import org.json.JSONObject;
+
+public class FlyStraightDI extends State {
+
+    private int flight_length;
+    private Heading heading;
+    private State next;
+
+    public FlyStraightDI(MapUpdater map, int dist, Heading heading) {
+<span class="nc" id="L17">        super(map);</span>
+<span class="nc" id="L18">        this.cycle.add(new Flyer(map));</span>
+<span class="nc" id="L19">        this.flight_length = dist;</span>
+<span class="nc" id="L20">        this.heading = heading;</span>
+<span class="nc" id="L21">    }</span>
+
+    @Override
+    public State getNext(){
+<span class="nc" id="L25">        return next;</span>
+    }
+
+    @Override
+    public void update(JSONObject response){
+<span class="nc" id="L30">        TileRecord tile = new TileRecord(parser.getScan(response),parser.getId(response));</span>
+<span class="nc" id="L31">        map.updateScan(tile);</span>
+
+<span class="nc bnc" id="L33" title="All 2 branches missed.">        if (step_count == flight_length+1) {</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">            if (heading == Heading.NORTH) {</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">                if (map.getScanHeading() == Heading.EAST) {</span>
+<span class="nc" id="L36">                    next = new FlyNorthEastDI(map);</span>
+                }
+                else{
+<span class="nc" id="L39">                    next = new FlyNorthWestDI(map);</span>
+                }
+            }
+<span class="nc bnc" id="L42" title="All 2 branches missed.">            else if (heading == Heading.SOUTH){</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">                if (map.getScanHeading()==Heading.EAST){</span>
+<span class="nc" id="L44">                    next = new FlySouthEastDI(map);</span>
+                }
+                else {
+<span class="nc" id="L47">                    next= new FlySouthWestDI(map);</span>
+                }
+            }
+<span class="nc" id="L50">            go_next = true;</span>
+        }
+<span class="nc" id="L52">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

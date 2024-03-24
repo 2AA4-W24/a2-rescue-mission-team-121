@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>South2NorthEast.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">McMaster :: SFWRENG :: 2AA4 :: Island :: team121</a> &gt; <a href="index.source.html" class="el_package">ca.mcmaster.se2aa4.island.team121.dronestate.gridsearch</a> &gt; <span class="el_source">South2NorthEast.java</span></div><h1>South2NorthEast.java</h1><pre class="source lang-java linenums">package ca.mcmaster.se2aa4.island.team121.dronestate.gridsearch;
+
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Heading;
+import ca.mcmaster.se2aa4.island.team121.dronestate.State;
+import ca.mcmaster.se2aa4.island.team121.dronestate.Stop;
+import ca.mcmaster.se2aa4.island.team121.modules.Radar;
+import ca.mcmaster.se2aa4.island.team121.modules.Turner;
+import ca.mcmaster.se2aa4.island.team121.records.MapUpdater;
+import org.json.JSONObject;
+
+import java.util.Objects;
+
+public class
+South2NorthEast extends State {
+
+    private State next;
+
+    public South2NorthEast(MapUpdater map) {
+<span class="nc" id="L19">        super(map);</span>
+<span class="nc" id="L20">        this.cycle.add(new Turner(map, Heading.EAST));</span>
+<span class="nc" id="L21">        this.cycle.add(new Turner(map, Heading.NORTH));</span>
+<span class="nc" id="L22">        this.cycle.add(new Radar(map, Heading.NORTH));</span>
+
+<span class="nc" id="L24">    }</span>
+
+    // FIXME: Abstraction leak
+    @Override
+    public State getNext() {
+<span class="nc" id="L29">        return next;</span>
+    }
+
+    @Override
+    public void update(JSONObject response) {
+<span class="nc bnc" id="L34" title="All 2 branches missed.">        next = Objects.equals(&quot;OUT_OF_RANGE&quot;,parser.echoGround(response))? new Stop(map) : new FlyNorth(map);</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">        if (step_count == 3) {</span>
+<span class="nc" id="L36">            go_next = true;</span>
+        }
+<span class="nc" id="L38">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

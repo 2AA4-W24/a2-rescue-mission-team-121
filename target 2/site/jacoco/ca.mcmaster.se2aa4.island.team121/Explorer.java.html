@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Explorer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">McMaster :: SFWRENG :: 2AA4 :: Island :: team121</a> &gt; <a href="index.source.html" class="el_package">ca.mcmaster.se2aa4.island.team121</a> &gt; <span class="el_source">Explorer.java</span></div><h1>Explorer.java</h1><pre class="source lang-java linenums">package ca.mcmaster.se2aa4.island.team121;
+
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Heading;
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.TileRecord;
+import ca.mcmaster.se2aa4.island.team121.dronestate.State;
+import ca.mcmaster.se2aa4.island.team121.dronestate.doubleinterlaced.GridSearchStartDI;
+import ca.mcmaster.se2aa4.island.team121.dronestate.doubleinterlaced.NorthSouthCheckDI;
+import ca.mcmaster.se2aa4.island.team121.modules.Stopper;
+import ca.mcmaster.se2aa4.island.team121.records.AttributeRecord;
+import ca.mcmaster.se2aa4.island.team121.records.RelativeMap;
+import eu.ace_design.island.bot.IExplorerRaid;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+<span class="nc" id="L23">public class Explorer implements IExplorerRaid {</span>
+
+<span class="nc" id="L25">    private final Logger logger = LogManager.getLogger();</span>
+<span class="nc" id="L26">    private final AttributeRecord drone_attributes = new AttributeRecord();</span>
+    private RelativeMap map;
+    private State curr_state;
+
+
+    @Override
+    public void initialize(String s) {
+<span class="nc" id="L33">        logger.info(&quot;** Initializing the Exploration Command Center&quot;);</span>
+<span class="nc" id="L34">        JSONObject info = new JSONObject(new JSONTokener(new StringReader(s)));</span>
+<span class="nc" id="L35">        logger.info(&quot;** Initialization info:\n {}&quot;, info.toString(2));</span>
+<span class="nc" id="L36">        String direction = info.getString(&quot;heading&quot;);</span>
+<span class="nc" id="L37">        int batteryLevel = info.getInt(&quot;budget&quot;);</span>
+<span class="nc" id="L38">        logger.info(&quot;The drone is facing {}&quot;, direction);</span>
+<span class="nc" id="L39">        logger.info(&quot;Battery level is {}&quot;, batteryLevel);</span>
+
+        // initialize records with info
+<span class="nc" id="L42">        drone_attributes.updateAttributes(batteryLevel);</span>
+<span class="nc" id="L43">        map = new RelativeMap(Heading.headingOf(direction));</span>
+<span class="nc" id="L44">        map.updateScanHeading(Heading.headingOf((direction)));</span>
+<span class="nc" id="L45">        Heading start_heading = map.getScanHeading();</span>
+<span class="nc bnc" id="L46" title="All 4 branches missed.">        if (start_heading == Heading.EAST || start_heading == Heading.WEST) {</span>
+<span class="nc" id="L47">            curr_state = new GridSearchStartDI(map);</span>
+        }
+        else {
+<span class="nc" id="L50">            curr_state = new NorthSouthCheckDI(map);</span>
+        }
+
+<span class="nc" id="L53">    }</span>
+
+    @Override
+    public String takeDecision() {
+        JSONObject decision;
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        if (drone_attributes.getBattery() &lt; 30) {</span>
+<span class="nc" id="L59">            decision = new Stopper(map).getJSON();</span>
+        } else {
+<span class="nc bnc" id="L61" title="All 2 branches missed.">            curr_state = (curr_state.isGoNext()) ? curr_state.getNext() : curr_state;</span>
+<span class="nc" id="L62">            decision = curr_state.execute();</span>
+        }
+<span class="nc" id="L64">        return decision.toString();</span>
+    }
+
+    @Override
+    public void acknowledgeResults(String s) {
+<span class="nc" id="L69">        JSONObject response = new JSONObject(new JSONTokener(new StringReader(s)));</span>
+
+<span class="nc" id="L71">        Integer cost = response.getInt(&quot;cost&quot;);</span>
+<span class="nc" id="L72">        String status = response.getString(&quot;status&quot;);</span>
+<span class="nc" id="L73">        JSONObject extraInfo = response.getJSONObject(&quot;extras&quot;);</span>
+
+        // update the battery level
+<span class="nc" id="L76">        drone_attributes.updateAttributes(drone_attributes.getBattery() - response.getInt(&quot;cost&quot;));</span>
+<span class="nc" id="L77">        curr_state.update(response);</span>
+<span class="nc" id="L78">    }</span>
+
+    @Override
+    public String deliverFinalReport() {
+<span class="nc" id="L82">        map.displayMap();</span>
+
+<span class="nc" id="L84">        Map&lt;TileRecord, Double&gt; creek_distances = map.getCreekSiteDistances();</span>
+<span class="nc" id="L85">        List&lt;Double&gt; distances_list = new ArrayList&lt;&gt;(creek_distances.values());</span>
+<span class="nc" id="L86">        Collections.sort(distances_list);</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">        for (Map.Entry&lt;TileRecord, Double&gt; entry : creek_distances.entrySet()) {</span>
+<span class="nc" id="L88">            logger.info(&quot;Creek: {} Distance: {}&quot;, entry.getKey().id().get(0), entry.getValue());</span>
+<span class="nc" id="L89">        }</span>
+
+<span class="nc bnc" id="L91" title="All 2 branches missed.">        if (!creek_distances.isEmpty()) {</span>
+<span class="nc" id="L92">            Double closest_distance = distances_list.get(0);</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">            for (Map.Entry&lt;TileRecord, Double&gt; entry : creek_distances.entrySet()) {</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">                if (entry.getValue().equals(closest_distance)) {</span>
+<span class="nc" id="L95">                    TileRecord closest_creek = entry.getKey();</span>
+<span class="nc" id="L96">                    logger.info(&quot;Closest Creek: {}&quot;, closest_creek.id().get(0));</span>
+<span class="nc" id="L97">                    return closest_creek.id().get(0);</span>
+                }
+<span class="nc" id="L99">            }</span>
+        }
+<span class="nc" id="L101">        return &quot;no creek found&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

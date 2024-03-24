@@ -1,7 +1,7 @@
 package ca.mcmaster.se2aa4.island.team121.dronestate.doubleinterlaced;
 
-import ca.mcmaster.se2aa4.island.team121.dronestate.State;
 import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Heading;
+import ca.mcmaster.se2aa4.island.team121.dronestate.State;
 import ca.mcmaster.se2aa4.island.team121.modules.Flyer;
 import ca.mcmaster.se2aa4.island.team121.modules.Radar;
 import ca.mcmaster.se2aa4.island.team121.records.MapUpdater;
@@ -26,10 +26,10 @@ public class GridSearchStartDI extends State {
     @Override
     public void update(JSONObject response) {
         // Check if we found ground from Radar
-        if (parser.echoGround(response).equals("GROUND") && step_count % 3 == 1) {
+        if ("GROUND".equals(parser.echoGround(response)) && step_count % 3 == 1) {
             next = new TurnAfterStartDI(map, Heading.NORTH);
             go_next= true;
-        } else if (parser.echoGround(response).equals("GROUND") && step_count % 3 == 2) {
+        } else if ("GROUND".equals(parser.echoGround(response)) && step_count % 3 == 2) {
             next = new TurnAfterStartDI(map, Heading.SOUTH);
             go_next= true;
         }

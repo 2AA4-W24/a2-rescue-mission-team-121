@@ -1,13 +1,13 @@
 package ca.mcmaster.se2aa4.island.team121;
 
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Heading;
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.TileRecord;
+import ca.mcmaster.se2aa4.island.team121.dronestate.State;
 import ca.mcmaster.se2aa4.island.team121.dronestate.doubleinterlaced.GridSearchStartDI;
 import ca.mcmaster.se2aa4.island.team121.dronestate.doubleinterlaced.NorthSouthCheckDI;
-import ca.mcmaster.se2aa4.island.team121.dronestate.State;
 import ca.mcmaster.se2aa4.island.team121.modules.Stopper;
 import ca.mcmaster.se2aa4.island.team121.records.AttributeRecord;
 import ca.mcmaster.se2aa4.island.team121.records.RelativeMap;
-import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Heading;
-import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.TileRecord;
 import eu.ace_design.island.bot.IExplorerRaid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

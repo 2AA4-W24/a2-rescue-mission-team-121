@@ -1,16 +1,16 @@
 package ca.mcmaster.se2aa4.island.team121.recordtests;
 
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Heading;
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Point;
 import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.TileRecord;
 import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.TileType;
 import ca.mcmaster.se2aa4.island.team121.records.RelativeMap;
-import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Heading;
-import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Point;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TestMap extends RelativeMap {
 

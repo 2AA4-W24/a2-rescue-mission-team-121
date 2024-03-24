@@ -1,7 +1,7 @@
 package ca.mcmaster.se2aa4.island.team121.dronestate.gridsearch;
 
-import ca.mcmaster.se2aa4.island.team121.dronestate.State;
 import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Heading;
+import ca.mcmaster.se2aa4.island.team121.dronestate.State;
 import ca.mcmaster.se2aa4.island.team121.modules.Radar;
 import ca.mcmaster.se2aa4.island.team121.modules.Turner;
 import ca.mcmaster.se2aa4.island.team121.records.MapUpdater;
@@ -30,7 +30,8 @@ public class TurnSouthAfterStart extends State {
         if (parser.echoGround(response).equals("GROUND")) {
             dist = parser.echoDistance(response);
         }
-        if (step_count == 2)
+        if (step_count == 2) {
             go_next = true;
+        }
     }
 }

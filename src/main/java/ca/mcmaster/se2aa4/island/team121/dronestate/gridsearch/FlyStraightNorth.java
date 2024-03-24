@@ -3,14 +3,11 @@ package ca.mcmaster.se2aa4.island.team121.dronestate.gridsearch;
 import ca.mcmaster.se2aa4.island.team121.dronestate.State;
 import ca.mcmaster.se2aa4.island.team121.modules.Flyer;
 import ca.mcmaster.se2aa4.island.team121.records.MapUpdater;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 public class FlyStraightNorth extends State {
 
     private int flight_length;
-    private final Logger logger = LogManager.getLogger();
 
     public FlyStraightNorth(MapUpdater map, int dist) {
         super(map);

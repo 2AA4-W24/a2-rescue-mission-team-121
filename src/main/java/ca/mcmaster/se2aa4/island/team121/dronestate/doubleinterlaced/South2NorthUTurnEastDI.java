@@ -1,8 +1,8 @@
 package ca.mcmaster.se2aa4.island.team121.dronestate.doubleinterlaced;
 
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Heading;
 import ca.mcmaster.se2aa4.island.team121.dronestate.State;
 import ca.mcmaster.se2aa4.island.team121.dronestate.Stop;
-import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Heading;
 import ca.mcmaster.se2aa4.island.team121.modules.Radar;
 import ca.mcmaster.se2aa4.island.team121.modules.Turner;
 import ca.mcmaster.se2aa4.island.team121.records.MapUpdater;
@@ -30,15 +30,17 @@ public class South2NorthUTurnEastDI extends State {
     @Override
     public void update(JSONObject response) {
         if (map.getScanHeading() == Heading.EAST) {
-            if (Objects.equals(parser.echoGround(response), "OUT_OF_RANGE"))
+            if (Objects.equals("OUT_OF_RANGE",parser.echoGround(response))) {
                 next = new TurnBackNorthWest(map);
+            }
             else {
                 next = new FlyNorthEastDI(map);
             }
         }
         else if (map.getScanHeading() == Heading.WEST){
-            if (Objects.equals(parser.echoGround(response), "OUT_OF_RANGE"))
+            if (Objects.equals(parser.echoGround(response), "OUT_OF_RANGE")) {
                 next = new Stop(map);
+            }
             else {
                 next = new FlyNorthEastDI(map);
             }

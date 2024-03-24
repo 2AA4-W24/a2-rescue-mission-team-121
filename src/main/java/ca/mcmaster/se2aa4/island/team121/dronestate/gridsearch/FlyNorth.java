@@ -1,12 +1,12 @@
 package ca.mcmaster.se2aa4.island.team121.dronestate.gridsearch;
 
-import ca.mcmaster.se2aa4.island.team121.dronestate.State;
 import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.Heading;
+import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.TileRecord;
+import ca.mcmaster.se2aa4.island.team121.dronestate.State;
 import ca.mcmaster.se2aa4.island.team121.modules.Flyer;
 import ca.mcmaster.se2aa4.island.team121.modules.Radar;
 import ca.mcmaster.se2aa4.island.team121.modules.Scanner;
 import ca.mcmaster.se2aa4.island.team121.records.MapUpdater;
-import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.TileRecord;
 import org.json.JSONObject;
 
 import java.util.Objects;
@@ -29,7 +29,7 @@ public class FlyNorth extends State {
     @Override
     public void update(JSONObject response){
         TileRecord tile = new TileRecord(parser.getScan(response),parser.getId(response));
-        if (module.getClass().getSimpleName().equals("Scanner")) { // Only update the map if the module is a scanner
+        if ("Scanner".equals(module.getClass().getSimpleName())) { // Only update the map if the module is a scanner
             map.updateScan(tile);
         }
 
