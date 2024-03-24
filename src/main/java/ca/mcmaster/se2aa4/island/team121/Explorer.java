@@ -23,10 +23,9 @@ import java.util.Map;
 public class Explorer implements IExplorerRaid {
 
     private final Logger logger = LogManager.getLogger();
-    private AttributeRecord drone_attributes = new AttributeRecord();
+    private final AttributeRecord drone_attributes = new AttributeRecord();
     private RelativeMap map;
     private State curr_state;
-    private Heading start_heading;
 
 
     @Override
@@ -35,7 +34,7 @@ public class Explorer implements IExplorerRaid {
         JSONObject info = new JSONObject(new JSONTokener(new StringReader(s)));
         logger.info("** Initialization info:\n {}", info.toString(2));
         String direction = info.getString("heading");
-        Integer batteryLevel = info.getInt("budget");
+        int batteryLevel = info.getInt("budget");
         logger.info("The drone is facing {}", direction);
         logger.info("Battery level is {}", batteryLevel);
 
@@ -43,7 +42,7 @@ public class Explorer implements IExplorerRaid {
         drone_attributes.updateAttributes(batteryLevel);
         map = new RelativeMap(Heading.headingOf(direction));
         map.updateScanHeading(Heading.headingOf((direction)));
-        start_heading = map.getScanHeading();
+        Heading start_heading = map.getScanHeading();
         if (start_heading == Heading.EAST || start_heading == Heading.WEST) {
             curr_state = new GridSearchStartDI(map);
         }
@@ -68,7 +67,7 @@ public class Explorer implements IExplorerRaid {
     @Override
     public void acknowledgeResults(String s) {
         JSONObject response = new JSONObject(new JSONTokener(new StringReader(s)));
-      
+
         Integer cost = response.getInt("cost");
         String status = response.getString("status");
         JSONObject extraInfo = response.getJSONObject("extras");

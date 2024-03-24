@@ -1,9 +1,10 @@
 package ca.mcmaster.se2aa4.island.team121.jsonparser;
 
 import ca.mcmaster.se2aa4.island.team121.businessdrivenobjects.TileType;
-import org.json.JSONObject;
-import java.util.ArrayList;
 import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 public class DefaultJSONParser implements JSONParser{
     @Override
     public TileType getScan(JSONObject response) {
@@ -12,7 +13,6 @@ public class DefaultJSONParser implements JSONParser{
                 if(extras.has("creeks")){
                     JSONArray creeks = extras.getJSONArray("creeks");
                     if(!creeks.isEmpty()){
-//                        logger.info("Creek found");
                         return TileType.CREEK;
                     }
                 }
@@ -20,7 +20,7 @@ public class DefaultJSONParser implements JSONParser{
          if (response.has("extras")){
              JSONObject extras = response.getJSONObject("extras");
              if (extras.has("sites")){
-                if (extras.getJSONArray("sites").length() > 0){
+                if (!extras.getJSONArray("sites").isEmpty()){
                     return TileType.SITE;
                 }
              }
@@ -62,7 +62,7 @@ public class DefaultJSONParser implements JSONParser{
 
     @Override
     public ArrayList<String> getId(JSONObject response) {
-        ArrayList<String> Ids = new ArrayList<String>();
+        ArrayList<String> Ids = new ArrayList<>();
         if (response.has("extras")) {
             JSONObject extras = response.getJSONObject("extras");
             if(extras.has("creeks")){
