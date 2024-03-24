@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: ca.mcmaster.se2aa4.island.team121.recordtests.AttributeRecordTest
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s -- in ca.mcmaster.se2aa4.island.team121.recordtests.AttributeRecordTest
