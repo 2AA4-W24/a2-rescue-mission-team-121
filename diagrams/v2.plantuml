@@ -194,7 +194,7 @@ package DroneState {
   }
 
   State o--> JSONParser
-  State --> Module
+  State *--> Module
 }
 
 Module --> MapUpdater
